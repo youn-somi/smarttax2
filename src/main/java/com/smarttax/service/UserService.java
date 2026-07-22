@@ -66,6 +66,4 @@ public class UserService {
 
 
     }
-    //git 연습2
-
 }
