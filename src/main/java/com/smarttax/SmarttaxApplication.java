@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SmarttaxApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SmarttaxApplication.class, args);
+        SpringApplication.run(
+                SmarttaxApplication.class,
+                args);
     }
 
 }

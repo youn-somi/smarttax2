@@ -14,7 +14,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Collections;
 
+//이 클래스를 스프링이 자동으로 관리해."
 @Component
+//final이 붙은 변수들을 자동으로 연결해 준다.
 @RequiredArgsConstructor
 
 public class JwtFilter extends OncePerRequestFilter {
@@ -44,7 +46,7 @@ public class JwtFilter extends OncePerRequestFilter {
                             Collections.emptyList()
                     );
             SecurityContextHolder.getContext()
-                            .setAuthentication(authentication);
+                    .setAuthentication(authentication);
 
             filterChain.doFilter(request, response);
 
