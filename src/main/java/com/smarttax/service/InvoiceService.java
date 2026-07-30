@@ -52,6 +52,9 @@ public class InvoiceService {
     public  void deleteInvoice(Long id) {
         invoiceRepository.deleteById(id);
     }
+    public List<Invoice> findBySupplierName( String  supplierName) {
+        return invoiceRepository.findBysupplierName(supplierName);
+    }
 
 
 

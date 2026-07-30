@@ -38,6 +38,14 @@ public class InvoiceController {
     ) {
         return  invoiceService.updateInvoice(id, invoice);
     }
+    @GetMapping("/search")
+    public List<Invoice> findBySupplierName (
+            @RequestParam String  supplierName
+    )
+    {
+        return invoiceService.findBySupplierName(supplierName);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteInvoice(
             @PathVariable Long id
