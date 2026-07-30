@@ -31,4 +31,17 @@ public class InvoiceController {
     ){
         return invoiceService.findInvoiceById(id);
     }
+    @PutMapping("/{id}")
+    public Invoice updateInvoice(
+            @PathVariable Long id,
+            @RequestBody Invoice invoice
+    ) {
+        return  invoiceService.updateInvoice(id, invoice);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteInvoice(
+            @PathVariable Long id
+    ){
+        invoiceService.deleteInvoice(id);
+    }
 }
