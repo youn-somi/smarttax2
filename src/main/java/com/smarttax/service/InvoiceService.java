@@ -7,6 +7,8 @@ import com.smarttax.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class InvoiceService {
@@ -21,5 +23,13 @@ public class InvoiceService {
         }
 
         return invoiceRepository.save(invoice);
+    }
+    public List <Invoice> findAllInvoices() {
+        return  invoiceRepository.findAll();
+    }
+    public  Invoice findInvoiceById(Long id) {
+        return  invoiceRepository.findById(id)
+                .orElseThrow(() ->new RuntimeException(" 세금계산서를 찾을 수 없습니다."));
+
     }
 }
