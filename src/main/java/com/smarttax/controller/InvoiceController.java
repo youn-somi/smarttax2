@@ -45,6 +45,12 @@ public class InvoiceController {
     {
         return invoiceService.findBySupplierName(supplierName);
     }
+    @GetMapping("/search/customer")
+    public List<Invoice> findByCustomerName(
+            @RequestParam String customerName
+    ){
+        return invoiceService.findByCustomerName(customerName);
+    }
 
     @DeleteMapping("/{id}")
     public void deleteInvoice(

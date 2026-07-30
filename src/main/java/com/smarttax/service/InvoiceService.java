@@ -55,6 +55,9 @@ public class InvoiceService {
     public List<Invoice> findBySupplierName( String  supplierName) {
         return invoiceRepository.findBysupplierName(supplierName);
     }
+    public List<Invoice> findByCustomerName( String customerName) {
+        return invoiceRepository.findByCustomerName(customerName);
+    }
 
 
 
