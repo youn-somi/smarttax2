@@ -28,8 +28,32 @@ public class InvoiceService {
         return  invoiceRepository.findAll();
     }
     public  Invoice findInvoiceById(Long id) {
-        return  invoiceRepository.findById(id)
+        return invoiceRepository.findById(id)
                 .orElseThrow(() ->new RuntimeException(" 세금계산서를 찾을 수 없습니다."));
 
     }
+    public Invoice updateInvoice(Long id, Invoice invoice) {
+
+        Invoice findInvoice = invoiceRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("세금계산서를 찾을 수 없습니다"));
+
+        findInvoice.setInvoiceNumber(invoice.getInvoiceNumber());
+        findInvoice.setIssueDate(invoice.getIssueDate());
+        findInvoice.setSupplierName(invoice.getSupplierName());
+        findInvoice.setCustomerName(invoice.getCustomerName());
+        findInvoice.setTotalAmount(invoice.getTotalAmount());
+        findInvoice.setTaxAmount(invoice.getTaxAmount());
+        findInvoice.setSupplyAmount(invoice.getSupplyAmount());
+        findInvoice.setStatus(invoice.getStatus());
+        findInvoice.setMemo(invoice.getMemo());
+
+        return invoiceRepository.save(findInvoice);
+    }
+    public  void deleteInvoice(Long id) {
+        invoiceRepository.deleteById(id);
+    }
+
+
+
+
 }
