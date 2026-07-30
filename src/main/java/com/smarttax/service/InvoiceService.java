@@ -7,6 +7,8 @@ import com.smarttax.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.swing.plaf.PanelUI;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -57,6 +59,9 @@ public class InvoiceService {
     }
     public List<Invoice> findByCustomerName( String customerName) {
         return invoiceRepository.findByCustomerName(customerName);
+    }
+    public List<Invoice> findByIssueDate(LocalDate issueDate) {
+        return invoiceRepository.findByIssueDate(issueDate);
     }
 
 

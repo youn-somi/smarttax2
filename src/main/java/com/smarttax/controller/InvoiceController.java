@@ -5,6 +5,7 @@ import com.smarttax.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -50,6 +51,12 @@ public class InvoiceController {
             @RequestParam String customerName
     ){
         return invoiceService.findByCustomerName(customerName);
+    }
+    @GetMapping("/search/issue-date")
+    public List<Invoice> findByIssueDate(
+            @RequestParam LocalDate issueDate
+            ){
+        return invoiceService.findByIssueDate(issueDate);
     }
 
     @DeleteMapping("/{id}")
