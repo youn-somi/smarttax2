@@ -2,6 +2,7 @@ package com.smarttax.controller;
 
 import com.smarttax.entity.Invoice;
 import com.smarttax.service.InvoiceService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,5 +65,32 @@ public class InvoiceController {
             @PathVariable Long id
     ){
         invoiceService.deleteInvoice(id);
+    }
+    @GetMapping("/search/{status}")
+    public List<Invoice> findByStatus(
+            @PathVariable String status
+    ){
+        return invoiceService.findByStatus(status);
+    }
+    @GetMapping("/search/period")
+    public List<Invoice> findByIssueDateBetween(
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate
+    )
+    {
+        return invoiceService.findByIssueDateBetween(
+                startDate,
+                endDate
+        );
+    }
+    @GetMapping("/search/amount")
+    public List<Invoice> findByToalAmountBetween(
+            @RequestParam Integer minAmount,
+            @RequestParam Integer maxAount
+    ) {
+        return invoiceService.findByTotalAmountBetween(
+                minAmount,
+                maxAount
+        );
     }
 }
