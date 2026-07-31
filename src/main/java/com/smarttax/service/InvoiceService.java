@@ -4,6 +4,7 @@ import com.smarttax.entity.Invoice;
 import com.smarttax.entity.InvoiceItem;
 import com.smarttax.repository.InvoiceItemRepository;
 import com.smarttax.repository.InvoiceRepository;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +63,25 @@ public class InvoiceService {
     }
     public List<Invoice> findByIssueDate(LocalDate issueDate) {
         return invoiceRepository.findByIssueDate(issueDate);
+    }
+    public List<Invoice> findByStatus(String status) {
+        return invoiceRepository.findBystatus(status);
+    }
+    public List<Invoice> findByIssueDateBetween(
+            LocalDate startDate,
+            LocalDate endDate
+    ) {
+        return  invoiceRepository.findByIssueDateBetween(startDate, endDate);
+    }
+    public List<Invoice> findByTotalAmountBetween(
+            Integer minAmount,
+            Integer maxAmount
+    )
+    {
+        return invoiceRepository.findByTotalAmountBetween(
+                minAmount,
+                maxAmount
+                );
     }
 
 
