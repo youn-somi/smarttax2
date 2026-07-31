@@ -84,13 +84,13 @@ public class InvoiceController {
         );
     }
     @GetMapping("/search/amount")
-    public List<Invoice> findByToalAmountBetween(
+    public List<Invoice> findByTotalAmountBetween(
             @RequestParam Integer minAmount,
-            @RequestParam Integer maxAount
+            @RequestParam Integer maxAmount
     ) {
         return invoiceService.findByTotalAmountBetween(
                 minAmount,
-                maxAount
+                maxAmount
         );
     }
 }
