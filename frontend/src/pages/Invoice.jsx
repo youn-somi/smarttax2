@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function Invoice() {
   const [supplierName, setSupplierName] = useState("");
@@ -10,6 +11,32 @@ function Invoice() {
   const [taxAmount, setTaxAmount] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
   const [memo, setMemo] = useState("");
+
+  const { id } = useParams();
+
+  async function getInvoice() {
+
+    const response = await axios.get(
+      "http://localhost:8080/api/invoices/" + id
+    );
+
+ 
+    setInvoiceNumber(response.data.invoiceNumber);
+    setIssueDate(response.data.issueDate);
+    setSupplierName(response.data.supplierName);
+    setCustomerName(response.data.customerName);
+    setSupplyAmount(response.data.supplyAmount);
+    setTaxAmount(response.data.taxAmount);
+    setTotalAmount(response.data.totalAmount);
+    setMemo(response.data.memo);
+  }
+
+
+  useEffect(() => {
+    if (id) {
+      getInvoice();
+    }
+  }, []);
 
   async function saveInvoice() {
     await axios.post("http://localhost:8080/api/invoices", {
@@ -23,6 +50,45 @@ function Invoice() {
       memo: memo,
     });
   }
+  async function saveInvoice() {
+
+    if (id) {
+
+        await axios.put(
+            "http://localhost:8080/api/invoices/" + id,
+            {
+                invoiceNumber: invoiceNumber,
+                issueDate: issueDate,
+                supplierName: supplierName,
+                customerName: customerName,
+                supplyAmount: supplyAmount,
+                taxAmount: taxAmount,
+                totalAmount: totalAmount,
+                memo: memo,
+            }
+        );
+
+    } else {
+
+        await axios.post(
+            "http://localhost:8080/api/invoices",
+            {
+                invoiceNumber: invoiceNumber,
+                issueDate: issueDate,
+                supplierName: supplierName,
+                customerName: customerName,
+                supplyAmount: supplyAmount,
+                taxAmount: taxAmount,
+                totalAmount: totalAmount,
+                memo: memo,
+            }
+        );
+
+    }
+
+}
+
+  
 
   return (
     <div>
@@ -121,6 +187,7 @@ function Invoice() {
           onChange={(e) => setMemo(e.target.value)}
         />
       </div>
+
       <br />
 
       <button onClick={saveInvoice}>저장</button>
