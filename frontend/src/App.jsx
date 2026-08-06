@@ -17,6 +17,8 @@ function App() {
             element={<InvoiceList />}
         />
         <Route path="/invoice" element={<Invoice />} />
+        <Route path="/invoice/:id" element={<Invoice />} />
+        
     </Routes>
   );
 }
