@@ -1,17 +1,16 @@
 package com.smarttax.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "invoice_item")
+@Table(name = "product")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class InvoiceItem {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +26,6 @@ public class InvoiceItem {
 
     private Long taxAmount;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;

@@ -1,25 +1,17 @@
-package com.smarttax.entity;
+package com.smarttax.dto;
 
-import jakarta.persistence.*;
-import lombok.*;
+import com.smarttax.entity.Product;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "invoice")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Invoice {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class InvoiceRequestDto {
     private String invoiceNumber;
 
     private LocalDate issueDate;
@@ -38,11 +30,5 @@ public class Invoice {
 
     private String memo;
 
-    @Builder.Default
-    @OneToMany(
-            mappedBy = "invoice",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
     private List<Product> products = new ArrayList<>();
 }

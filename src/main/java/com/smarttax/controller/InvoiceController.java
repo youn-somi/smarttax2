@@ -1,5 +1,6 @@
 package com.smarttax.controller;
 
+import com.smarttax.dto.InvoiceRequestDto;
 import com.smarttax.entity.Invoice;
 import com.smarttax.service.InvoiceService;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -17,10 +18,10 @@ public class InvoiceController {
     private final InvoiceService invoiceService;
 
     @PostMapping
-    public Invoice saveInvoice(
-            @RequestBody Invoice invoice
-    ) {
-        return invoiceService.saveInvoice(invoice);
+    public Invoice saveInvoice(@RequestBody InvoiceRequestDto dto) {
+
+        return invoiceService.saveInvoice(dto);
+
     }
     @GetMapping
     public List<Invoice> findAllInvoices() {
