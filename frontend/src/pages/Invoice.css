@@ -1,0 +1,140 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Pretendard",sans-serif;
+}
+
+body{
+    background:#f7f3eb;
+}
+
+/* 전체 */
+.invoice-page{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    gap:80px;
+    padding:40px;
+}
+
+/* 왼쪽 그림 */
+.invoice-left{
+    width:420px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-shrink:0;
+}
+
+.invoice-image{
+    width:100%;
+    max-width:420px;
+    display:block;
+}
+
+/* 오른쪽 */
+.invoice-right{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-shrink:0;
+}
+
+/* 카드 */
+.invoice-card{
+    width:760px;
+    background:white;
+    border-radius:35px;
+    padding:45px;
+    box-shadow:0 20px 45px rgba(0,0,0,.08);
+}
+
+/* 제목 */
+.invoice-title{
+    text-align:center;
+    font-size:52px;
+    color:#6b4c2b;
+    margin-bottom:8px;
+}
+
+.invoice-sub{
+    text-align:center;
+    color:#888;
+    font-size:18px;
+    margin-bottom:35px;
+}
+
+/* 2열 */
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group.full{
+    grid-column:1 / 3;
+}
+
+.form-group label{
+    font-size:16px;
+    font-weight:700;
+    color:#555;
+    margin-bottom:8px;
+}
+
+.form-group input,
+.form-group textarea{
+    width:100%;
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:15px 18px;
+    font-size:15px;
+    transition:.2s;
+    background:white;
+}
+
+.form-group input{
+    height:56px;
+}
+
+.form-group textarea{
+    min-height:120px;
+    resize:none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+    outline:none;
+    border-color:#d8b066;
+    box-shadow:0 0 0 5px rgba(240,195,89,.25);
+}
+
+/* 저장 버튼 */
+.save-btn{
+    width:100%;
+    height:60px;
+    margin-top:35px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(180deg,#ffd86d,#f6c149);
+    color:#4b3517;
+    font-size:19px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.save-btn:hover{
+    background:#efba3d;
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(246,193,73,.35);
+}
