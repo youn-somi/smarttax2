@@ -8,12 +8,17 @@ import { Routes, Route } from "react-router-dom";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Main />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/main" element={<Main />} />
-      <Route path="/invoice-list" element={<InvoiceList />} />
+
+      <Route
+        path="/invoice-list"
+        element={<InvoiceList />}
+      />
+
       <Route path="/invoice" element={<Invoice />} />
+      <Route path="/invoice/:id" element={<Invoice />} />
     </Routes>
   );
 }

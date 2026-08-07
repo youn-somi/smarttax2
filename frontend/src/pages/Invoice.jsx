@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Invoice.css";
 
@@ -13,24 +13,74 @@ function Invoice() {
   const [totalAmount, setTotalAmount] = useState("");
   const [memo, setMemo] = useState("");
 
-  async function saveInvoice() {
+  const { id } = useParams();
 
-    await axios.post("http://localhost:8080/api/invoices",{
+  async function getInvoice() {
 
-      invoiceNumber,
-      issueDate,
-      supplierName,
-      customerName,
-      supplyAmount,
-      taxAmount,
-      totalAmount,
-      memo
+    const response = await axios.get(
+      "http://localhost:8080/api/invoices/" + id
+    );
 
-    });
+ 
+    setInvoiceNumber(response.data.invoiceNumber);
+    setIssueDate(response.data.issueDate);
+    setSupplierName(response.data.supplierName);
+    setCustomerName(response.data.customerName);
+    setSupplyAmount(response.data.supplyAmount);
+    setTaxAmount(response.data.taxAmount);
+    setTotalAmount(response.data.totalAmount);
+    setMemo(response.data.memo);
+  }
+
+
+  useEffect(() => {
+    if (id) {
+      getInvoice();
 
     alert("세금계산서가 저장되었습니다.");
+    }
+  }, []);
 
-  }
+  
+  async function saveInvoice() {
+
+    if (id) {
+
+        await axios.put(
+            "http://localhost:8080/api/invoices/" + id,
+            {
+                invoiceNumber: invoiceNumber,
+                issueDate: issueDate,
+                supplierName: supplierName,
+                customerName: customerName,
+                supplyAmount: supplyAmount,
+                taxAmount: taxAmount,
+                totalAmount: totalAmount,
+                memo: memo,
+            }
+        );
+
+    } else {
+
+        await axios.post(
+            "http://localhost:8080/api/invoices",
+            {
+                invoiceNumber: invoiceNumber,
+                issueDate: issueDate,
+                supplierName: supplierName,
+                customerName: customerName,
+                supplyAmount: supplyAmount,
+                taxAmount: taxAmount,
+                totalAmount: totalAmount,
+                memo: memo,
+            }
+        );
+
+    }
+
+}
+
+  
 
   return(
 
@@ -175,6 +225,9 @@ function Invoice() {
         </div>
 
       </div>
+
+
+      
 
     </div>
 
