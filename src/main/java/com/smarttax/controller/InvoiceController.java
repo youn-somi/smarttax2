@@ -3,7 +3,6 @@ package com.smarttax.controller;
 import com.smarttax.dto.InvoiceRequestDto;
 import com.smarttax.entity.Invoice;
 import com.smarttax.service.InvoiceService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
