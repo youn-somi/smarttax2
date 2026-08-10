@@ -10,18 +10,32 @@ function Login() {
   const navigate = useNavigate();
 
   async function login() {
-    const response = await axios.post(
-      "http://localhost:8080/api/users/login",
-      {
-        userId: userId,
-        password: password,
-      }
-    );
 
-    console.log(response.data);
-    localStorage.setItem("token", response.data);
-    navigate("/main");
-  }
+    if (!userId || !password) {
+        alert("아이디와 비밀번호를 입력해주세요.");
+        return;
+    }
+
+    try {
+
+        const response = await axios.post(
+            "http://localhost:8080/api/users/login",
+            {
+                userId: userId,
+                password: password,
+            }
+        );
+
+        localStorage.setItem("token", response.data);
+
+        navigate("/main");
+
+    } catch (error) {
+
+        alert("아이디 또는 비밀번호가 올바르지 않습니다.");
+
+    }
+}
 
   return (
     <div className="login-page">
