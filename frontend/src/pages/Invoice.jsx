@@ -1,238 +1,254 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Invoice.css";
 
 function Invoice() {
 
-  const [supplierName, setSupplierName] = useState("");
-  const [customerName, setCustomerName] = useState("");
-  const [invoiceNumber, setInvoiceNumber] = useState("");
-  const [issueDate, setIssueDate] = useState("");
-  const [supplyAmount, setSupplyAmount] = useState("");
-  const [taxAmount, setTaxAmount] = useState("");
-  const [totalAmount, setTotalAmount] = useState("");
-  const [memo, setMemo] = useState("");
+    const navigate = useNavigate();
 
-  const { id } = useParams();
+    const [supplierName, setSupplierName] = useState("");
+    const [customerName, setCustomerName] = useState("");
+    const [invoiceNumber, setInvoiceNumber] = useState("");
+    const [issueDate, setIssueDate] = useState("");
+    const [supplyAmount, setSupplyAmount] = useState("");
+    const [taxAmount, setTaxAmount] = useState("");
+    const [totalAmount, setTotalAmount] = useState("");
+    const [memo, setMemo] = useState("");
 
-  async function getInvoice() {
+    const { id } = useParams();
 
-    const response = await axios.get(
-      "http://localhost:8080/api/invoices/" + id
-    );
+    // 기존 세금계산서 조회
+    async function getInvoice() {
 
- 
-    setInvoiceNumber(response.data.invoiceNumber);
-    setIssueDate(response.data.issueDate);
-    setSupplierName(response.data.supplierName);
-    setCustomerName(response.data.customerName);
-    setSupplyAmount(response.data.supplyAmount);
-    setTaxAmount(response.data.taxAmount);
-    setTotalAmount(response.data.totalAmount);
-    setMemo(response.data.memo);
-  }
+        const token = localStorage.getItem("token");
 
-
-  useEffect(() => {
-    if (id) {
-      getInvoice();
-
-    alert("세금계산서가 저장되었습니다.");
-    }
-  }, []);
-
-  
-  async function saveInvoice() {
-
-    if (id) {
-
-        await axios.put(
+        const response = await axios.get(
             "http://localhost:8080/api/invoices/" + id,
             {
-                invoiceNumber: invoiceNumber,
-                issueDate: issueDate,
-                supplierName: supplierName,
-                customerName: customerName,
-                supplyAmount: supplyAmount,
-                taxAmount: taxAmount,
-                totalAmount: totalAmount,
-                memo: memo,
+                headers: {
+                    Authorization: "Bearer " + token
+                }
             }
         );
 
-    } else {
-
-        await axios.post(
-            "http://localhost:8080/api/invoices",
-            {
-                invoiceNumber: invoiceNumber,
-                issueDate: issueDate,
-                supplierName: supplierName,
-                customerName: customerName,
-                supplyAmount: supplyAmount,
-                taxAmount: taxAmount,
-                totalAmount: totalAmount,
-                memo: memo,
-            }
-        );
-
+        setInvoiceNumber(response.data.invoiceNumber);
+        setIssueDate(response.data.issueDate);
+        setSupplierName(response.data.supplierName);
+        setCustomerName(response.data.customerName);
+        setSupplyAmount(response.data.supplyAmount);
+        setTaxAmount(response.data.taxAmount);
+        setTotalAmount(response.data.totalAmount);
+        setMemo(response.data.memo);
     }
 
-}
+    // 수정 화면으로 들어왔을 때 기존 데이터 조회
+    useEffect(() => {
 
-  
+        if (id) {
+            getInvoice();
+        }
 
-  return(
+    }, []);
 
-    <div className="invoice-page">
+    // 세금계산서 저장 / 수정
+    async function saveInvoice() {
 
-      <div className="invoice-left">
+        const token = localStorage.getItem("token");
 
-        <img
-          src="/images/login_left_illustration.png"
-          alt="invoice"
-          className="invoice-image"
-        />
+        if (id) {
 
-      </div>
+            await axios.put(
+                "http://localhost:8080/api/invoices/" + id,
+                {
+                    invoiceNumber: invoiceNumber,
+                    issueDate: issueDate,
+                    supplierName: supplierName,
+                    customerName: customerName,
+                    supplyAmount: supplyAmount,
+                    taxAmount: taxAmount,
+                    totalAmount: totalAmount,
+                    memo: memo,
+                },
+                {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                }
+            );
 
-      <div className="invoice-right">
+        } else {
 
-        <div className="invoice-card">
+            await axios.post(
+                "http://localhost:8080/api/invoices",
+                {
+                    invoiceNumber: invoiceNumber,
+                    issueDate: issueDate,
+                    supplierName: supplierName,
+                    customerName: customerName,
+                    supplyAmount: supplyAmount,
+                    taxAmount: taxAmount,
+                    totalAmount: totalAmount,
+                    memo: memo,
+                },
+                {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                }
+            );
 
-          <h1 className="invoice-title">
-            SmartTax
-          </h1>
+        }
 
-          <p className="invoice-sub">
-            세금계산서 등록
-          </p>
+        navigate("/invoice-list");
+    }
 
-          <div className="form-grid">
+    return (
 
-            <div className="form-group">
+        <div className="invoice-page">
 
-              <label>세금계산서 번호</label>
+            <div className="invoice-left">
 
-              <input
-                type="text"
-                placeholder="번호 입력"
-                value={invoiceNumber}
-                onChange={(e)=>setInvoiceNumber(e.target.value)}
-              />
-
-            </div>
-
-            <div className="form-group">
-
-              <label>발행일</label>
-
-              <input
-                type="date"
-                value={issueDate}
-                onChange={(e)=>setIssueDate(e.target.value)}
-              />
-
-            </div>
-
-            <div className="form-group">
-
-              <label>공급자</label>
-
-              <input
-                type="text"
-                placeholder="공급자"
-                value={supplierName}
-                onChange={(e)=>setSupplierName(e.target.value)}
-              />
-
-            </div>
-
-            <div className="form-group">
-
-              <label>고객명</label>
-
-              <input
-                type="text"
-                placeholder="고객명"
-                value={customerName}
-                onChange={(e)=>setCustomerName(e.target.value)}
-              />
+                <img
+                    src="/images/login_left_illustration.png"
+                    alt="invoice"
+                    className="invoice-image"
+                />
 
             </div>
 
-            <div className="form-group">
+            <div className="invoice-right">
 
-              <label>공급가액</label>
+                <div className="invoice-card">
 
-              <input
-                type="number"
-                placeholder="공급가액"
-                value={supplyAmount}
-                onChange={(e)=>setSupplyAmount(e.target.value)}
-              />
+                    <h1 className="invoice-title">
+                        SmartTax
+                    </h1>
+
+                    <p className="invoice-sub">
+                        세금계산서 등록
+                    </p>
+
+                    <div className="form-grid">
+
+                        <div className="form-group">
+
+                            <label>세금계산서 번호</label>
+
+                            <input
+                                type="text"
+                                placeholder="번호 입력"
+                                value={invoiceNumber}
+                                onChange={(e) => setInvoiceNumber(e.target.value)}
+                            />
+
+                        </div>
+
+                        <div className="form-group">
+
+                            <label>발행일</label>
+
+                            <input
+                                type="date"
+                                value={issueDate}
+                                onChange={(e) => setIssueDate(e.target.value)}
+                            />
+
+                        </div>
+
+                        <div className="form-group">
+
+                            <label>공급자</label>
+
+                            <input
+                                type="text"
+                                placeholder="공급자"
+                                value={supplierName}
+                                onChange={(e) => setSupplierName(e.target.value)}
+                            />
+
+                        </div>
+
+                        <div className="form-group">
+
+                            <label>고객명</label>
+
+                            <input
+                                type="text"
+                                placeholder="고객명"
+                                value={customerName}
+                                onChange={(e) => setCustomerName(e.target.value)}
+                            />
+
+                        </div>
+
+                        <div className="form-group">
+
+                            <label>공급가액</label>
+
+                            <input
+                                type="number"
+                                placeholder="공급가액"
+                                value={supplyAmount}
+                                onChange={(e) => setSupplyAmount(e.target.value)}
+                            />
+
+                        </div>
+
+                        <div className="form-group">
+
+                            <label>세액</label>
+
+                            <input
+                                type="number"
+                                placeholder="세액"
+                                value={taxAmount}
+                                onChange={(e) => setTaxAmount(e.target.value)}
+                            />
+
+                        </div>
+
+                        <div className="form-group full">
+
+                            <label>총금액</label>
+
+                            <input
+                                type="number"
+                                placeholder="총금액"
+                                value={totalAmount}
+                                onChange={(e) => setTotalAmount(e.target.value)}
+                            />
+
+                        </div>
+
+                        <div className="form-group full">
+
+                            <label>메모</label>
+
+                            <textarea
+                                rows="4"
+                                placeholder="메모를 입력하세요."
+                                value={memo}
+                                onChange={(e) => setMemo(e.target.value)}
+                            />
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        className="save-btn"
+                        onClick={saveInvoice}
+                    >
+                        💾 저장하기
+                    </button>
+
+                </div>
 
             </div>
-
-            <div className="form-group">
-
-              <label>세액</label>
-
-              <input
-                type="number"
-                placeholder="세액"
-                value={taxAmount}
-                onChange={(e)=>setTaxAmount(e.target.value)}
-              />
-
-            </div>
-
-            <div className="form-group full">
-
-              <label>총금액</label>
-
-              <input
-                type="number"
-                placeholder="총금액"
-                value={totalAmount}
-                onChange={(e)=>setTotalAmount(e.target.value)}
-              />
-
-            </div>
-
-            <div className="form-group full">
-
-              <label>메모</label>
-
-              <textarea
-                rows="4"
-                placeholder="메모를 입력하세요."
-                value={memo}
-                onChange={(e)=>setMemo(e.target.value)}
-              />
-
-            </div>
-
-          </div>
-
-          <button
-            className="save-btn"
-            onClick={saveInvoice}
-          >
-            💾 저장하기
-          </button>
 
         </div>
-
-      </div>
-
-
-      
-
-    </div>
-
-  );
-
+    );
 }
 
 export default Invoice;

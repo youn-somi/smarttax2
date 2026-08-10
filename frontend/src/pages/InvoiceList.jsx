@@ -3,59 +3,120 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function InvoiceList() {
-  const [invoiceList, setInvoiceList] = useState([]);
 
-  async function getInvoiceList() {
-    const response = await axios.get("http://localhost:8080/api/invoices");
+    const [invoiceList, setInvoiceList] = useState([]);
 
-    setInvoiceList(response.data);
-  }
+    // 세금계산서 목록 조회
+    async function getInvoiceList() {
 
-  // ★ 추가
-  async function deleteInvoice(id) {
-    await axios.delete(
-      "http://localhost:8080/api/invoices/" + id
-    );
+        try {
 
-    getInvoiceList();
-  }
+            const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    getInvoiceList();
-  }, []);
+            const response = await axios.get(
+                "http://localhost:8080/api/invoices",
+                {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                }
+            );
 
-  return (
-    <div>
-      <h1>세금계산서 목록</h1>
+            if (Array.isArray(response.data)) {
+                setInvoiceList(response.data);
+            } else {
+                setInvoiceList([]);
+            }
 
-      {invoiceList.map((invoice) => (
-        <div key={invoice.id}>
-          <p>
-            번호 :
-            <Link to={`/invoice/${invoice.id}`}>
-              {invoice.invoiceNumber}
-            </Link>
-          </p>
+        } catch (error) {
 
-          <p>공급자 : {invoice.supplierName}</p>
+            console.log("세금계산서 목록 조회 실패:", error);
+            setInvoiceList([]);
 
-          <p>고객명 : {invoice.customerName}</p>
+        }
+    }
 
-          <p>공급가액 : {invoice.supplyAmount}</p>
+    // 세금계산서 삭제
+    async function deleteInvoice(id) {
 
-          <p>세액 : {invoice.taxAmount}</p>
+        try {
 
-          <p>총금액 : {invoice.totalAmount}</p>
+            const token = localStorage.getItem("token");
 
-         
-          <button onClick={() => deleteInvoice(invoice.id)}>
-            삭제
-          </button>
+            await axios.delete(
+                "http://localhost:8080/api/invoices/" + id,
+                {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                }
+            );
+
+            getInvoiceList();
+
+        } catch (error) {
+
+            console.log("세금계산서 삭제 실패:", error);
+
+        }
+    }
+
+    // 화면이 처음 열릴 때 목록 조회
+    useEffect(() => {
+
+        getInvoiceList();
+
+    }, []);
+
+    return (
+
+        <div>
+
+            <h1>세금계산서 목록</h1>
+
+            {invoiceList.map((invoice) => (
+
+                <div key={invoice.id}>
+
+                    <p>
+                        번호 :
+                        <Link to={`/invoice/${invoice.id}`}>
+                            {invoice.invoiceNumber}
+                        </Link>
+                    </p>
+
+                    <p>
+                        공급자 : {invoice.supplierName}
+                    </p>
+
+                    <p>
+                        고객명 : {invoice.customerName}
+                    </p>
+
+                    <p>
+                        공급가액 : {invoice.supplyAmount}
+                    </p>
+
+                    <p>
+                        세액 : {invoice.taxAmount}
+                    </p>
+
+                    <p>
+                        총금액 : {invoice.totalAmount}
+                    </p>
+
+                    <button
+                        onClick={() => deleteInvoice(invoice.id)}
+                    >
+                        삭제
+                    </button>
+
+                </div>
+
+            ))}
 
         </div>
-      ))}
-    </div>
-  );
+    );
 }
 
 export default InvoiceList;

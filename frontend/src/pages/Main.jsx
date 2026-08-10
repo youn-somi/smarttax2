@@ -64,7 +64,7 @@ function Main() {
           {/* 로그아웃 */}
           <div
             className="menu-item logout"
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/login", { replace: true })}
           >
             <div className="menu-icon">🚪</div>
 

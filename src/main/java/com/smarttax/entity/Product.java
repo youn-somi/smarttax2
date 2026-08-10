@@ -1,5 +1,6 @@
 package com.smarttax.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,7 +26,7 @@ public class Product {
     private Long supplyAmount;
 
     private Long taxAmount;
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;

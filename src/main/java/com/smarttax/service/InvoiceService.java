@@ -4,8 +4,11 @@ import com.smarttax.dto.InvoiceRequestDto;
 import com.smarttax.entity.Invoice;
 import com.smarttax.entity.Product;
 import com.smarttax.repository.InvoiceRepository;
+import com.smarttax.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,8 +19,7 @@ public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
 
 
-    // 품목(Product)과 세금계산서(Invoice)를 연결한 뒤 저장
-    // 품목(Product)과 세금계산서(Invoice)를 연결한 뒤 저장
+    // 세금계산서 + 품목 저장
     public Invoice saveInvoice(InvoiceRequestDto dto) {
 
         Invoice invoice = new Invoice();
@@ -44,9 +46,7 @@ public class InvoiceService {
 
     // 전체 세금계산서 조회
     public List<Invoice> findAllInvoices() {
-
         return invoiceRepository.findAll();
-
     }
 
 
@@ -55,16 +55,17 @@ public class InvoiceService {
 
         return invoiceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("세금계산서를 찾을 수 없습니다."));
-
     }
 
 
-    // 세금계산서 수정
+    // 세금계산서 + 품목 수정
+    @Transactional
     public Invoice updateInvoice(Long id, Invoice invoice) {
 
         Invoice findInvoice = invoiceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("세금계산서를 찾을 수 없습니다."));
 
+        // 세금계산서 정보 수정
         findInvoice.setInvoiceNumber(invoice.getInvoiceNumber());
         findInvoice.setIssueDate(invoice.getIssueDate());
         findInvoice.setSupplierName(invoice.getSupplierName());
@@ -75,47 +76,48 @@ public class InvoiceService {
         findInvoice.setStatus(invoice.getStatus());
         findInvoice.setMemo(invoice.getMemo());
 
-        return invoiceRepository.save(findInvoice);
+        // 품목 수정
+        if (invoice.getProducts() != null) {
+
+            for (Product product : invoice.getProducts()) {
+                product.setInvoice(findInvoice);
+            }
+
+            findInvoice.setProducts(invoice.getProducts());
+        }
+
+        // Dirty Checking(더티 체킹) 실험
+        return findInvoice;
     }
 
 
     // 세금계산서 삭제
     public void deleteInvoice(Long id) {
-
         invoiceRepository.deleteById(id);
-
     }
 
 
     // 공급자명 검색
     public List<Invoice> findBySupplierName(String supplierName) {
-
         return invoiceRepository.findBysupplierName(supplierName);
-
     }
 
 
     // 구매자명 검색
     public List<Invoice> findByCustomerName(String customerName) {
-
         return invoiceRepository.findByCustomerName(customerName);
-
     }
 
 
     // 발행일 검색
     public List<Invoice> findByIssueDate(LocalDate issueDate) {
-
         return invoiceRepository.findByIssueDate(issueDate);
-
     }
 
 
     // 상태 검색
     public List<Invoice> findByStatus(String status) {
-
         return invoiceRepository.findBystatus(status);
-
     }
 
 
@@ -124,9 +126,7 @@ public class InvoiceService {
             LocalDate startDate,
             LocalDate endDate
     ) {
-
         return invoiceRepository.findByIssueDateBetween(startDate, endDate);
-
     }
 
 
@@ -135,12 +135,9 @@ public class InvoiceService {
             Integer minAmount,
             Integer maxAmount
     ) {
-
         return invoiceRepository.findByTotalAmountBetween(
                 minAmount,
                 maxAmount
         );
-
     }
-
 }
