@@ -20,6 +20,7 @@ public class InvoiceService {
 
 
     // 세금계산서 + 품목 저장
+    @Transactional
     public Invoice saveInvoice(InvoiceRequestDto dto) {
 
         Invoice invoice = new Invoice();
