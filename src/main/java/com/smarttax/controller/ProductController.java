@@ -14,25 +14,25 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @PostMapping
-    public Product saveProduct(@RequestBody Product product) {
+    @PostMapping("/invoice/{invoiceId}")
+    public Product saveProduct(
+            @PathVariable Long invoiceId,
+            @RequestBody Product product
+    ) {
 
-        return productService.saveProduct(product);
-
+        return productService.saveProduct(invoiceId, product);
     }
 
     @GetMapping
     public List<Product> findAllProducts() {
 
         return productService.findAllProducts();
-
     }
 
     @GetMapping("/{id}")
     public Product findProductById(@PathVariable Long id) {
 
         return productService.findProductById(id);
-
     }
 
     @PutMapping("/{id}")
@@ -42,13 +42,11 @@ public class ProductController {
     ) {
 
         return productService.updateProduct(id, product);
-
     }
 
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
 
         productService.deleteProduct(id);
-
     }
 }

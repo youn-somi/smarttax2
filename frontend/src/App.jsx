@@ -4,6 +4,7 @@ import Main from "./pages/Main";
 import InvoiceList from "./pages/InvoiceList";
 import Invoice from "./pages/Invoice";
 import { Routes, Route } from "react-router-dom";
+import InvoiceDetail from "./pages/InvoiceDetail";
 
 function App() {
   return (
@@ -13,13 +14,10 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/main" element={<Main />} />
 
-      <Route
-        path="/invoice-list"
-        element={<InvoiceList />}
-      />
+      <Route path="/invoice-list" element={<InvoiceList />} />
 
       <Route path="/invoice" element={<Invoice />} />
-      <Route path="/invoice/:id" element={<Invoice />} />
+      <Route path="/invoice/:id" element={<InvoiceDetail />} />
     </Routes>
   );
 }
