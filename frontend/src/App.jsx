@@ -5,6 +5,8 @@ import InvoiceList from "./pages/InvoiceList";
 import Invoice from "./pages/Invoice";
 import { Routes, Route } from "react-router-dom";
 import InvoiceDetail from "./pages/InvoiceDetail";
+import CustomerList from "./pages/CustomerList";
+import CustomerDetail from "./pages/CustomerDetail";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
 
       <Route path="/invoice" element={<Invoice />} />
       <Route path="/invoice/:id" element={<InvoiceDetail />} />
+      <Route path="/customers" element={<CustomerList />} />
+      <Route path="/customers/:id" element={<CustomerDetail />} />
     </Routes>
   );
 }

@@ -60,7 +60,20 @@ function Main() {
 
             <div className="arrow">›</div>
           </div>
+          {/* 고객 목록 */}
+          <div
+            className="menu-item"
+            onClick={() => navigate("/customers")}
+          >
+            <div className="menu-icon">👥</div>
 
+            <div className="menu-text">
+              <h3>고객 목록</h3>
+              <p>등록된 고객을 조회합니다.</p>
+            </div>
+
+            <div className="arrow">›</div>
+          </div>
           {/* 로그아웃 */}
           <div
             className="menu-item logout"
