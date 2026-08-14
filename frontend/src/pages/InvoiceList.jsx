@@ -105,6 +105,12 @@ function InvoiceList() {
                         총금액 : {invoice.totalAmount}
                     </p>
 
+                    <Link to={`/invoice/${invoice.id}/edit`}>
+                        <button>
+                            수정
+                        </button>
+                    </Link>
+
                     <button
                         onClick={() => deleteInvoice(invoice.id)}
                     >

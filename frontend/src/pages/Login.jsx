@@ -26,7 +26,12 @@ function Login() {
             }
         );
 
-        localStorage.setItem("token", response.data);
+        const token =
+            typeof response.data === "string"
+                ? response.data
+                : response.data.token;
+
+        localStorage.setItem("token", token);
 
         navigate("/main");
 
@@ -35,7 +40,7 @@ function Login() {
         alert("아이디 또는 비밀번호가 올바르지 않습니다.");
 
     }
-}
+  }
 
   return (
     <div className="login-page">
