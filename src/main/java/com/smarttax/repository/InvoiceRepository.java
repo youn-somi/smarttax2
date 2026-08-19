@@ -9,20 +9,24 @@ import java.util.List;
 
 public interface InvoiceRepository
         extends JpaRepository<Invoice, Long> {
+
     List<Invoice> findBysupplierName(String supplierName);
+
     List<Invoice> findByCustomerName(String customerName);
+
     List<Invoice> findByIssueDate(LocalDate issueDate);
+
     List<Invoice> findBystatus(String status);
+
     List<Invoice> findByIssueDateBetween(
             LocalDate startDate,
-            LocalDate endDate);
+            LocalDate endDate
+    );
+
     List<Invoice> findByTotalAmountBetween(
             Integer minAmount,
             Integer maxAmount
     );
+
+    boolean existsByInvoiceNumber(String invoiceNumber);
 }
-
-
-
-
-

@@ -24,6 +24,9 @@ public class InvoiceService {
     public Invoice saveInvoice(InvoiceRequestDto dto) {
 
         Invoice invoice = new Invoice();
+        if (invoiceRepository.existsByInvoiceNumber(dto.getInvoiceNumber())) {
+            throw new RuntimeException("이미 등록된 세금계산서 번호입니다.");
+        }
 
         invoice.setInvoiceNumber(dto.getInvoiceNumber());
         invoice.setIssueDate(dto.getIssueDate());

@@ -1,0 +1,240 @@
+.invoice-list-page {
+    min-height: 100vh;
+    background: #f7f2e8;
+    padding: 60px 40px;
+    box-sizing: border-box;
+}
+
+.invoice-list-container {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.invoice-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 35px;
+}
+
+.invoice-list-small-title {
+    margin: 0 0 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #c99a38;
+}
+
+.invoice-list-header h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 500;
+    letter-spacing: -2px;
+    color: #33291f;
+}
+
+.invoice-list-count {
+    margin: 12px 0 0;
+    font-size: 14px;
+    color: #8b8176;
+}
+
+.invoice-add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 24px;
+    border-radius: 10px;
+    background: #eeb52f;
+    color: #33291f;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(180, 140, 45, 0.18);
+    transition: 0.2s;
+}
+
+.invoice-add-button:hover {
+    transform: translateY(-2px);
+    background: #e5aa24;
+}
+
+.invoice-list-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 15px 45px rgba(80, 65, 45, 0.08);
+}
+
+.invoice-item {
+    display: grid;
+    grid-template-columns: 190px 1fr 110px;
+    align-items: center;
+    gap: 25px;
+    padding: 25px 22px;
+    margin-bottom: 15px;
+    border: 1px solid #eee1c7;
+    border-radius: 16px;
+    background: #fffdf9;
+    transition: 0.2s;
+}
+
+.invoice-item:last-child {
+    margin-bottom: 0;
+}
+
+.invoice-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(80, 65, 45, 0.07);
+}
+
+.invoice-number-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.invoice-number-box span {
+    font-size: 12px;
+    color: #9b9185;
+}
+
+.invoice-number-box a {
+    color: #b5841e;
+    font-size: 22px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.invoice-number-box a:hover {
+    text-decoration: underline;
+}
+
+.invoice-info {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+
+.invoice-info div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding-left: 15px;
+    border-left: 1px solid #eee7dc;
+}
+
+.invoice-info span {
+    font-size: 12px;
+    color: #9b9185;
+}
+
+.invoice-info strong {
+    font-size: 14px;
+    font-weight: 600;
+    color: #40372f;
+    word-break: break-word;
+}
+
+.invoice-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.invoice-edit-button,
+.invoice-delete-button {
+    width: 100%;
+    height: 38px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.invoice-edit-button {
+    background: #f5c94f;
+    color: #33291f;
+    text-decoration: none;
+    border: none;
+}
+
+.invoice-edit-button:hover {
+    background: #eab83a;
+}
+
+.invoice-delete-button {
+    background: #ffffff;
+    color: #c94b3d;
+    border: 1px solid #e7a29a;
+}
+
+.invoice-delete-button:hover {
+    background: #fff4f2;
+}
+
+.invoice-empty {
+    padding: 80px 20px;
+    text-align: center;
+    color: #9b9185;
+    font-size: 15px;
+}
+
+@media (max-width: 1000px) {
+
+    .invoice-item {
+        grid-template-columns: 1fr;
+    }
+
+    .invoice-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .invoice-actions {
+        flex-direction: row;
+    }
+
+    .invoice-edit-button,
+    .invoice-delete-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .invoice-list-page {
+        padding: 30px 15px;
+    }
+
+    .invoice-list-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .invoice-list-header h1 {
+        font-size: 32px;
+    }
+
+    .invoice-add-button {
+        width: 100%;
+    }
+
+    .invoice-list-card {
+        padding: 15px;
+    }
+
+    .invoice-info {
+        grid-template-columns: 1fr;
+    }
+
+    .invoice-info div {
+        border-left: none;
+        border-bottom: 1px solid #eee7dc;
+        padding: 10px 0;
+    }
+}
