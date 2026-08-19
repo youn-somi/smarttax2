@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 
 function CustomerDetail() {
   const [customer, setCustomer] = useState(null);
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -34,6 +36,12 @@ function CustomerDetail() {
           {customer.businessNumber}
           {customer.phone}
           {customer.address}
+
+          <button
+            onClick={() => navigate(`/customers/${customer.id}/edit`)}
+          >
+            수정하기
+          </button>
         </div>
       )}
     </div>

@@ -1,0 +1,146 @@
+.customer-edit-page {
+    min-height: 100vh;
+    background: #f7f2e8;
+    padding: 70px 40px;
+    box-sizing: border-box;
+}
+
+.customer-edit-card {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 55px 65px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 18px 50px rgba(80, 65, 45, 0.1);
+}
+
+.customer-edit-small-title {
+    margin: 0 0 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #c99a38;
+}
+
+.customer-edit-card h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 500;
+    letter-spacing: -2px;
+    color: #33291f;
+}
+
+.customer-edit-subtitle {
+    margin: 12px 0 40px;
+    text-align: center;
+    font-size: 14px;
+    color: #9b9185;
+}
+
+.customer-edit-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 25px;
+}
+
+.customer-edit-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.customer-edit-group.full {
+    grid-column: 1 / -1;
+}
+
+.customer-edit-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #5b5147;
+}
+
+.customer-edit-group input {
+    width: 100%;
+    height: 48px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #dfd5c6;
+    border-radius: 10px;
+    background: #fffdf9;
+    color: #40372f;
+    font-size: 14px;
+    outline: none;
+}
+
+.customer-edit-group input:focus {
+    border-color: #d4a52f;
+    box-shadow: 0 0 0 3px rgba(212, 165, 47, 0.12);
+}
+
+.customer-edit-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 35px;
+}
+
+.customer-save-button,
+.customer-cancel-button {
+    flex: 1;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.customer-save-button {
+    border: none;
+    background: #f2bb36;
+    color: #33291f;
+    box-shadow: 0 8px 18px rgba(190, 145, 35, 0.18);
+}
+
+.customer-save-button:hover {
+    background: #e5aa24;
+}
+
+.customer-cancel-button {
+    border: 1px solid #dfd5c6;
+    background: #ffffff;
+    color: #665c52;
+}
+
+.customer-cancel-button:hover {
+    background: #faf7f1;
+}
+
+@media (max-width: 650px) {
+
+    .customer-edit-page {
+        padding: 30px 15px;
+    }
+
+    .customer-edit-card {
+        padding: 40px 25px;
+    }
+
+    .customer-edit-card h1 {
+        font-size: 34px;
+    }
+
+    .customer-edit-form {
+        grid-template-columns: 1fr;
+    }
+
+    .customer-edit-group.full {
+        grid-column: auto;
+    }
+
+    .customer-edit-actions {
+        flex-direction: column;
+    }
+}
