@@ -97,10 +97,20 @@ function Invoice() {
 
     } catch (error) {
 
-      const message =
-        error.response?.data || "이미 등록된 세금계산서입니다.세금계산서 번호를 확인해주세요.";
+      console.log("세금계산서 저장 실패:", error);
 
-      alert(message);
+      if (error.response) {
+        console.log("상태 코드:", error.response.status);
+        console.log("서버 응답:", error.response.data);
+
+        alert(
+          typeof error.response.data === "string"
+            ? error.response.data
+            : "세금계산서 저장 중 오류가 발생했습니다."
+        );
+      } else {
+        alert("서버에 연결할 수 없습니다.");
+      }
     }
   }
 
@@ -206,6 +216,7 @@ function Invoice() {
                 type="number"
                 placeholder="세액"
                 value={taxAmount}
+                readOnly
               />
             </div>
 
@@ -216,6 +227,7 @@ function Invoice() {
                 type="number"
                 placeholder="총금액"
                 value={totalAmount}
+                readOnly
               />
             </div>
 

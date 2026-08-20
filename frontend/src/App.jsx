@@ -23,13 +23,11 @@ function HomeButton() {
       className="home-button"
       onClick={() => navigate("/main")}
     >
-      <img
-        src="/images/home.png"
-        alt="홈"
-      />
+      🏠
     </button>
   );
 }
+
 function App() {
   return (
     <>
@@ -45,6 +43,7 @@ function App() {
 
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/invoice/:id" element={<InvoiceDetail />} />
+
         <Route path="/customers" element={<CustomerList />} />
         <Route path="/customers/:id" element={<CustomerDetail />} />
         <Route path="/customers/:id/edit" element={<CustomerEdit />} />
