@@ -144,4 +144,36 @@ public class InvoiceService {
                 maxAmount
         );
     }
+    public Long getQuarterAmount(int year, int quarter) {
+
+        LocalDate startDate;
+        LocalDate endDate;
+
+        if (quarter == 1) {
+            startDate = LocalDate.of(year, 1, 1);
+            endDate = LocalDate.of(year, 3, 31);
+
+        } else if (quarter == 2) {
+            startDate = LocalDate.of(year, 4, 1);
+            endDate = LocalDate.of(year, 6, 30);
+
+        } else if (quarter == 3) {
+            startDate = LocalDate.of(year, 7, 1);
+            endDate = LocalDate.of(year, 9, 30);
+
+        } else {
+            startDate = LocalDate.of(year, 10, 1);
+            endDate = LocalDate.of(year, 12, 31);
+        }
+
+        List<Invoice> invoiceList =
+                invoiceRepository.findByIssueDateBetween(
+                        startDate,
+                        endDate
+                );
+
+        return invoiceList.stream()
+                .mapToLong(Invoice::getTotalAmount)
+                .sum();
+    }
 }

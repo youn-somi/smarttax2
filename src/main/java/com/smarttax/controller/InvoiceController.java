@@ -106,4 +106,11 @@ public class InvoiceController {
                 maxAmount
         );
     }
+    @GetMapping("/quarter")
+    public Long getQuarterAmount(
+            @RequestParam int year,
+            @RequestParam int quarter
+    ){
+        return invoiceService.getQuarterAmount(year, quarter);
+    }
 }
