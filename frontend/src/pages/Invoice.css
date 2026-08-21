@@ -105,6 +105,24 @@ body{
 .form-group input{
     height:56px;
 }
+.form-group select {
+  width: 100%;
+  height: 48px;
+  padding: 0 15px;
+  border: 1px solid #ddd3c5;
+  border-radius: 12px;
+  background: #fffdf9;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #6f6253;
+  outline: none;
+  cursor: pointer;
+}
+
+.form-group select:focus {
+  border-color: #e8ad2f;
+  box-shadow: 0 0 0 3px rgba(232, 173, 47, 0.12);
+}
 
 .form-group textarea{
     min-height:120px;

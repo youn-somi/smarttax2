@@ -81,20 +81,91 @@
     box-shadow: 0 0 0 3px rgba(212, 165, 47, 0.12);
 }
 
-.customer-edit-actions {
+
+/* =========================
+   주소 입력 + 주소 찾기
+   ========================= */
+
+.address-row {
+    width: 100%;
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.address-row input {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+}
+
+.address-search-button {
+    flex: 0 0 90px;
+    width: 90px !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box;
+
+    border: 1px solid #dfd5c6;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #665c52;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.address-search-button:hover {
+    background: #faf7f1;
+}
+
+
+/* =========================
+   버튼 영역
+   ========================= */
+
+.customer-edit-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
     gap: 12px;
     margin-top: 35px;
+    align-items: flex-start;
 }
 
 .customer-save-button,
 .customer-cancel-button {
-    flex: 1;
-    height: 50px;
+    flex: 1 1 0;
+    width: 50%;
+    height: 50px !important;
+    min-height: 50px;
+    max-height: 50px;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     border-radius: 10px;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
+
+    vertical-align: top;
+    transform: none !important;
 }
 
 .customer-save-button {
@@ -118,6 +189,11 @@
     background: #faf7f1;
 }
 
+
+/* =========================
+   모바일
+   ========================= */
+
 @media (max-width: 650px) {
 
     .customer-edit-page {
@@ -140,7 +216,12 @@
         grid-column: auto;
     }
 
-    .customer-edit-actions {
-        flex-direction: column;
+    .address-row {
+        flex-direction: row;
+    }
+
+    .address-search-button {
+        flex: 0 0 80px;
+        width: 80px !important;
     }
 }

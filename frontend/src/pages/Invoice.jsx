@@ -8,6 +8,7 @@ function Invoice() {
 
   const [supplierName, setSupplierName] = useState("");
   const [customerName, setCustomerName] = useState("");
+  const [customerList, setCustomerList] = useState([]);
   const [invoiceNumber, setInvoiceNumber] = useState("");
   const [issueDate, setIssueDate] = useState("");
   const [supplyAmount, setSupplyAmount] = useState("");
@@ -40,11 +41,33 @@ function Invoice() {
     setMemo(response.data.memo);
   }
 
-  // 수정 화면으로 들어왔을 때 기존 데이터 조회
+  // 거래처 목록 조회
+  async function getCustomerList() {
+    const token = localStorage.getItem("token");
+
+    const response = await axios.get(
+      "http://localhost:8080/api/customers",
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      },
+    );
+
+    console.log("거래처 목록:", response.data);
+
+    setCustomerList(response.data);
+  }
+
+  // 화면이 처음 열릴 때 실행
   useEffect(() => {
+
+    getCustomerList();
+
     if (id) {
       getInvoice();
     }
+
   }, []);
 
   // 세금계산서 저장 / 수정
@@ -92,11 +115,9 @@ function Invoice() {
         );
       }
 
-      // 저장 성공했을 때만 목록으로 이동
       navigate("/invoice-list");
 
     } catch (error) {
-
       console.log("세금계산서 저장 실패:", error);
 
       if (error.response) {
@@ -106,7 +127,7 @@ function Invoice() {
         alert(
           typeof error.response.data === "string"
             ? error.response.data
-            : "세금계산서 저장 중 오류가 발생했습니다."
+            : "세금계산서 저장 중 오류가 발생했습니다.",
         );
       } else {
         alert("서버에 연결할 수 없습니다.");
@@ -118,11 +139,13 @@ function Invoice() {
     <div className="invoice-page">
 
       <div className="invoice-left">
+
         <img
           src="/images/login_left_illustration.png"
           alt="invoice"
           className="invoice-image"
         />
+
       </div>
 
       <div className="invoice-right">
@@ -140,7 +163,10 @@ function Invoice() {
           <div className="form-grid">
 
             <div className="form-group">
-              <label>세금계산서 번호</label>
+
+              <label>
+                세금계산서 번호
+              </label>
 
               <input
                 type="text"
@@ -148,31 +174,58 @@ function Invoice() {
                 value={invoiceNumber}
                 onChange={(e) => setInvoiceNumber(e.target.value)}
               />
+
             </div>
 
             <div className="form-group">
-              <label>발행일</label>
+
+              <label>
+                발행일
+              </label>
 
               <input
                 type="date"
                 value={issueDate}
                 onChange={(e) => setIssueDate(e.target.value)}
               />
+
             </div>
 
             <div className="form-group">
-              <label>공급자</label>
 
-              <input
-                type="text"
-                placeholder="공급자"
+              <label>
+                공급자
+              </label>
+
+              <select
                 value={supplierName}
                 onChange={(e) => setSupplierName(e.target.value)}
-              />
+              >
+
+                <option value="">
+                  거래처를 선택하세요
+                </option>
+
+                {customerList.map((customer) => (
+
+                  <option
+                    key={customer.id}
+                    value={customer.companyName}
+                  >
+                    {customer.companyName}
+                  </option>
+
+                ))}
+
+              </select>
+
             </div>
 
             <div className="form-group">
-              <label>고객명</label>
+
+              <label>
+                고객명
+              </label>
 
               <input
                 type="text"
@@ -180,16 +233,21 @@ function Invoice() {
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
               />
+
             </div>
 
             <div className="form-group">
-              <label>공급가액</label>
+
+              <label>
+                공급가액
+              </label>
 
               <input
                 type="number"
                 placeholder="공급가액"
                 value={supplyAmount}
                 onChange={(e) => {
+
                   const value = e.target.value;
 
                   setSupplyAmount(value);
@@ -205,12 +263,17 @@ function Invoice() {
                     : "";
 
                   setTotalAmount(total);
+
                 }}
               />
+
             </div>
 
             <div className="form-group">
-              <label>세액</label>
+
+              <label>
+                세액
+              </label>
 
               <input
                 type="number"
@@ -218,10 +281,14 @@ function Invoice() {
                 value={taxAmount}
                 readOnly
               />
+
             </div>
 
             <div className="form-group full">
-              <label>총금액</label>
+
+              <label>
+                총금액
+              </label>
 
               <input
                 type="number"
@@ -229,10 +296,14 @@ function Invoice() {
                 value={totalAmount}
                 readOnly
               />
+
             </div>
 
             <div className="form-group full">
-              <label>메모</label>
+
+              <label>
+                메모
+              </label>
 
               <textarea
                 rows="4"
@@ -240,6 +311,7 @@ function Invoice() {
                 value={memo}
                 onChange={(e) => setMemo(e.target.value)}
               />
+
             </div>
 
           </div>
@@ -252,9 +324,12 @@ function Invoice() {
           </button>
 
         </div>
+
       </div>
+
     </div>
   );
 }
+
 
 export default Invoice;

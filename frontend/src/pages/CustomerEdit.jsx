@@ -48,6 +48,33 @@ function CustomerEdit() {
 
     }, [id]);
 
+
+    // 카카오 주소찾기
+    function findAddress() {
+
+        new window.kakao.Postcode({
+
+            oncomplete: function (data) {
+
+                let selectedAddress = "";
+
+                if (data.userSelectedType === "R") {
+
+                    selectedAddress = data.roadAddress;
+
+                } else {
+
+                    selectedAddress = data.jibunAddress;
+
+                }
+
+                setAddress(selectedAddress);
+            }
+
+        }).open();
+    }
+
+
     async function updateCustomer() {
 
         try {
@@ -80,6 +107,7 @@ function CustomerEdit() {
         }
     }
 
+
     return (
 
         <div className="customer-edit-page">
@@ -98,58 +126,104 @@ function CustomerEdit() {
                     고객 정보를 수정하세요.
                 </p>
 
+
                 <div className="customer-edit-form">
 
+
                     <div className="customer-edit-group">
-                        <label>회사명</label>
+
+                        <label>
+                            회사명
+                        </label>
+
                         <input
                             type="text"
                             value={companyName}
                             onChange={(e) => setCompanyName(e.target.value)}
                         />
+
                     </div>
 
+
                     <div className="customer-edit-group">
-                        <label>담당자명</label>
+
+                        <label>
+                            담당자명
+                        </label>
+
                         <input
                             type="text"
                             value={contactName}
                             onChange={(e) => setContactName(e.target.value)}
                         />
+
                     </div>
 
+
                     <div className="customer-edit-group">
-                        <label>사업자번호</label>
+
+                        <label>
+                            사업자번호
+                        </label>
+
                         <input
                             type="text"
                             value={businessNumber}
                             onChange={(e) => setBusinessNumber(e.target.value)}
                         />
+
                     </div>
 
+
                     <div className="customer-edit-group">
-                        <label>전화번호</label>
+
+                        <label>
+                            전화번호
+                        </label>
+
                         <input
                             type="text"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                         />
+
                     </div>
+
 
                     <div className="customer-edit-group full">
-                        <label>주소</label>
-                        <input
-                            type="text"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                        />
+
+                        <label>
+                            주소
+                        </label>
+
+                        <div className="address-row">
+
+                            <input
+                                type="text"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                            />
+
+                            <button
+                                type="button"
+                                className="address-search-button"
+                                onClick={findAddress}
+                            >
+                                주소 찾기
+                            </button>
+
+                        </div>
+
                     </div>
 
+
                 </div>
+
 
                 <div className="customer-edit-actions">
 
                     <button
+                        type="button"
                         className="customer-save-button"
                         onClick={updateCustomer}
                     >
@@ -157,6 +231,7 @@ function CustomerEdit() {
                     </button>
 
                     <button
+                        type="button"
                         className="customer-cancel-button"
                         onClick={() => navigate("/customers")}
                     >
@@ -164,6 +239,7 @@ function CustomerEdit() {
                     </button>
 
                 </div>
+
 
             </div>
 
