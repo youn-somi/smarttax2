@@ -9,7 +9,7 @@ function CustomerEdit() {
     const navigate = useNavigate();
 
     const [companyName, setCompanyName] = useState("");
-    const [contactName, setContactName] = useState("");
+    const [ceoName, setCeoName] = useState("");
     const [businessNumber, setBusinessNumber] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
@@ -32,7 +32,7 @@ function CustomerEdit() {
                 );
 
                 setCompanyName(response.data.companyName || "");
-                setContactName(response.data.contactName || "");
+                setCeoName(response.data.ceoName || "");
                 setBusinessNumber(response.data.businessNumber || "");
                 setPhone(response.data.phone || "");
                 setAddress(response.data.address || "");
@@ -85,7 +85,7 @@ function CustomerEdit() {
                 "http://localhost:8080/api/customers/" + id,
                 {
                     companyName: companyName,
-                    contactName: contactName,
+                    ceoName: ceoName,
                     businessNumber: businessNumber,
                     phone: phone,
                     address: address
@@ -148,13 +148,13 @@ function CustomerEdit() {
                     <div className="customer-edit-group">
 
                         <label>
-                            담당자명
+                            대표자명
                         </label>
 
                         <input
                             type="text"
-                            value={contactName}
-                            onChange={(e) => setContactName(e.target.value)}
+                            value={ceoName}
+                            onChange={(e) => setCeoName(e.target.value)}
                         />
 
                     </div>

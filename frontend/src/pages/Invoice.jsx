@@ -7,6 +7,11 @@ function Invoice() {
   const navigate = useNavigate();
 
   const [supplierName, setSupplierName] = useState("");
+  const [supplierBusinessNumber, setSupplierBusinessNumber] = useState("");
+  const [supplierCeoName, setSupplierCeoName] = useState("");
+  const [supplierPhone, setSupplierPhone] = useState("");
+  const [supplierAddress, setSupplierAddress] = useState("");
+
   const [customerName, setCustomerName] = useState("");
   const [customerList, setCustomerList] = useState([]);
   const [invoiceNumber, setInvoiceNumber] = useState("");
@@ -69,6 +74,46 @@ function Invoice() {
     }
 
   }, []);
+
+  // 공급자 선택
+  function handleSupplierChange(e) {
+
+    const selectedSupplierName = e.target.value;
+
+    setSupplierName(selectedSupplierName);
+
+    const selectedCustomer = customerList.find(
+      (customer) =>
+        customer.companyName === selectedSupplierName
+    );
+
+    if (selectedCustomer) {
+
+      setSupplierBusinessNumber(
+        selectedCustomer.businessNumber || ""
+      );
+
+      setSupplierCeoName(
+        selectedCustomer.ceoName || ""
+      );
+
+      setSupplierPhone(
+        selectedCustomer.phone || ""
+      );
+
+      setSupplierAddress(
+        selectedCustomer.address || ""
+      );
+
+    } else {
+
+      setSupplierBusinessNumber("");
+      setSupplierCeoName("");
+      setSupplierPhone("");
+      setSupplierAddress("");
+
+    }
+  }
 
   // 세금계산서 저장 / 수정
   async function saveInvoice() {
@@ -199,7 +244,7 @@ function Invoice() {
 
               <select
                 value={supplierName}
-                onChange={(e) => setSupplierName(e.target.value)}
+                onChange={handleSupplierChange}
               >
 
                 <option value="">
@@ -232,6 +277,62 @@ function Invoice() {
                 placeholder="고객명"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
+              />
+
+            </div>
+
+            <div className="form-group">
+
+              <label>
+                사업자번호
+              </label>
+
+              <input
+                type="text"
+                value={supplierBusinessNumber}
+                readOnly
+              />
+
+            </div>
+
+            <div className="form-group">
+
+              <label>
+                대표자명
+              </label>
+
+              <input
+                type="text"
+                value={supplierCeoName}
+                readOnly
+              />
+
+            </div>
+
+            <div className="form-group">
+
+              <label>
+                전화번호
+              </label>
+
+              <input
+                type="text"
+                value={supplierPhone}
+                readOnly
+              />
+
+            </div>
+
+            <div className="form-group full">
+
+              <label>
+                주소
+              </label>
+
+              <input
+                type="text"
+                value={supplierAddress}
+                readOnly
               />
 
             </div>
@@ -330,6 +431,5 @@ function Invoice() {
     </div>
   );
 }
-
 
 export default Invoice;

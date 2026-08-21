@@ -1,15 +1,19 @@
 .invoice-list-page {
     min-height: 100vh;
-    background: #f7f2e8;
-    padding: 60px 40px;
+    background: #f8f3e8;
+    padding: 70px 7%;
     box-sizing: border-box;
 }
 
+
+/* 전체 영역 */
 .invoice-list-container {
-    max-width: 1180px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
+
+/* 상단 */
 .invoice-list-header {
     display: flex;
     justify-content: space-between;
@@ -17,224 +21,365 @@
     margin-bottom: 35px;
 }
 
+
 .invoice-list-small-title {
     margin: 0 0 8px;
     font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    color: #c99a38;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #d39b20;
 }
+
 
 .invoice-list-header h1 {
     margin: 0;
     font-size: 42px;
-    font-weight: 500;
-    letter-spacing: -2px;
-    color: #33291f;
+    font-weight: 400;
+    color: #30291f;
 }
+
 
 .invoice-list-count {
-    margin: 12px 0 0;
+    margin: 10px 0 0;
     font-size: 14px;
-    color: #8b8176;
+    color: #8f8678;
 }
 
+
+/* 새 세금계산서 버튼 */
 .invoice-add-button {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px 24px;
-    border-radius: 10px;
-    background: #eeb52f;
-    color: #33291f;
+
+    width: 150px;
+    height: 56px;
+
+    background: #f3b725;
+    color: #30291f;
+
+    border-radius: 12px;
+
     text-decoration: none;
-    font-size: 15px;
-    font-weight: 600;
-    box-shadow: 0 8px 20px rgba(180, 140, 45, 0.18);
-    transition: 0.2s;
+    font-size: 14px;
+    font-weight: 700;
+
+    box-shadow: 0 8px 18px rgba(180, 140, 50, 0.18);
 }
 
-.invoice-add-button:hover {
-    transform: translateY(-2px);
-    background: #e5aa24;
-}
 
+/* 검색 영역 */
 .invoice-list-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    min-height: 95px;
+    padding: 22px 30px;
+    margin-bottom: 18px;
+
     background: #ffffff;
     border-radius: 24px;
-    padding: 25px;
-    box-shadow: 0 15px 45px rgba(80, 65, 45, 0.08);
+
+    box-sizing: border-box;
+
+    box-shadow: 0 12px 30px rgba(80, 60, 30, 0.07);
 }
 
+
+/* 검색 입력창 */
+.invoice-list-card input {
+    width: 220px;
+    height: 46px;
+
+    padding: 0 16px;
+
+    border: 1px solid #e6d9c5;
+    border-radius: 10px;
+
+    background: #fffdf9;
+
+    font-size: 14px;
+    color: #3b342b;
+
+    outline: none;
+    box-sizing: border-box;
+}
+
+
+.invoice-list-card input::placeholder {
+    color: #aaa092;
+}
+
+
+.invoice-list-card input:focus {
+    border-color: #e2ad36;
+    box-shadow: 0 0 0 3px rgba(226, 173, 54, 0.12);
+}
+
+
+/* 검색 버튼 */
+.invoice-list-card button {
+    height: 46px;
+
+    padding: 0 18px;
+
+    border: 1px solid #e3c47c;
+    border-radius: 10px;
+
+    background: #fff8e8;
+    color: #70541c;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* 버튼 마우스 올렸을 때 */
+.invoice-list-card button:hover {
+    background: #f8d06b;
+    border-color: #f8d06b;
+    color: #30291f;
+}
+
+
+/* 전체 목록 버튼 */
+.invoice-list-card button:last-child {
+    margin-left: 5px;
+
+    background: #f3b725;
+    border-color: #f3b725;
+    color: #30291f;
+    font-weight: 700;
+}
+
+
+.invoice-list-card button:last-child:hover {
+    background: #e7aa17;
+}
+
+
+/* 세금계산서 한 개 */
 .invoice-item {
     display: grid;
-    grid-template-columns: 190px 1fr 110px;
+
+    grid-template-columns: 1.2fr 3fr 130px;
+
     align-items: center;
+
     gap: 25px;
-    padding: 25px 22px;
-    margin-bottom: 15px;
-    border: 1px solid #eee1c7;
-    border-radius: 16px;
-    background: #fffdf9;
-    transition: 0.2s;
+
+    min-height: 135px;
+
+    padding: 22px 30px;
+    margin-bottom: 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #eadcc7;
+    border-radius: 20px;
+
+    box-sizing: border-box;
+
+    box-shadow: 0 5px 15px rgba(80, 60, 30, 0.03);
 }
 
-.invoice-item:last-child {
-    margin-bottom: 0;
-}
 
-.invoice-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(80, 65, 45, 0.07);
-}
-
+/* 세금계산서 번호 */
 .invoice-number-box {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
+
 
 .invoice-number-box span {
     font-size: 12px;
-    color: #9b9185;
+    color: #a59b8d;
 }
 
+
 .invoice-number-box a {
-    color: #b5841e;
-    font-size: 22px;
+    color: #b67b08;
+
+    font-size: 24px;
     font-weight: 700;
+
     text-decoration: none;
 }
+
 
 .invoice-number-box a:hover {
     text-decoration: underline;
 }
 
+
+/* 가운데 정보 */
 .invoice-info {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
+
+    align-items: center;
 }
 
-.invoice-info div {
+
+.invoice-info > div {
+    min-height: 55px;
+
+    padding: 0 18px;
+
     display: flex;
     flex-direction: column;
-    gap: 7px;
-    padding-left: 15px;
-    border-left: 1px solid #eee7dc;
+    justify-content: center;
+    gap: 8px;
+
+    border-left: 1px solid #eee4d6;
 }
+
+
+.invoice-info > div:first-child {
+    border-left: none;
+}
+
 
 .invoice-info span {
     font-size: 12px;
-    color: #9b9185;
+    color: #a59b8d;
 }
+
 
 .invoice-info strong {
     font-size: 14px;
+    color: #3c352c;
     font-weight: 600;
-    color: #40372f;
-    word-break: break-word;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
+
+/* 수정 / 삭제 */
 .invoice-actions {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
+
 .invoice-edit-button,
 .invoice-delete-button {
-    width: 100%;
-    height: 38px;
-    box-sizing: border-box;
+    width: 110px;
+    height: 40px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+
+    border-radius: 9px;
+
+    box-sizing: border-box;
+
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
+
     cursor: pointer;
+    text-decoration: none;
 }
+
 
 .invoice-edit-button {
-    background: #f5c94f;
-    color: #33291f;
-    text-decoration: none;
-    border: none;
+    background: #f5c94e;
+    color: #30291f;
+    border: 1px solid #f5c94e;
 }
 
-.invoice-edit-button:hover {
-    background: #eab83a;
-}
 
 .invoice-delete-button {
     background: #ffffff;
-    color: #c94b3d;
-    border: 1px solid #e7a29a;
+    color: #e15b50;
+    border: 1px solid #ef8b82;
 }
+
+
+.invoice-edit-button:hover {
+    background: #eebc36;
+}
+
 
 .invoice-delete-button:hover {
-    background: #fff4f2;
+    background: #fff2f0;
 }
 
+
+/* 데이터가 없을 때 */
 .invoice-empty {
-    padding: 80px 20px;
+    padding: 70px 20px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
     text-align: center;
-    color: #9b9185;
+
+    color: #9c9284;
     font-size: 15px;
 }
 
-@media (max-width: 1000px) {
+
+/* 화면이 작아졌을 때 */
+@media (max-width: 900px) {
+
+    .invoice-list-page {
+        padding: 50px 25px;
+    }
+
+
+    .invoice-list-header {
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+
+    .invoice-list-header h1 {
+        font-size: 34px;
+    }
+
+
+    .invoice-list-card {
+        flex-wrap: wrap;
+    }
+
+
+    .invoice-list-card input {
+        width: 200px;
+    }
+
 
     .invoice-item {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
+
 
     .invoice-info {
         grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
+
+
+    .invoice-info > div {
+        border-left: none;
+        border-bottom: 1px solid #eee4d6;
+        padding: 10px;
+    }
+
 
     .invoice-actions {
         flex-direction: row;
     }
 
-    .invoice-edit-button,
-    .invoice-delete-button {
-        width: 100%;
-    }
-}
-
-@media (max-width: 600px) {
-
-    .invoice-list-page {
-        padding: 30px 15px;
-    }
-
-    .invoice-list-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-    }
-
-    .invoice-list-header h1 {
-        font-size: 32px;
-    }
-
-    .invoice-add-button {
-        width: 100%;
-    }
-
-    .invoice-list-card {
-        padding: 15px;
-    }
-
-    .invoice-info {
-        grid-template-columns: 1fr;
-    }
-
-    .invoice-info div {
-        border-left: none;
-        border-bottom: 1px solid #eee7dc;
-        padding: 10px 0;
-    }
 }
