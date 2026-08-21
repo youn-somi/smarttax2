@@ -9,6 +9,7 @@ import CustomerList from "./pages/CustomerList";
 import CustomerDetail from "./pages/CustomerDetail";
 import CustomerEdit from "./pages/CustomerEdit";
 import "./App.css";
+import Customer from "./pages/Customer";
 
 function HomeButton() {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ function App() {
         <Route path="/customers" element={<CustomerList />} />
         <Route path="/customers/:id" element={<CustomerDetail />} />
         <Route path="/customers/:id/edit" element={<CustomerEdit />} />
+        <Route path="/customers/new" element={<Customer />} />
       </Routes>
     </>
   );
