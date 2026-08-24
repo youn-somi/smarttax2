@@ -69,7 +69,6 @@ public class InvoiceService {
         Invoice findInvoice = invoiceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("세금계산서를 찾을 수 없습니다."));
 
-        // 세금계산서 정보 수정
         findInvoice.setInvoiceNumber(invoice.getInvoiceNumber());
         findInvoice.setIssueDate(invoice.getIssueDate());
         findInvoice.setSupplierName(invoice.getSupplierName());
@@ -80,17 +79,16 @@ public class InvoiceService {
         findInvoice.setStatus(invoice.getStatus());
         findInvoice.setMemo(invoice.getMemo());
 
-        // 품목 수정
         if (invoice.getProducts() != null) {
+
+            findInvoice.getProducts().clear();
 
             for (Product product : invoice.getProducts()) {
                 product.setInvoice(findInvoice);
+                findInvoice.getProducts().add(product);
             }
-
-            findInvoice.setProducts(invoice.getProducts());
         }
 
-        // Dirty Checking(더티 체킹) 실험
         return findInvoice;
     }
 

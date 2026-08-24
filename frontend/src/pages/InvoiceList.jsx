@@ -10,11 +10,11 @@ function InvoiceList() {
     const [searchList, setSearchList] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
 
-    const [year, setYear] = useState("2026");
-    const [quarter, setQuarter] = useState("3");
+    const [year, setYear] = useState(String(new Date().getFullYear()));
+    const [quarter, setQuarter] = useState("all");
     const [quarterAmount, setQuarterAmount] = useState(0);
 
-    // 전체 목록 조회
+    // 세금계산서 전체 목록 조회
     async function getInvoiceList() {
         try {
             const token = localStorage.getItem("token");
@@ -23,109 +23,143 @@ function InvoiceList() {
                 "http://localhost:8080/api/invoices",
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: "Bearer " + token
                     }
                 }
             );
 
-            setInvoiceList(response.data);
+            const list = Array.isArray(response.data)
+                ? response.data
+                : [];
+                //최신순 정렬 
+            const sortedList = list
+                .slice()
+                .sort(
+                    (a, b) =>
+                        new Date(b.issueDate || 0) -
+                        new Date(a.issueDate || 0)
+                );
+
+            setInvoiceList(sortedList);
+
+            const currentYearList = sortedList.filter((invoice) => {
+                if (!invoice.issueDate) {
+                    return false;
+                }
+
+                return (
+                    new Date(invoice.issueDate).getFullYear() ===
+                    Number(year)
+                );
+            });
+
+            const amount = currentYearList.reduce(
+                (sum, invoice) =>
+                    sum + Number(invoice.totalAmount || 0),
+                0
+            );
+
+            setQuarterAmount(amount);
 
         } catch (error) {
             console.log("세금계산서 목록 조회 실패:", error);
+            setInvoiceList([]);
+            setQuarterAmount(0);
         }
     }
 
+    // 하나의 조회 버튼으로 조건 조회
+    function searchQuarter() {
+        const filteredList = invoiceList.filter((invoice) => {
+            if (!invoice.issueDate) {
+                return false;
+            }
 
-    // 공급자 조회
-    async function searchSupplier() {
-        try {
-            const token = localStorage.getItem("token");
+            const invoiceDate = new Date(invoice.issueDate);
+            const invoiceYear = invoiceDate.getFullYear();
+            const invoiceMonth = invoiceDate.getMonth() + 1;
 
-            const response = await axios.get(
-                "http://localhost:8080/api/invoices/search",
-                {
-                    params: {
-                        supplierName: supplierName
-                    },
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
-            
+            // 연도 조건
+            if (invoiceYear !== Number(year)) {
+                return false;
+            }
 
-            const filteredList = response.data.filter(
-                (invoice) =>
-                    invoice.supplierName === supplierName.trim()
-            );
+            // 분기 조건
+            if (quarter === "1" && (invoiceMonth < 1 || invoiceMonth > 3)) {
+                return false;
+            }
 
-            setSearchList(filteredList);
-            setIsSearching(true);
+            if (quarter === "2" && (invoiceMonth < 4 || invoiceMonth > 6)) {
+                return false;
+            }
 
-        } catch (error) {
-            console.log("공급자 조회 실패:", error);
-            setSearchList([]);
-            setIsSearching(true);
-        }
-    }
+            if (quarter === "3" && (invoiceMonth < 7 || invoiceMonth > 9)) {
+                return false;
+            }
 
-    // 구매자 조회
-    async function searchCustomer() {
-        try {
-            const token = localStorage.getItem("token");
+            if (quarter === "4" && (invoiceMonth < 10 || invoiceMonth > 12)) {
+                return false;
+            }
 
-            const response = await axios.get(
-                "http://localhost:8080/api/invoices/search/customer",
-                {
-                    params: {
-                        customerName: customerName
-                    },
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
+            // 공급자 조건
+            if (
+                supplierName.trim() !== "" &&
+                !invoice.supplierName?.includes(supplierName.trim())
+            ) {
+                return false;
+            }
 
-            setSearchList(response.data);
-            setIsSearching(true);
+            // 구매자 조건
+            if (
+                customerName.trim() !== "" &&
+                !invoice.customerName?.includes(customerName.trim())
+            ) {
+                return false;
+            }
 
-        } catch (error) {
-            console.log("구매자 조회 실패:", error);
-            setSearchList([]);
-            setIsSearching(true);
-        }
+            return true;
+        });
+
+        const amount = filteredList.reduce(
+            (sum, invoice) =>
+                sum + Number(invoice.totalAmount || 0),
+            0
+        );
+
+        setSearchList(filteredList);
+        setQuarterAmount(amount);
+        setIsSearching(true);
     }
 
     // 전체 목록
     function showAllInvoice() {
+        setSupplierName("");
+        setCustomerName("");
+        setYear(String(new Date().getFullYear()));
+        setQuarter("all");
         setSearchList([]);
         setIsSearching(false);
-    }
 
-    // 분기 누적액 조회
-    async function searchQuarter() {
-        try {
-            const token = localStorage.getItem("token");
+        const currentYear = new Date().getFullYear();
 
-            const response = await axios.get(
-                "http://localhost:8080/api/invoices/quarter",
-                {
-                    params: {
-                        year: year,
-                        quarter: quarter
-                    },
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
+        const currentYearList = invoiceList.filter((invoice) => {
+            if (!invoice.issueDate) {
+                return false;
+            }
+
+            return (
+                new Date(invoice.issueDate).getFullYear() ===
+                currentYear
             );
+        });
 
-            setQuarterAmount(response.data);
+        const amount = currentYearList.reduce(
+            (sum, invoice) =>
+                sum + Number(invoice.totalAmount || 0),
+            0
+        );
 
-        } catch (error) {
-            console.log("분기 누적액 조회 실패:", error);
-            setQuarterAmount(0);
-        }
+        setQuarterAmount(amount);
     }
 
     // 세금계산서 삭제
@@ -134,10 +168,10 @@ function InvoiceList() {
             const token = localStorage.getItem("token");
 
             await axios.delete(
-                `http://localhost:8080/api/invoices/${id}`,
+                "http://localhost:8080/api/invoices/" + id,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: "Bearer " + token
                     }
                 }
             );
@@ -145,7 +179,7 @@ function InvoiceList() {
             getInvoiceList();
 
         } catch (error) {
-            console.log("삭제 실패:", error);
+            console.log("세금계산서 삭제 실패:", error);
         }
     }
 
@@ -153,32 +187,39 @@ function InvoiceList() {
         getInvoiceList();
     }, []);
 
-    const displayList = isSearching
-    ? searchList.filter(
-        (invoice) =>
-            String(invoice.supplierName ?? "").trim() === supplierName.trim()
-      )
-    : invoiceList;
+    const displayList = (
+        isSearching
+            ? searchList
+            : invoiceList
+    )
+        .slice()
+        .sort(
+            (a, b) =>
+                new Date(b.issueDate || 0) -
+                new Date(a.issueDate || 0)
+        );
 
     return (
         <div className="invoice-list-page">
 
             <div className="invoice-list-container">
 
+                {/* 제목 */}
+
                 <div className="invoice-list-header">
 
                     <div>
-
                         <p className="invoice-list-small-title">
                             SMART TAX
                         </p>
 
-                        <h1>세금계산서 목록</h1>
+                        <h1>
+                            세금계산서 목록
+                        </h1>
 
                         <p className="invoice-list-count">
                             전체 {displayList.length}건
                         </p>
-
                     </div>
 
                     <Link
@@ -190,211 +231,108 @@ function InvoiceList() {
 
                 </div>
 
-                <div className="invoice-list-card">
+
+                {/* 통합 조회 영역 */}
+
+                <div className="invoice-list-search-card">
 
                     <input
                         type="text"
                         value={supplierName}
-                        onChange={(e) => setSupplierName(e.target.value)}
+                        onChange={(e) =>
+                            setSupplierName(e.target.value)
+                        }
                         placeholder="공급자명을 입력하세요."
                     />
-
-                    <button onClick={searchSupplier}>
-                        공급자 조회
-                    </button>
 
                     <input
                         type="text"
                         value={customerName}
-                        onChange={(e) => setCustomerName(e.target.value)}
+                        onChange={(e) =>
+                            setCustomerName(e.target.value)
+                        }
                         placeholder="구매자명을 입력하세요."
                     />
 
-                    <button onClick={searchCustomer}>
-                        구매자 조회
+                    <select
+    value={year}
+    onChange={(e) => setYear(e.target.value)}
+>
+    {Array.from(
+        { length: 5 },
+        (_, index) => new Date().getFullYear() - index
+    ).map((yearOption) => (
+        <option
+            key={yearOption}
+            value={yearOption}
+        >
+            {yearOption}년
+        </option>
+    ))}
+</select>
+
+                    <select
+                        value={quarter}
+                        onChange={(e) =>
+                            setQuarter(e.target.value)
+                        }
+                    >
+                        <option value="all">
+                            전체
+                        </option>
+
+                        <option value="1">
+                            1분기
+                        </option>
+
+                        <option value="2">
+                            2분기
+                        </option>
+
+                        <option value="3">
+                            3분기
+                        </option>
+
+                        <option value="4">
+                            4분기
+                        </option>
+                    </select>
+
+                    <button
+                        className="invoice-search-button"
+                        onClick={searchQuarter}
+                    >
+                        조회
                     </button>
 
-                    <button onClick={showAllInvoice}>
+                    <button
+                        className="invoice-all-button"
+                        onClick={showAllInvoice}
+                    >
                         전체 목록
                     </button>
 
+                    <div className="invoice-total-amount">
+                        <span>
+                            {year}년{" "}
+                            {quarter === "all"
+                                ? "전체"
+                                : `${quarter}분기`}{" "}
+                            누적액 :
+                        </span>
+
+                        <strong>
+                            {Number(
+                                quarterAmount
+                            ).toLocaleString()}
+                            원
+                        </strong>
+                    </div>
+
                 </div>
 
-               <div
-    className="invoice-list-card"
-    style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "10px",
-        padding: "18px 24px",
-        marginTop: "14px",
-        flexWrap: "wrap"
-    }}
->
-    {/* 연도 */}
-    <div
-        style={{
-            position: "relative"
-        }}
-    >
-        <select
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-            style={{
-                appearance: "none",
-                WebkitAppearance: "none",
-                minWidth: "120px",
-                height: "42px",
-                padding: "0 38px 0 18px",
-                border: "1px solid #e6c77b",
-                borderRadius: "10px",
-                background: "#fffaf0",
-                color: "#5c4a2d",
-                fontSize: "14px",
-                fontWeight: "600",
-                textAlign: "center",
-                cursor: "pointer",
-                outline: "none"
-            }}
-        >
-            <option value="2026">
-                2026년 목록
-            </option>
 
-            <option value="2027">
-                2027년 목록
-            </option>
-        </select>
-
-        <span
-            style={{
-                position: "absolute",
-                right: "14px",
-                top: "50%",
-                transform: "translateY(-55%)",
-                color: "#b57900",
-                fontSize: "12px",
-                pointerEvents: "none"
-            }}
-        >
-            ▼
-        </span>
-    </div>
-
-    {/* 분기 */}
-    <div
-        style={{
-            position: "relative"
-        }}
-    >
-        <select
-            value={quarter}
-            onChange={(e) => setQuarter(e.target.value)}
-            style={{
-                appearance: "none",
-                WebkitAppearance: "none",
-                minWidth: "120px",
-                height: "42px",
-                padding: "0 38px 0 18px",
-                border: "1px solid #e6c77b",
-                borderRadius: "10px",
-                background: "#fffaf0",
-                color: "#5c4a2d",
-                fontSize: "14px",
-                fontWeight: "600",
-                textAlign: "center",
-                cursor: "pointer",
-                outline: "none"
-            }}
-        >
-            <option value="1">
-                1분기 목록
-            </option>
-
-            <option value="2">
-                2분기 목록
-            </option>
-
-            <option value="3">
-                3분기 목록
-            </option>
-
-            <option value="4">
-                4분기 목록
-            </option>
-        </select>
-
-        <span
-            style={{
-                position: "absolute",
-                right: "14px",
-                top: "50%",
-                transform: "translateY(-55%)",
-                color: "#b57900",
-                fontSize: "12px",
-                pointerEvents: "none"
-            }}
-        >
-            ▼
-        </span>
-    </div>
-
-    {/* 조회 버튼 */}
-    <button
-        onClick={searchQuarter}
-        style={{
-            height: "42px",
-            padding: "0 20px",
-            border: "1px solid #e0ae3b",
-            borderRadius: "10px",
-            background: "#fffaf0",
-            color: "#8a5d00",
-            fontSize: "14px",
-            fontWeight: "700",
-            cursor: "pointer"
-        }}
-    >
-        조회
-    </button>
-
-    {/* 분기 누적액 */}
-    <div
-        style={{
-            minWidth: "275px",
-            height: "42px",
-            padding: "0 20px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
-            border: "1px solid #e6c77b",
-            borderRadius: "10px",
-            background: "#fffaf0",
-            boxSizing: "border-box"
-        }}
-    >
-        <span
-            style={{
-                color: "#555",
-                fontSize: "14px",
-                fontWeight: "500"
-            }}
-        >
-            {year}년 {quarter}분기 누적액 :
-        </span>
-
-        <strong
-            style={{
-                color: "#b57900",
-                fontSize: "17px",
-                fontWeight: "700"
-            }}
-        >
-            {Number(quarterAmount).toLocaleString()}원
-        </strong>
-    </div>
-</div>
+                {/* 목록 */}
 
                 {displayList.map((invoice) => (
 
@@ -405,19 +343,27 @@ function InvoiceList() {
 
                         <div className="invoice-number-box">
 
-                            <span>세금계산서 번호</span>
+                            <span>
+                                세금계산서 번호
+                            </span>
 
-                            <Link to={`/invoice/${invoice.id}`}>
+                            <Link
+                                to={`/invoice/${invoice.id}`}
+                            >
                                 {invoice.invoiceNumber}
                             </Link>
 
+                            <span>
+                                {invoice.issueDate}
+                            </span>
+
                         </div>
+
 
                         <div className="invoice-info">
 
                             <div>
                                 <span>공급자</span>
-
                                 <strong>
                                     {invoice.supplierName}
                                 </strong>
@@ -425,7 +371,6 @@ function InvoiceList() {
 
                             <div>
                                 <span>고객명</span>
-
                                 <strong>
                                     {invoice.customerName}
                                 </strong>
@@ -433,7 +378,6 @@ function InvoiceList() {
 
                             <div>
                                 <span>공급가액</span>
-
                                 <strong>
                                     {invoice.supplyAmount}
                                 </strong>
@@ -441,7 +385,6 @@ function InvoiceList() {
 
                             <div>
                                 <span>세액</span>
-
                                 <strong>
                                     {invoice.taxAmount}
                                 </strong>
@@ -449,13 +392,13 @@ function InvoiceList() {
 
                             <div>
                                 <span>총금액</span>
-
                                 <strong>
                                     {invoice.totalAmount}
                                 </strong>
                             </div>
 
                         </div>
+
 
                         <div className="invoice-actions">
 
@@ -468,7 +411,9 @@ function InvoiceList() {
 
                             <button
                                 className="invoice-delete-button"
-                                onClick={() => deleteInvoice(invoice.id)}
+                                onClick={() =>
+                                    deleteInvoice(invoice.id)
+                                }
                             >
                                 삭제
                             </button>
@@ -480,7 +425,7 @@ function InvoiceList() {
                 ))}
 
             </div>
-
+    
         </div>
     );
 }
