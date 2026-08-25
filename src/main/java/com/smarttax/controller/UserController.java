@@ -30,6 +30,16 @@ public class UserController {
        return userService.login(dto);
 
     }
+    //아이디 중복 확인
+    @GetMapping("/check-userId")
+    public boolean checkUserId(
+            @RequestParam String userId
+    )
+    {
+        boolean exists_id = userService.checkUserId(userId);
+        return exists_id;
+    }
+
     @GetMapping("/me")
     public String me (
 
