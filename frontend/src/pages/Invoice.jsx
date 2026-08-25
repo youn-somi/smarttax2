@@ -121,6 +121,7 @@ function Invoice() {
 
     try {
       if (id) {
+        const token = localStorage.getItem("token");
         await axios.put(
           "http://localhost:8080/api/invoices/" + id,
           {
@@ -170,10 +171,10 @@ function Invoice() {
         console.log("서버 응답:", error.response.data);
 
         alert(
-          typeof error.response.data === "string"
-            ? error.response.data
-            : "세금계산서 저장 중 오류가 발생했습니다.",
-        );
+    error.response.data
+        ? error.response.data
+        : `저장 실패 (${error.response.status})`
+);
       } else {
         alert("서버에 연결할 수 없습니다.");
       }

@@ -31,7 +31,7 @@ public class CustomerService {
             Long id,
             Customer customer
     ) {Customer existingCustomer = findCustomerById(id);
-        existingCustomer.setCeoName(customer.getCompanyName());
+        existingCustomer.setCompanyName(customer.getCompanyName());
         existingCustomer.setCeoName(customer.getCeoName());
 
         existingCustomer.setBusinessNumber(customer.getBusinessNumber());

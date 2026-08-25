@@ -1,188 +1,171 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import "./CustomerList.css";
+import { useNavigate } from "react-router-dom";
+import "./Customer.css";
 
-function CustomerList() {
-  const [customerList, setCustomerList] = useState([]);
+function Customer() {
+  const navigate = useNavigate();
 
-  // 고객 목록 조회
-  async function getCustomerList() {
+  const [companyName, setCompanyName] = useState("");
+  const [ceoName, setCeoName] = useState("");
+  const [businessNumber, setBusinessNumber] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+
+  function findAddress() {
+    new window.kakao.Postcode({
+      oncomplete: function (data) {
+        let selectedAddress = "";
+
+        if (data.userSelectedType === "R") {
+          selectedAddress = data.roadAddress;
+        } else {
+          selectedAddress = data.jibunAddress;
+        }
+
+        setAddress(selectedAddress);
+      }
+    }).open();
+  }
+
+  async function saveCustomer() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await axios.get(
+      await axios.post(
         "http://localhost:8080/api/customers",
         {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-
-      if (Array.isArray(response.data)) {
-        setCustomerList(response.data);
-      } else {
-        setCustomerList([]);
-      }
-    } catch (error) {
-      console.log("고객 목록 조회 실패:", error);
-      setCustomerList([]);
-    }
-  }
-
-  // 고객 삭제
-  async function deleteCustomer(id) {
-    try {
-      const token = localStorage.getItem("token");
-
-      await axios.delete(
-        "http://localhost:8080/api/customers/" + id,
+          companyName: companyName,
+          ceoName: ceoName,
+          businessNumber: businessNumber,
+          phone: phone,
+          address: address
+        },
         {
           headers: {
-            Authorization: "Bearer " + token,
-          },
+            Authorization: "Bearer " + token
+          }
         }
       );
 
-      getCustomerList();
+      navigate("/customers");
 
     } catch (error) {
-      console.log("고객 삭제 실패:", error);
+      console.log("거래처 등록 실패:", error);
+      alert("거래처 등록 중 오류가 발생했습니다.");
     }
   }
 
-  // 화면이 처음 열릴 때 고객 목록 조회
-  useEffect(() => {
-    getCustomerList();
-  }, []);
-
   return (
-    <div className="customer-list-page">
+    <div className="customer-page">
 
-      <div className="customer-list-container">
+      <div className="customer-card">
 
-        <div className="customer-list-header">
+        <p className="customer-small-title">
+          SMART TAX
+        </p>
 
-          <div>
+        <h1>
+          거래처 등록
+        </h1>
 
-            <p className="customer-list-small-title">
-              SMART TAX
-            </p>
+        <p className="customer-subtitle">
+          거래처 정보를 입력하세요.
+        </p>
 
-            <h1>고객 목록</h1>
+        <div className="customer-form">
 
-            <p className="customer-list-count">
-              전체 {customerList.length}건
-            </p>
+          <div className="customer-group">
+            <label>
+              회사명
+            </label>
 
+            <input
+              type="text"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+            />
           </div>
 
-          <Link
-            to="/customers/new"
-            className="customer-add-button"
-          >
-            + 거래처 등록
-          </Link>
+          <div className="customer-group">
+            <label>
+              대표자명
+            </label>
+
+            <input
+              type="text"
+              value={ceoName}
+              onChange={(e) => setCeoName(e.target.value)}
+            />
+          </div>
+
+          <div className="customer-group">
+            <label>
+              사업자번호
+            </label>
+
+            <input
+              type="text"
+              value={businessNumber}
+              onChange={(e) => setBusinessNumber(e.target.value)}
+            />
+          </div>
+
+          <div className="customer-group">
+            <label>
+              전화번호
+            </label>
+
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+
+          <div className="customer-group full">
+            <label>
+              주소
+            </label>
+
+            <div className="address-row">
+
+              <input
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+
+              <button
+                type="button"
+                className="address-search-button"
+                onClick={findAddress}
+              >
+                주소 찾기
+              </button>
+
+            </div>
+          </div>
 
         </div>
 
-        <div className="customer-list-card">
+        <div className="customer-actions">
 
-          {customerList.length === 0 ? (
+          <button
+            type="button"
+            className="customer-save-button"
+            onClick={saveCustomer}
+          >
+            등록하기
+          </button>
 
-            <div className="customer-empty">
-              등록된 고객이 없습니다.
-            </div>
-
-          ) : (
-
-            customerList.map((customer) => (
-
-              <div
-                className="customer-item"
-                key={customer.id}
-              >
-
-                <div className="customer-number">
-
-                  <span>고객번호</span>
-
-                  <strong>
-                    {customer.id}
-                  </strong>
-
-                </div>
-
-                <div className="customer-info">
-
-                  <div>
-                    <span>고객명</span>
-
-                    <strong>
-                      {customer.companyName}
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>사업자번호</span>
-
-                    <strong>
-                      {customer.businessNumber}
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>대표자명</span>
-
-                    <strong>
-                      {customer.ceoName}
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>전화번호</span>
-
-                    <strong>
-                      {customer.phone}
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>주소</span>
-
-                    <strong>
-                      {customer.address}
-                    </strong>
-                  </div>
-
-                </div>
-
-                <div className="customer-actions">
-
-                  <Link
-                    to={`/customers/${customer.id}/edit`}
-                    className="customer-edit-button"
-                  >
-                    수정하기
-                  </Link>
-
-                  <button
-                    className="customer-delete-button"
-                    onClick={() =>
-                      deleteCustomer(customer.id)
-                    }
-                  >
-                    삭제
-                  </button>
-
-                </div>
-
-              </div>
-
-            ))
-
-          )}
+          <button
+            type="button"
+            className="customer-cancel-button"
+            onClick={() => navigate("/customers")}
+          >
+            취소
+          </button>
 
         </div>
 
@@ -192,4 +175,4 @@ function CustomerList() {
   );
 }
 
-export default CustomerList;
+export default Customer;

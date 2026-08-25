@@ -1,287 +1,278 @@
 .invoice-list-page {
+    width: 100%;
     min-height: 100vh;
-    background: #f8f3e8;
-    padding: 70px 7%;
+    box-sizing: border-box;
+    padding: 60px 40px;
+    background: #f8f1e5;
+    color: #5c351c;
+    overflow-x: hidden;
+}
+
+.invoice-list-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
     box-sizing: border-box;
 }
 
-
-/* 전체 영역 */
-.invoice-list-container {
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-
-/* 상단 */
 .invoice-list-header {
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
-    align-items: flex-end;
+    gap: 30px;
     margin-bottom: 35px;
 }
 
-
 .invoice-list-small-title {
-    margin: 0 0 8px;
+    margin: 0 0 5px;
+    color: #c28a00;
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 4px;
-    color: #d39b20;
+    letter-spacing: 5px;
 }
-
 
 .invoice-list-header h1 {
     margin: 0;
-    font-size: 42px;
-    font-weight: 400;
-    color: #30291f;
+    color: #3f2818;
+    font-size: 40px;
+    font-weight: 500;
 }
-
 
 .invoice-list-count {
-    margin: 10px 0 0;
+    margin: 5px 0 0;
+    color: #a58c78;
     font-size: 14px;
-    color: #8f8678;
 }
 
-
-/* 새 세금계산서 버튼 */
 .invoice-add-button {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    width: 150px;
+    min-width: 155px;
     height: 56px;
-
-    background: #f3b725;
-    color: #30291f;
-
-    border-radius: 12px;
-
-    text-decoration: none;
+    padding: 0 20px;
+    box-sizing: border-box;
+    border-radius: 13px;
+    background: #f9b91c;
+    color: #4b321f;
     font-size: 14px;
     font-weight: 700;
-
-    box-shadow: 0 8px 18px rgba(180, 140, 50, 0.18);
+    text-decoration: none;
+    box-shadow: 0 8px 18px rgba(130, 85, 20, 0.12);
 }
 
 
-/* 검색 영역 */
-.invoice-list-card {
-    display: flex;
+/* =========================
+   통합 조회 영역
+   ========================= */
+
+.invoice-list-search-card {
+    width: 100%;
+    min-height: 100px;
+    padding: 24px;
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns:
+        minmax(150px, 1fr)
+        minmax(150px, 1fr)
+        125px
+        110px
+        70px
+        100px;
+
     align-items: center;
-    justify-content: center;
     gap: 10px;
 
-    min-height: 95px;
-    padding: 22px 30px;
     margin-bottom: 18px;
 
     background: #ffffff;
     border-radius: 24px;
-
-    box-sizing: border-box;
-
-    box-shadow: 0 12px 30px rgba(80, 60, 30, 0.07);
+    box-shadow: 0 5px 18px rgba(120, 80, 30, 0.05);
 }
 
-
-/* 검색 입력창 */
-.invoice-list-card input {
-    width: 220px;
+.invoice-list-search-card input,
+.invoice-list-search-card select {
+    width: 100%;
     height: 46px;
+    min-width: 0;
+    box-sizing: border-box;
 
-    padding: 0 16px;
-
-    border: 1px solid #e6d9c5;
+    border: 1px solid #e6cfae;
     border-radius: 10px;
 
     background: #fffdf9;
+    color: #5c351c;
 
-    font-size: 14px;
-    color: #3b342b;
+    padding: 0 13px;
 
+    font-size: 13px;
     outline: none;
-    box-sizing: border-box;
 }
 
-
-.invoice-list-card input::placeholder {
-    color: #aaa092;
+.invoice-list-search-card input::placeholder {
+    color: #b49d8a;
 }
 
-
-.invoice-list-card input:focus {
-    border-color: #e2ad36;
-    box-shadow: 0 0 0 3px rgba(226, 173, 54, 0.12);
+.invoice-list-search-card input:focus,
+.invoice-list-search-card select:focus {
+    border-color: #9a5a25;
 }
 
-
-/* 검색 버튼 */
-.invoice-list-card button {
-    height: 46px;
-
-    padding: 0 18px;
-
-    border: 1px solid #e3c47c;
-    border-radius: 10px;
-
-    background: #fff8e8;
-    color: #70541c;
-
-    font-size: 14px;
-    font-weight: 600;
-
+.invoice-list-search-card select {
     cursor: pointer;
+    text-align: center;
+    font-weight: 600;
 }
 
-
-/* 버튼 마우스 올렸을 때 */
-.invoice-list-card button:hover {
-    background: #f8d06b;
-    border-color: #f8d06b;
-    color: #30291f;
-}
-
-
-/* 전체 목록 버튼 */
-.invoice-list-card button:last-child {
-    margin-left: 5px;
-
-    background: #f3b725;
-    border-color: #f3b725;
-    color: #30291f;
+.invoice-search-button,
+.invoice-all-button {
+    width: 100%;
+    height: 46px;
+    border-radius: 10px;
+    font-size: 13px;
     font-weight: 700;
+    cursor: pointer;
+    box-sizing: border-box;
 }
 
-
-.invoice-list-card button:last-child:hover {
-    background: #e7aa17;
+.invoice-search-button {
+    border: 1px solid #e4b54c;
+    background: #fff8e9;
+    color: #75451f;
 }
 
+.invoice-all-button {
+    border: 1px solid #f1b719;
+    background: #f9b91c;
+    color: #4b321f;
+}
 
-/* 세금계산서 한 개 */
-.invoice-item {
-    display: grid;
+.invoice-total-amount {
+    grid-column: 1 / -1;
 
-    grid-template-columns: 1.2fr 3fr 130px;
-
-    align-items: center;
-
-    gap: 25px;
-
-    min-height: 135px;
-
-    padding: 22px 30px;
-    margin-bottom: 14px;
-
-    background: #ffffff;
-
-    border: 1px solid #eadcc7;
-    border-radius: 20px;
-
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 15px;
     box-sizing: border-box;
 
-    box-shadow: 0 5px 15px rgba(80, 60, 30, 0.03);
-}
-
-
-/* 세금계산서 번호 */
-.invoice-number-box {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-
-.invoice-number-box span {
-    font-size: 12px;
-    color: #a59b8d;
-}
-
-
-.invoice-number-box a {
-    color: #b67b08;
-
-    font-size: 24px;
-    font-weight: 700;
-
-    text-decoration: none;
-}
-
-
-.invoice-number-box a:hover {
-    text-decoration: underline;
-}
-
-
-/* 가운데 정보 */
-.invoice-info {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-
     align-items: center;
-}
-
-
-.invoice-info > div {
-    min-height: 55px;
-
-    padding: 0 18px;
-
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     gap: 8px;
 
-    border-left: 1px solid #eee4d6;
+    border: 1px solid #e6cfae;
+    border-radius: 10px;
+
+    background: #fffaf0;
 }
 
+.invoice-total-amount span {
+    color: #765a43;
+    font-size: 13px;
+}
+
+.invoice-total-amount strong {
+    color: #9a5a25;
+    font-size: 16px;
+}
+
+
+/* =========================
+   세금계산서 목록
+   ========================= */
+
+.invoice-item {
+    width: 100%;
+    min-height: 135px;
+    padding: 22px 28px;
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns: 150px 1fr 110px;
+    align-items: center;
+    gap: 20px;
+
+    margin-bottom: 16px;
+
+    background: #ffffff;
+    border: 1px solid #ead8bd;
+    border-radius: 24px;
+}
+
+.invoice-number-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.invoice-number-box span:first-child {
+    color: #b7a38f;
+    font-size: 12px;
+}
+
+.invoice-number-box a {
+    color: #b47700;
+    font-size: 26px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.invoice-number-box span:last-child {
+    color: #aa9581;
+    font-size: 12px;
+}
+
+.invoice-info {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    min-width: 0;
+}
+
+.invoice-info > div {
+    min-width: 0;
+    padding: 0 14px;
+    border-left: 1px solid #eadfce;
+
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
 
 .invoice-info > div:first-child {
     border-left: none;
 }
 
-
 .invoice-info span {
-    font-size: 12px;
-    color: #a59b8d;
+    color: #b7a38f;
+    font-size: 11px;
 }
 
-
 .invoice-info strong {
-    font-size: 14px;
-    color: #3c352c;
-    font-weight: 600;
-
+    color: #3f3025;
+    font-size: 13px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-
-/* 수정 / 삭제 */
 .invoice-actions {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-
 .invoice-edit-button,
 .invoice-delete-button {
-    width: 110px;
+    width: 100%;
     height: 40px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 9px;
-
     box-sizing: border-box;
+    border-radius: 10px;
 
     font-size: 13px;
     font-weight: 700;
@@ -290,96 +281,93 @@
     text-decoration: none;
 }
 
-
 .invoice-edit-button {
-    background: #f5c94e;
-    color: #30291f;
-    border: 1px solid #f5c94e;
+    border: none;
+    background: #f8c84d;
+    color: #4b321f;
 }
-
 
 .invoice-delete-button {
+    border: 1px solid #ff6b5f;
     background: #ffffff;
-    color: #e15b50;
-    border: 1px solid #ef8b82;
+    color: #e65348;
 }
 
 
-.invoice-edit-button:hover {
-    background: #eebc36;
-}
+/* =========================
+   화면이 좁아질 때
+   ========================= */
 
-
-.invoice-delete-button:hover {
-    background: #fff2f0;
-}
-
-
-/* 데이터가 없을 때 */
-.invoice-empty {
-    padding: 70px 20px;
-
-    background: #ffffff;
-
-    border-radius: 20px;
-
-    text-align: center;
-
-    color: #9c9284;
-    font-size: 15px;
-}
-
-
-/* 화면이 작아졌을 때 */
 @media (max-width: 900px) {
 
     .invoice-list-page {
-        padding: 50px 25px;
+        padding: 40px 20px;
     }
-
 
     .invoice-list-header {
-        align-items: flex-start;
-        gap: 20px;
+        flex-direction: column;
     }
 
-
-    .invoice-list-header h1 {
-        font-size: 34px;
+    .invoice-add-button {
+        align-self: flex-end;
     }
 
-
-    .invoice-list-card {
-        flex-wrap: wrap;
+    .invoice-list-search-card {
+        grid-template-columns: 1fr 1fr;
     }
 
-
-    .invoice-list-card input {
-        width: 200px;
+    .invoice-total-amount {
+        grid-column: 1 / -1;
     }
-
 
     .invoice-item {
         grid-template-columns: 1fr;
-        gap: 20px;
     }
-
 
     .invoice-info {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px 0;
     }
 
-
-    .invoice-info > div {
+    .invoice-info > div:nth-child(4) {
         border-left: none;
-        border-bottom: 1px solid #eee4d6;
-        padding: 10px;
     }
-
 
     .invoice-actions {
         flex-direction: row;
     }
 
+    .invoice-edit-button,
+    .invoice-delete-button {
+        flex: 1;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .invoice-list-page {
+        padding: 30px 12px;
+    }
+
+    .invoice-list-header h1 {
+        font-size: 32px;
+    }
+
+    .invoice-list-search-card {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+
+    .invoice-total-amount {
+        grid-column: auto;
+    }
+
+    .invoice-info {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .invoice-info > div {
+        border-left: none;
+    }
 }
