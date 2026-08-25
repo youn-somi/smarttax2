@@ -78,13 +78,15 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/users/signup",
                                 "/api/users/login",
+                                "/api/users/check-userId",
 
                                 // Swagger 화면
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
 
                                 // Swagger API 문서
-                                "/v3/api-docs/**"
+                                "/v3/api-docs/**",
+                                "/api/ai-chat"
                         ).permitAll()
 
                         // 그 외 API는 로그인 필요
