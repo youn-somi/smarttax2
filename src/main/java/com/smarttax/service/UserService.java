@@ -69,4 +69,11 @@ public class UserService {
     public boolean checkUserId(String userId) {
         return  userRepository.existsByUserId(userId);
     }
+
+    public  User findUserByUserId(String userId) {
+        return userRepository.findByUserId(userId)
+                .orElseThrow(()->
+                        new RuntimeException("사용자를 찾을 수 없습니다."));
+
+    }
 }

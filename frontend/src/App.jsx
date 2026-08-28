@@ -11,7 +11,7 @@ import CustomerEdit from "./pages/CustomerEdit";
 import "./App.css";
 import Customer from "./pages/Customer";
 import MyPage from "./pages/MyPage";
-
+import MyPageEdit from "./pages/MyPageEdit";
 
 function HomeButton() {
   const navigate = useNavigate();
@@ -54,6 +54,7 @@ function App() {
         <Route path="/customers/:id/edit" element={<CustomerEdit />} />
         <Route path="/customers/new" element={<Customer />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/edit" element={<MyPageEdit />} />
       </Routes>
     </>
   );

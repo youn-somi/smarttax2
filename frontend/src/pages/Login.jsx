@@ -10,35 +10,35 @@ function Login() {
   const navigate = useNavigate();
 
   async function login() {
-
     if (!userId || !password) {
-        alert("아이디와 비밀번호를 입력해주세요.");
-        return;
+      alert("아이디와 비밀번호를 입력해주세요.");
+      return;
     }
 
     try {
+      const response = await axios.post(
+        "http://localhost:8080/api/users/login",
+        {
+          userId: userId,
+          password: password,
+        }
+      );
 
-        const response = await axios.post(
-            "http://localhost:8080/api/users/login",
-            {
-                userId: userId,
-                password: password,
-            }
-        );
+      // ★ 안전하게 토큰 꺼내기 (accessToken, token, 또는 문자열)
+      const token =
+        typeof response.data === "string"
+          ? response.data
+          : response.data.token || response.data.accessToken;
 
-        const token =
-            typeof response.data === "string"
-                ? response.data
-                : response.data.token;
-
+      // ★ 토큰이 정상적으로 들어왔을 때만 저장 후 이동
+      if (token && token !== "undefined") {
         localStorage.setItem("token", token);
-
         navigate("/main");
-
+      } else {
+        alert("로그인은 성공했으나 토큰을 받아오지 못했습니다.");
+      }
     } catch (error) {
-
-        alert("아이디 또는 비밀번호가 올바르지 않습니다.");
-
+      alert("아이디 또는 비밀번호가 올바르지 않습니다.");
     }
   }
 
@@ -76,10 +76,7 @@ function Login() {
             />
           </div>
 
-          <button
-            className="login-btn"
-            onClick={login}
-          >
+          <button className="login-btn" onClick={login}>
             로그인
           </button>
 

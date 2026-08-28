@@ -1,0 +1,81 @@
+/* 전체 마이페이지 수정 상자 (화면 중앙 정렬 및 카드 스타일) */
+.mypage-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 제목 스타일 */
+.mypage-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* 입력창 묶음 */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* 입력창(input) 스타일 */
+.mypage-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* 입력창 클릭(포커스)했을 때 효과 */
+.mypage-input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* 버튼들을 정렬하는 상자 */
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* 공통 버튼 기본 스타일 */
+.btn {
+  flex: 1;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* 수정 완료 버튼 (파란색) */
+.btn-update {
+  background-color: #4a90e2;
+  color: #ffffff;
+}
+
+.btn-update:hover {
+  background-color: #357abd;
+}
+
+/* 회원 탈퇴 버튼 (빨간색) */
+.btn-delete {
+  background-color: #e74c3c;
+  color: #ffffff;
+}
+
+.btn-delete:hover {
+  background-color: #c0392b;
+}

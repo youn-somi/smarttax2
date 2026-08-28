@@ -58,6 +58,14 @@ function Main() {
             <span>고객 관리</span>
           </div>
 
+          <div 
+          className="side-menu-item"
+          onClick={()=> navigate("/mypage")}
+          >
+            <span className="side-icon">👤</span>
+            <span>마이페이지</span>
+          </div>
+
           <div className="side-line"></div>
 
           <div

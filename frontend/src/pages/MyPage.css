@@ -1,0 +1,53 @@
+.mypage {
+  min-height: 100vh;
+  background: #f8f4ec;
+  padding: 70px 40px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.mypage h1 {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 400;
+  letter-spacing: -2px;
+}
+
+.mypage-card {
+  width: 520px;
+  margin: 50px auto 0;
+  padding: 40px 50px;
+  background: #fffdf8;
+  border: 1px solid #222;
+  box-sizing: border-box;
+}
+
+.mypage-card h2 {
+  margin: 0 0 35px;
+  font-size: 24px;
+  font-weight: 400;
+  border-bottom: 1px solid #222;
+  padding-bottom: 20px;
+}
+
+.mypage-card p {
+  margin: 22px 0;
+  font-size: 18px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+
+.mypage-card p:last-child {
+  border-bottom: none;
+}
+.mypage-card button {
+  display: block;
+  margin: 30px auto 0;
+  padding: 12px 30px;
+  border: 1px solid #222;
+  background: #222;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
