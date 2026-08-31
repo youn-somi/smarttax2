@@ -14,4 +14,5 @@ public class UserSignupRequestDto {
     private  String name;
 
     private  String email;
+    private String address;
 }
