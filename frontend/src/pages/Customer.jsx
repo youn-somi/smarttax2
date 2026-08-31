@@ -12,19 +12,22 @@ function Customer() {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
+  // 주소 찾기 함수 (window.kakao 및 window.daum 모두 지원 예외처리)
   function findAddress() {
-    new window.kakao.Postcode({
-      oncomplete: function (data) {
-        let selectedAddress = "";
+    const Postcode = window.kakao?.Postcode || window.daum?.Postcode;
 
-        if (data.userSelectedType === "R") {
-          selectedAddress = data.roadAddress;
-        } else {
-          selectedAddress = data.jibunAddress;
-        }
+    if (!Postcode) {
+      alert("주소 검색 스크립트가 아직 로드되지 않았습니다. 잠시 후 다시 시도해 주세요.");
+      return;
+    }
+
+    new Postcode({
+      oncomplete: function (data) {
+        let selectedAddress =
+          data.userSelectedType === "R" ? data.roadAddress : data.jibunAddress;
 
         setAddress(selectedAddress);
-      }
+      },
     }).open();
   }
 
@@ -39,17 +42,16 @@ function Customer() {
           ceoName: ceoName,
           businessNumber: businessNumber,
           phone: phone,
-          address: address
+          address: address,
         },
         {
           headers: {
-            Authorization: "Bearer " + token
-          }
+            Authorization: "Bearer " + token,
+          },
         }
       );
 
       navigate("/customers");
-
     } catch (error) {
       console.log("거래처 등록 실패:", error);
       alert("거래처 등록 중 오류가 발생했습니다.");
@@ -58,28 +60,16 @@ function Customer() {
 
   return (
     <div className="customer-page">
-
       <div className="customer-card">
+        <p className="customer-small-title">SMART TAX</p>
 
-        <p className="customer-small-title">
-          SMART TAX
-        </p>
+        <h1>거래처 등록</h1>
 
-        <h1>
-          거래처 등록
-        </h1>
-
-        <p className="customer-subtitle">
-          거래처 정보를 입력하세요.
-        </p>
+        <p className="customer-subtitle">거래처 정보를 입력하세요.</p>
 
         <div className="customer-form">
-
           <div className="customer-group">
-            <label>
-              회사명
-            </label>
-
+            <label>회사명</label>
             <input
               type="text"
               value={companyName}
@@ -88,10 +78,7 @@ function Customer() {
           </div>
 
           <div className="customer-group">
-            <label>
-              대표자명
-            </label>
-
+            <label>대표자명</label>
             <input
               type="text"
               value={ceoName}
@@ -100,10 +87,7 @@ function Customer() {
           </div>
 
           <div className="customer-group">
-            <label>
-              사업자번호
-            </label>
-
+            <label>사업자번호</label>
             <input
               type="text"
               value={businessNumber}
@@ -112,10 +96,7 @@ function Customer() {
           </div>
 
           <div className="customer-group">
-            <label>
-              전화번호
-            </label>
-
+            <label>전화번호</label>
             <input
               type="text"
               value={phone}
@@ -124,18 +105,13 @@ function Customer() {
           </div>
 
           <div className="customer-group full">
-            <label>
-              주소
-            </label>
-
+            <label>주소</label>
             <div className="address-row">
-
               <input
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
-
               <button
                 type="button"
                 className="address-search-button"
@@ -143,14 +119,11 @@ function Customer() {
               >
                 주소 찾기
               </button>
-
             </div>
           </div>
-
         </div>
 
         <div className="customer-actions">
-
           <button
             type="button"
             className="customer-save-button"
@@ -166,11 +139,8 @@ function Customer() {
           >
             취소
           </button>
-
         </div>
-
       </div>
-
     </div>
   );
 }

@@ -23,6 +23,25 @@ function Invoice() {
 
   const { id } = useParams();
 
+  // 주소 찾기 함수 (window.kakao 및 window.daum 모두 지원 예외처리)
+  function findAddress() {
+    const Postcode = window.kakao?.Postcode || window.daum?.Postcode;
+
+    if (!Postcode) {
+      alert("주소 검색 스크립트가 아직 로드되지 않았습니다. 잠시 후 다시 시도해 주세요.");
+      return;
+    }
+
+    new Postcode({
+      oncomplete: function (data) {
+        let selectedAddress =
+          data.userSelectedType === "R" ? data.roadAddress : data.jibunAddress;
+
+        setSupplierAddress(selectedAddress);
+      },
+    }).open();
+  }
+
   // 기존 세금계산서 조회
   async function getInvoice() {
     const token = localStorage.getItem("token");
@@ -33,7 +52,7 @@ function Invoice() {
         headers: {
           Authorization: "Bearer " + token,
         },
-      },
+      }
     );
 
     setInvoiceNumber(response.data.invoiceNumber);
@@ -56,7 +75,7 @@ function Invoice() {
         headers: {
           Authorization: "Bearer " + token,
         },
-      },
+      }
     );
 
     console.log("거래처 목록:", response.data);
@@ -66,52 +85,33 @@ function Invoice() {
 
   // 화면이 처음 열릴 때 실행
   useEffect(() => {
-
     getCustomerList();
 
     if (id) {
       getInvoice();
     }
-
   }, []);
 
   // 공급자 선택
   function handleSupplierChange(e) {
-
     const selectedSupplierName = e.target.value;
 
     setSupplierName(selectedSupplierName);
 
     const selectedCustomer = customerList.find(
-      (customer) =>
-        customer.companyName === selectedSupplierName
+      (customer) => customer.companyName === selectedSupplierName
     );
 
     if (selectedCustomer) {
-
-      setSupplierBusinessNumber(
-        selectedCustomer.businessNumber || ""
-      );
-
-      setSupplierCeoName(
-        selectedCustomer.ceoName || ""
-      );
-
-      setSupplierPhone(
-        selectedCustomer.phone || ""
-      );
-
-      setSupplierAddress(
-        selectedCustomer.address || ""
-      );
-
+      setSupplierBusinessNumber(selectedCustomer.businessNumber || "");
+      setSupplierCeoName(selectedCustomer.ceoName || "");
+      setSupplierPhone(selectedCustomer.phone || "");
+      setSupplierAddress(selectedCustomer.address || "");
     } else {
-
       setSupplierBusinessNumber("");
       setSupplierCeoName("");
       setSupplierPhone("");
       setSupplierAddress("");
-
     }
   }
 
@@ -121,7 +121,6 @@ function Invoice() {
 
     try {
       if (id) {
-        const token = localStorage.getItem("token");
         await axios.put(
           "http://localhost:8080/api/invoices/" + id,
           {
@@ -138,7 +137,7 @@ function Invoice() {
             headers: {
               Authorization: "Bearer " + token,
             },
-          },
+          }
         );
       } else {
         await axios.post(
@@ -157,12 +156,11 @@ function Invoice() {
             headers: {
               Authorization: "Bearer " + token,
             },
-          },
+          }
         );
       }
 
       navigate("/invoice-list");
-
     } catch (error) {
       console.log("세금계산서 저장 실패:", error);
 
@@ -171,10 +169,10 @@ function Invoice() {
         console.log("서버 응답:", error.response.data);
 
         alert(
-    error.response.data
-        ? error.response.data
-        : `저장 실패 (${error.response.status})`
-);
+          error.response.data
+            ? error.response.data
+            : `저장 실패 (${error.response.status})`
+        );
       } else {
         alert("서버에 연결할 수 없습니다.");
       }
@@ -183,239 +181,166 @@ function Invoice() {
 
   return (
     <div className="invoice-page">
-
       <div className="invoice-left">
-
         <img
           src="/images/login_left_illustration.png"
           alt="invoice"
           className="invoice-image"
         />
-
       </div>
 
       <div className="invoice-right">
-
         <div className="invoice-card">
+          <h1 className="invoice-title">SmartTax</h1>
 
-          <h1 className="invoice-title">
-            SmartTax
-          </h1>
-
-          <p className="invoice-sub">
-            세금계산서 등록
-          </p>
+          <p className="invoice-sub">세금계산서 등록</p>
 
           <div className="form-grid">
-
             <div className="form-group">
-
-              <label>
-                세금계산서 번호
-              </label>
-
+              <label>세금계산서 번호</label>
               <input
                 type="text"
                 placeholder="번호 입력"
                 value={invoiceNumber}
                 onChange={(e) => setInvoiceNumber(e.target.value)}
               />
-
             </div>
 
             <div className="form-group">
-
-              <label>
-                발행일
-              </label>
-
+              <label>발행일</label>
               <input
                 type="date"
                 value={issueDate}
                 onChange={(e) => setIssueDate(e.target.value)}
               />
-
             </div>
 
             <div className="form-group">
-
-              <label>
-                공급자
-              </label>
-
+              <label>공급자</label>
               <select
                 value={supplierName}
                 onChange={handleSupplierChange}
               >
-
-                <option value="">
-                  거래처를 선택하세요
-                </option>
-
+                <option value="">거래처를 선택하세요</option>
                 {customerList.map((customer) => (
-
                   <option
                     key={customer.id}
                     value={customer.companyName}
                   >
                     {customer.companyName}
                   </option>
-
                 ))}
-
               </select>
-
             </div>
 
             <div className="form-group">
-
-              <label>
-                고객명
-              </label>
-
+              <label>고객명</label>
               <input
                 type="text"
                 placeholder="고객명"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
               />
-
             </div>
 
             <div className="form-group">
-
-              <label>
-                사업자번호
-              </label>
-
+              <label>사업자번호</label>
               <input
                 type="text"
                 value={supplierBusinessNumber}
                 readOnly
               />
-
             </div>
 
             <div className="form-group">
-
-              <label>
-                대표자명
-              </label>
-
+              <label>대표자명</label>
               <input
                 type="text"
                 value={supplierCeoName}
                 readOnly
               />
-
             </div>
 
             <div className="form-group">
-
-              <label>
-                전화번호
-              </label>
-
+              <label>전화번호</label>
               <input
                 type="text"
                 value={supplierPhone}
                 readOnly
               />
-
             </div>
 
             <div className="form-group full">
-
-              <label>
-                주소
-              </label>
-
-              <input
-                type="text"
-                value={supplierAddress}
-                readOnly
-              />
-
+              <label>주소</label>
+              <div style={{ display: "flex", gap: "8px" }}>
+                <input
+                  type="text"
+                  value={supplierAddress}
+                  readOnly
+                  style={{ flex: 1 }}
+                />
+                <button
+                  type="button"
+                  className="address-btn"
+                  onClick={findAddress}
+                >
+                  주소찾기
+                </button>
+              </div>
             </div>
 
             <div className="form-group">
-
-              <label>
-                공급가액
-              </label>
-
+              <label>공급가액</label>
               <input
                 type="number"
                 placeholder="공급가액"
                 value={supplyAmount}
                 onChange={(e) => {
-
                   const value = e.target.value;
-
                   setSupplyAmount(value);
 
                   const tax = value
                     ? Math.round(Number(value) * 0.1)
                     : "";
-
                   setTaxAmount(tax);
 
                   const total = value
                     ? Number(value) + tax
                     : "";
-
                   setTotalAmount(total);
-
                 }}
               />
-
             </div>
 
             <div className="form-group">
-
-              <label>
-                세액
-              </label>
-
+              <label>세액</label>
               <input
                 type="number"
                 placeholder="세액"
                 value={taxAmount}
                 readOnly
               />
-
             </div>
 
             <div className="form-group full">
-
-              <label>
-                총금액
-              </label>
-
+              <label>총금액</label>
               <input
                 type="number"
                 placeholder="총금액"
                 value={totalAmount}
                 readOnly
               />
-
             </div>
 
             <div className="form-group full">
-
-              <label>
-                메모
-              </label>
-
+              <label>메모</label>
               <textarea
                 rows="4"
                 placeholder="메모를 입력하세요."
                 value={memo}
                 onChange={(e) => setMemo(e.target.value)}
               />
-
             </div>
-
           </div>
 
           <button
@@ -424,11 +349,8 @@ function Invoice() {
           >
             💾 저장하기
           </button>
-
         </div>
-
       </div>
-
     </div>
   );
 }
