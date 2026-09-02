@@ -35,8 +35,10 @@ function MyPageEdit() {
         Authorization: `Bearer ${token}`
       },
       body: JSON.stringify({
-        name: user.name,
-        email: user.email
+        name: user.userName,
+        email: user.email,
+        address: user.address || ""
+
       })
     })
       .then((response) => {
@@ -71,6 +73,28 @@ function MyPageEdit() {
       })
       .catch((error) => console.error("Delete error:", error))
   }
+
+// [위치: handleDelete 함수 끝나는 줄 바로 아래, return ( 바로 위]
+  const findAddress = () => {
+    const Postcode = window.kakao?.Postcode || window.daum?.Postcode;
+
+    if (!Postcode) {
+      alert("주소 검색 스크립트를 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+      return;
+    }
+
+    new Postcode({
+      oncomplete: function (data) {
+        let selectedAddress =
+          data.userSelectedType === "R" ? data.roadAddress : data.jibunAddress;
+
+        setUser((prev) => ({
+          ...prev,
+          address: selectedAddress,
+        }));
+      },
+    }).open();
+  };
 
   // [UI] 화면에 그려지는 부분
   return (

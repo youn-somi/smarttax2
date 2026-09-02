@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./MyPage.css";
 
 
@@ -7,8 +7,15 @@ function MyPage() {
   
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const Location = useLocation();
+
   useEffect(() => {
     const token = localStorage.getItem("token");
+    if(!token) {
+      alert("로그인이 필요합니다")
+      navigate("/Login")
+      return
+    }
 
     fetch("/api/mypage", {
       method: "GET",
@@ -24,7 +31,8 @@ function MyPage() {
         return response.json();
       })
       .then((data) => {
-        setUser(data);
+        console.log("마이페이지 응답 데이터:", data);
+      setUser(data);
       })
       .catch((error) => {
         console.error("Error fetching mypage:", error);
@@ -40,9 +48,10 @@ function MyPage() {
 
       {user ? (
         <>
-          <p>아이디: {user.userId}</p>
-          <p>이름: {user.name}</p>
+    
+          <p>이름: {user.userName}</p>
           <p>이메일: {user.email}</p>
+          <p>주소: {user.address} </p>
 
           <button onClick={()=> navigate("/mypage/edit")}>수정</button>
         </>

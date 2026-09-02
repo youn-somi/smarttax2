@@ -24,6 +24,38 @@ function Signup() {
     // 페이지 이동 기능
     const navigate = useNavigate();
 
+    const [address, setAddress] = useState("")
+
+    //카카오 /다음 주소 검색함수
+    const findAddress = () => {
+    const Postcode = window.kakao?.Postcode || window.daum?.Postcode;
+
+    if(!Postcode) {
+        alert("주소 검색 스크립트를 불러오는 중입니다. 잠시 후 다시 시도해주세요 .")
+        return
+    }
+
+    new Postcode({ 
+        oncomplete: function (data) {
+            let fullAddress = data.address
+            let extraAddress= "";
+
+         if (data.addressType === "R") {
+            if (data.bname !== "") {
+                extraAddress += data.bname;
+            }
+            if  (data.buildingName !== "") {
+                extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+                    }
+                    fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+                }
+
+                setAddress(fullAddress); // ★ 주소 State 업데이트
+            },
+            
+    }).open();
+    }
+
 
     // 아이디 중복확인
     const checkUserId = async () => {
@@ -63,6 +95,7 @@ function Signup() {
                 password: password,
                 name: name,
                 email: email,
+                address: address
             }
         );
 
@@ -179,6 +212,27 @@ function Signup() {
                             onChange={(e) => setEmail(e.target.value)}
                         />
 
+                    </div>
+
+                    <div className="input-box">
+                        <label>
+                            주소 
+                        </label>
+                        <div className="id-input-row">
+                            <input
+                            type="text"
+                            value={address}
+                            readOnly
+                            placeholder="주소를 검색하세요"
+                            />
+
+                            <button
+                            type="button"
+                            onClick={findAddress}
+                            >
+                                주소검색
+                            </button>
+                        </div>
                     </div>
 
 

@@ -17,9 +17,10 @@ public class MyPageService {
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다. "));
         return new MyPageResponseDto(
-                user.getId(),
+                user.getUserId(),
                 user.getName(),
-                user.getEmail()
+                user.getEmail(),
+                user.getAddress()
         );
     }
 
@@ -29,7 +30,8 @@ public class MyPageService {
                 .orElseThrow(()-> new RuntimeException("사용자를 찾을 수 없습니다."));
 
         user.setName(dto.getName());
-        user.setUserId(dto.getEmail());
+        user.setEmail(dto.getEmail());
+        user.setAddress(dto.getAddress());
 
         userRepository.save(user);
     }

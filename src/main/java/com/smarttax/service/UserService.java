@@ -35,6 +35,7 @@ public class UserService {
                 passwordEncoder.encode(dto.getPassword()));
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
+        user.setAddress(dto.getAddress());
 
         //DB 저장
         userRepository.save(user);

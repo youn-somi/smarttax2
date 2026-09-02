@@ -11,12 +11,15 @@ public class UserResponseDto {
     private String userId;
     private String name;;
     private String email;
+    private String address;
+
 
     public UserResponseDto(User user) {
         this.id = user.getId();
         this.userId = user.getUserId();
         this.name =user.getName();
         this.email = user.getEmail();
+        this.address = user.getAddress();
 
     }
 
