@@ -1,131 +1,103 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Pretendard",sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Pretendard", sans-serif;
 }
 
-body{
-    background:#f7f3eb;
+body {
+    background: #f7f3eb;
 }
 
-.signup-page{
-    width:100%;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:90px;
-    padding:40px;
-}
-
-.signup-left{
-    width:500px;
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    flex-shrink:0;
-}
-
-.signup-image{
-    width:100%;
-    max-width:500px;
-}
-
-.signup-right{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.signup-card{
-    width:560px;
-    background:white;
-    padding:55px;
-    border-radius:40px;
-    box-shadow:0 20px 45px rgba(0,0,0,.08);
-}
-
-.logo{
-    text-align:center;
-    font-size:50px;
-    color:#6b4c2b;
-    margin-bottom:10px;
-}
-
-.sub-title{
-    text-align:center;
-    color:#888;
-    margin-bottom:40px;
-    font-size:18px;
-}
-
-.input-box{
-    margin-bottom:22px;
-}
-
-.input-box label{
-    display:block;
-    margin-bottom:8px;
-    font-weight:700;
-    color:#555;
-}
-
-.input-box input{
-    width:100%;
-    height:58px;
-    border:1px solid #ddd;
-    border-radius:15px;
-    padding:0 18px;
-    font-size:16px;
-    transition:.2s;
-}
-
-.input-box input:focus{
-    outline:none;
-    border-color:#d8b066;
-    box-shadow:0 0 0 5px rgba(240,195,89,.25);
-}
-
-.signup-btn{
-    width:100%;
-    height:60px;
-    border:none;
-    border-radius:15px;
-    background:#f7c54d;
-    color:#4d3517;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.signup-btn:hover{
-    background:#efba3d;
-}
-
-.login-link{
-    margin-top:25px;
-    text-align:center;
-    color:#888;
-}
-
-.login-link a{
-    color:#d29a20;
-    font-weight:bold;
-    text-decoration:none;
-}
-
-.login-link a:hover{
-    text-decoration:underline;
-}
-.id-input-row {
+.signup-page {
     width: 100%;
+    min-height: 100vh;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 90px;
+    padding: 40px;
 }
 
+.signup-left {
+    width: 500px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.signup-image {
+    width: 100%;
+    max-width: 500px;
+}
+
+.signup-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-card {
+    width: 560px;
+    background: white;
+    padding: 55px;
+    border-radius: 40px;
+    box-shadow: 0 20px 45px rgba(0,0,0,.08);
+}
+
+.logo {
+    text-align: center;
+    font-size: 50px;
+    color: #6b4c2b;
+    margin-bottom: 10px;
+}
+
+.sub-title {
+    text-align: center;
+    color: #888;
+    margin-bottom: 40px;
+    font-size: 18px;
+}
+
+.input-box {
+    margin-bottom: 22px;
+}
+
+.input-box label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: #555;
+}
+
+.input-box input,
+.input-box textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 15px 18px;
+    font-size: 16px;
+    transition: .2s;
+}
+
+.input-box input {
+    height: 58px;
+}
+
+.input-box textarea {
+    height: 120px;
+    resize: none;
+}
+
+.input-box input:focus,
+.input-box textarea:focus {
+    outline: none;
+    border-color: #d8b066;
+    box-shadow: 0 0 0 5px rgba(240,195,89,.25);
+}
+
+/* ID 중복확인 및 주소찾기용 행 스타일 */
 .id-input-row {
     display: grid;
     grid-template-columns: 1fr 100px;
@@ -136,7 +108,7 @@ body{
 .id-input-row input {
     width: 100%;
     height: 58px;
-     border: 1px solid #ddd;
+    border: 1px solid #ddd;
     border-radius: 15px;
     padding: 0 18px;
     font-size: 16px;
@@ -154,8 +126,50 @@ body{
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
+    transition: .2s;
 }
 
 .id-input-row button:hover {
     background: #c79d52;
+}
+
+/* 하단 큰 버튼 (회원가입/저장하기 공통 적용 가능) */
+.signup-btn,
+.save-btn {
+    width: 100%;
+    height: 60px;
+    border: none;
+    border-radius: 15px;
+    background: #f7c54d;
+    color: #4d3517;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.signup-btn:hover,
+.save-btn:hover {
+    background: #efba3d;
+}
+
+.login-link {
+    margin-top: 25px;
+    text-align: center;
+    color: #888;
+}
+
+.login-link a {
+    color: #d29a20;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
 }

@@ -28,6 +28,11 @@ public class User {
     @Column(unique = true)
     private String email;
 
+<<<<<<< HEAD
     @Column
     private String address;
+=======
+    private String address;
+
+>>>>>>> 9d394975297a5c9c43ebf645daca86c7d230a39e
 }

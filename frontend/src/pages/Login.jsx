@@ -10,38 +10,44 @@ function Login() {
   const navigate = useNavigate();
 
   async function login() {
-    if (!userId || !password) {
-      alert("아이디와 비밀번호를 입력해주세요.");
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/users/login",
-        {
-          userId: userId,
-          password: password,
-        }
-      );
-
-      // ★ 안전하게 토큰 꺼내기 (accessToken, token, 또는 문자열)
-      const token =
-        typeof response.data === "string"
-          ? response.data
-          : response.data.token || response.data.accessToken;
-
-      // ★ 토큰이 정상적으로 들어왔을 때만 저장 후 이동
-      if (token && token !== "undefined") {
-        localStorage.setItem("token", token);
-        navigate("/main");
-      } else {
-        alert("로그인은 성공했으나 토큰을 받아오지 못했습니다.");
-      }
-    } catch (error) {
-      alert("아이디 또는 비밀번호가 올바르지 않습니다.");
-    }
+  if (!userId || !password) {
+    alert("아이디와 비밀번호를 입력해주세요.");
+    return;
   }
 
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/api/users/login",
+      {
+        userId: userId,
+        password: password,
+      }
+    );
+
+    console.log("로그인 응답 데이터:", response.data);
+
+    // 토큰 값 추출 (문자열, token 키, accessToken 키 대응)
+    let token =
+      typeof response.data === "string"
+        ? response.data
+        : response.data?.token || response.data?.accessToken;
+
+    if (token && token !== "undefined") {
+      // "Bearer " 문구가 들어있다면 순수 토큰 값만 남기도록 정제
+      token = token.replace("Bearer ", "").trim();
+      
+      localStorage.setItem("token", token);
+      console.log("저장된 토큰:", localStorage.getItem("token"));
+      
+      navigate("/main");
+    } else {
+      alert("로그인은 성공했으나 토큰을 받아오지 못했습니다.");
+    }
+  } catch (error) {
+    console.error("로그인 에러:", error);
+    alert("아이디 또는 비밀번호가 올바르지 않습니다.");
+  }
+}
   return (
     <div className="login-page">
       <div className="login-left">

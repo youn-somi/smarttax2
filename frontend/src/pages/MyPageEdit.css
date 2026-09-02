@@ -1,4 +1,6 @@
-/* 전체 마이페이지 수정 상자 (화면 중앙 정렬 및 카드 스타일) */
+
+
+/* 전체 마이페이지 수정 상자 */
 .mypage-container {
   max-width: 400px;
   margin: 50px auto;
@@ -26,7 +28,22 @@
   margin-bottom: 24px;
 }
 
-/* 입력창(input) 스타일 */
+/* 개별 입력 세트 */
+.input-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* 입력창 위 라벨 */
+.input-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555555;
+}
+
+/* 입력창(input) 스타일 - 원래 디자인 그대로 100% 가로폭 유지 */
 .mypage-input {
   width: 100%;
   padding: 12px 14px;
@@ -37,19 +54,18 @@
   outline: none;
 }
 
-/* 입력창 클릭(포커스)했을 때 효과 */
 .mypage-input:focus {
   border-color: #4a90e2;
   box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
 }
 
-/* 버튼들을 정렬하는 상자 */
+/* 버튼 묶음 */
 .button-group {
   display: flex;
   gap: 10px;
 }
 
-/* 공통 버튼 기본 스타일 */
+/* 공통 버튼 */
 .btn {
   flex: 1;
   padding: 12px;
@@ -60,7 +76,6 @@
   cursor: pointer;
 }
 
-/* 수정 완료 버튼 (파란색) */
 .btn-update {
   background-color: #4a90e2;
   color: #ffffff;
@@ -70,7 +85,6 @@
   background-color: #357abd;
 }
 
-/* 회원 탈퇴 버튼 (빨간색) */
 .btn-delete {
   background-color: #e74c3c;
   color: #ffffff;
@@ -78,4 +92,34 @@
 
 .btn-delete:hover {
   background-color: #c0392b;
+}
+
+/* ==========================================
+   주소 검색 기능용 필수 최소 CSS
+   ========================================== */
+
+/* 주소 검색 버튼 (원래 디자인 틀에 맞춘 100% 보조 버튼) */
+.btn-address-search {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #4a90e2;
+  background-color: #f0f7ff;
+  border: 1px solid #4a90e2;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-address-search:hover {
+  background-color: #e1f0ff;
+}
+
+/* 카카오 주소 검색창 박스 */
+.postcode-container {
+  width: 100%;
+  margin-top: 6px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  overflow: hidden;
 }
