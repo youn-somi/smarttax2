@@ -1,87 +1,65 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import "./MyPage.css";
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import "./MyPage.css"
 
 function MyPage() {
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
-<<<<<<< HEAD
-  const Location = useLocation();
-=======
->>>>>>> 9d394975297a5c9c43ebf645daca86c7d230a39e
+  const [user, setUser] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if(!token) {
-      alert("로그인이 필요합니다")
-      navigate("/Login")
-      return
-    }
+    const token = localStorage.getItem("token")
 
     fetch("/api/mypage", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("데이터를 불러오는데 실패했습니다.");
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
-<<<<<<< HEAD
-        console.log("마이페이지 응답 데이터:", data);
-      setUser(data);
-=======
-        console.log("마이페이지 백엔드 응답 데이터:", data); // F12 콘솔창에서 실제 키값 확인용
-        setUser(data);
->>>>>>> 9d394975297a5c9c43ebf645daca86c7d230a39e
+        setUser(data)
       })
-      .catch((error) => {
-        console.error("Error fetching mypage:", error);
-      });
-  }, []);
+      .catch((error) => console.error("MyPage fetch error:", error))
+  }, [])
 
   return (
-    <div className="mypage">
-      <h1>마이페이지</h1>
-
+    <div className="mypage-wrapper">
       <div className="mypage-card">
-        <h2>내 정보</h2>
+        <h1 className="mypage-title">마이페이지</h1>
 
-<<<<<<< HEAD
-      {user ? (
-        <>
-    
-          <p>이름: {user.userName}</p>
-          <p>이메일: {user.email}</p>
-          <p>주소: {user.address} </p>
-
-          <button onClick={()=> navigate("/mypage/edit")}>수정</button>
-        </>
-      ) : (
-        <p>사용자 정보를 불러오는 중입니다...</p>
-      )}
-=======
         {user ? (
-          <>
-            {/* ⬇️ 백엔드 필드명에 맞추어 유연하게 처리한 위치 */}
-      <p>아이디: {user.userId || "-"}</p>
-<p>이름: {user.name || "-"}</p>
-<p>이메일: {user.email || "-"}</p>
-<p>주소: {user.address || "-"}</p>
-            <button onClick={() => navigate("/mypage/edit")}>수정</button>
-          </>
+          <div className="mypage-content">
+            <div className="info-group">
+              <span className="info-label">이름</span>
+              <div className="info-box">{user.userName || user.name}</div>
+            </div>
+
+            <div className="info-group">
+              <span className="info-label">이메일</span>
+              <div className="info-box">{user.email}</div>
+            </div>
+
+            <div className="info-group">
+              <span className="info-label">주소</span>
+              <div className="info-box">
+                {user.address || "등록된 주소가 없습니다."}
+              </div>
+            </div>
+
+            <button
+              className="btn-edit-action"
+              onClick={() => navigate("/mypage/edit")}
+            >
+              정보 수정하기
+            </button>
+          </div>
         ) : (
-          <p>사용자 정보를 불러오는 중입니다...</p>
+          <p className="loading-text">사용자 정보를 불러오는 중입니다...</p>
         )}
       </div>
->>>>>>> 9d394975297a5c9c43ebf645daca86c7d230a39e
     </div>
-  );
+  )
 }
 
-export default MyPage;
+export default MyPage

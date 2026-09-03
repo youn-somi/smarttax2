@@ -1,53 +1,89 @@
-.mypage {
-  min-height: 100vh;
-  background: #f8f4ec;
-  padding: 70px 40px;
-  text-align: center;
-  box-sizing: border-box;
+/* 레이아웃 중앙 배치 */
+.mypage-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+  padding: 20px;
 }
 
-.mypage h1 {
-  margin: 0;
-  font-size: 48px;
-  font-weight: 400;
-  letter-spacing: -2px;
-}
-
+/* 카드 본체 */
 .mypage-card {
-  width: 520px;
-  margin: 50px auto 0;
-  padding: 40px 50px;
-  background: #fffdf8;
-  border: 1px solid #222;
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  padding: 36px 28px;
   box-sizing: border-box;
 }
 
-.mypage-card h2 {
-  margin: 0 0 35px;
-  font-size: 24px;
-  font-weight: 400;
-  border-bottom: 1px solid #222;
-  padding-bottom: 20px;
+/* 타이틀 */
+.mypage-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 28px;
 }
 
-.mypage-card p {
-  margin: 22px 0;
-  font-size: 18px;
+/* 정보 영역 그룹 */
+.mypage-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 15px;
 }
 
-.mypage-card p:last-child {
-  border-bottom: none;
+.info-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666666;
+  margin-left: 2px;
 }
-.mypage-card button {
-  display: block;
-  margin: 30px auto 0;
-  padding: 12px 30px;
-  border: 1px solid #222;
-  background: #222;
-  color: white;
+
+/* 정보 박스 (입력창 느낌의 깔끔한 박스) */
+.info-box {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  color: #222222;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  box-sizing: border-box;
+  word-break: keep-all;
+  line-height: 1.4;
+}
+
+/* 버튼 */
+.btn-edit-action {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #4f46e5;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-edit-action:hover {
+  background-color: #4338ca;
+}
+
+.loading-text {
+  text-align: center;
+  color: #777777;
+  font-size: 14px;
 }

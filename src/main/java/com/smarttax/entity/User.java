@@ -13,11 +13,10 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
-    @Column(nullable = false,unique = true)
-    private  String userId;
+    @Column(nullable = false, unique = true)
+    private String userId;
 
     @Column(nullable = false)
     private String password;
@@ -28,11 +27,6 @@ public class User {
     @Column(unique = true)
     private String email;
 
-<<<<<<< HEAD
     @Column
     private String address;
-=======
-    private String address;
-
->>>>>>> 9d394975297a5c9c43ebf645daca86c7d230a39e
 }

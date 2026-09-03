@@ -26,12 +26,12 @@ function MyPageEdit() {
       .then((response) => response.json())
       .then((data) => {
         console.log("불러온 마이페이지 데이터:", data)
-       setUser({
-  name: data.userName || "", 
-  email: data.email || "",
-  address: data.address || "",
-  password: ""
-})
+        setUser({
+          name: data.userName || data.name || "",
+          email: data.email || "",
+          address: data.address || "",
+          password: ""
+        })
       })
       .catch((err) => console.error("마이페이지 정보 조회 에러:", err))
   }, [])
@@ -63,7 +63,7 @@ function MyPageEdit() {
   const handleUpdate = () => {
     const token = localStorage.getItem("token")
 
-    // 백엔드로 보낼 데이터 정리 (비밀번호를 입력 안 한 경우 전송 객체에서 제외)
+    // 백엔드로 보낼 데이터 정리
     const updatePayload = {
       name: user.name,
       email: user.email,
@@ -80,16 +80,7 @@ function MyPageEdit() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
       },
-<<<<<<< HEAD
-      body: JSON.stringify({
-        name: user.userName,
-        email: user.email,
-        address: user.address || ""
-
-      })
-=======
       body: JSON.stringify(updatePayload)
->>>>>>> 9d394975297a5c9c43ebf645daca86c7d230a39e
     })
       .then(async (response) => {
         if (response.ok) {
@@ -132,32 +123,6 @@ function MyPageEdit() {
       .catch((error) => console.error("Delete error:", error))
   }
 
-<<<<<<< HEAD
-// [위치: handleDelete 함수 끝나는 줄 바로 아래, return ( 바로 위]
-  const findAddress = () => {
-    const Postcode = window.kakao?.Postcode || window.daum?.Postcode;
-
-    if (!Postcode) {
-      alert("주소 검색 스크립트를 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
-      return;
-    }
-
-    new Postcode({
-      oncomplete: function (data) {
-        let selectedAddress =
-          data.userSelectedType === "R" ? data.roadAddress : data.jibunAddress;
-
-        setUser((prev) => ({
-          ...prev,
-          address: selectedAddress,
-        }));
-      },
-    }).open();
-  };
-
-  // [UI] 화면에 그려지는 부분
-=======
->>>>>>> 9d394975297a5c9c43ebf645daca86c7d230a39e
   return (
     <div className="mypage-container">
       <h1 className="mypage-title">마이페이지 수정</h1>
