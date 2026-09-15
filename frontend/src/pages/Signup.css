@@ -1,175 +1,110 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Pretendard", sans-serif;
+.signup-container {
+  padding: 40px 20px;
+  max-width: 550px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-body {
-    background: #f7f3eb;
+.signup-container h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #111;
+  font-size: 24px;
+  font-weight: 700;
 }
 
-.signup-page {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 90px;
-    padding: 40px;
+/* 폼 전체를 부가세 조회처럼 흰색 카드 박스로 만듦 */
+.signup-container form {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.signup-left {
-    width: 500px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-shrink: 0;
+/* 각 입력 필드 그룹 */
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
 }
 
-.signup-image {
-    width: 100%;
-    max-width: 500px;
+.input-field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
 }
 
-.signup-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.input-field input {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
 }
 
-.signup-card {
-    width: 560px;
-    background: white;
-    padding: 55px;
-    border-radius: 40px;
-    box-shadow: 0 20px 45px rgba(0,0,0,.08);
+.input-field input:focus {
+  border-color: #2563eb;
 }
 
-.logo {
-    text-align: center;
-    font-size: 50px;
-    color: #6b4c2b;
-    margin-bottom: 10px;
+/* 주소 입력란과 검색 버튼 가로 배치 */
+.address-wrapper {
+  display: flex;
+  gap: 8px;
+  width: 100%;
 }
 
-.sub-title {
-    text-align: center;
-    color: #888;
-    margin-bottom: 40px;
-    font-size: 18px;
+.address-wrapper input {
+  flex: 1;
 }
 
-.input-box {
-    margin-bottom: 22px;
+.address-wrapper button {
+  padding: 10px 14px;
+  background-color: #f3f4f6;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
-.input-box label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 700;
-    color: #555;
+.address-wrapper button:hover {
+  background-color: #e5e7eb;
 }
 
-.input-box input,
-.input-box textarea {
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 15px;
-    padding: 15px 18px;
-    font-size: 16px;
-    transition: .2s;
+/* 다음 주소 API창 스타일 */
+.postcode-container {
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
-.input-box input {
-    height: 58px;
+/* 가입하기 버튼 (부가세 조회 버튼과 동일한 블루톤) */
+.btn-submit {
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  width: 100%;
+  margin-top: 10px;
+  transition: background-color 0.2s;
 }
 
-.input-box textarea {
-    height: 120px;
-    resize: none;
-}
-
-.input-box input:focus,
-.input-box textarea:focus {
-    outline: none;
-    border-color: #d8b066;
-    box-shadow: 0 0 0 5px rgba(240,195,89,.25);
-}
-
-/* ID 중복확인 및 주소찾기용 행 스타일 */
-.id-input-row {
-    display: grid;
-    grid-template-columns: 1fr 100px;
-    gap: 10px;
-    width: 100%;
-}
-
-.id-input-row input {
-    width: 100%;
-    height: 58px;
-    border: 1px solid #ddd;
-    border-radius: 15px;
-    padding: 0 18px;
-    font-size: 16px;
-    transition: .2s;
-}
-
-.id-input-row button {
-    width: 100%;
-    height: 58px;
-    border: none;
-    border-radius: 15px;
-    background: #d9b36c;
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: .2s;
-}
-
-.id-input-row button:hover {
-    background: #c79d52;
-}
-
-/* 하단 큰 버튼 (회원가입/저장하기 공통 적용 가능) */
-.signup-btn,
-.save-btn {
-    width: 100%;
-    height: 60px;
-    border: none;
-    border-radius: 15px;
-    background: #f7c54d;
-    color: #4d3517;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .2s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin-top: 20px;
-}
-
-.signup-btn:hover,
-.save-btn:hover {
-    background: #efba3d;
-}
-
-.login-link {
-    margin-top: 25px;
-    text-align: center;
-    color: #888;
-}
-
-.login-link a {
-    color: #d29a20;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.login-link a:hover {
-    text-decoration: underline;
+.btn-submit:hover {
+  background-color: #1d4ed8;
 }

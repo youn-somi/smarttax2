@@ -5,6 +5,10 @@ import "./InvoiceList.css";
 
 function InvoiceList() {
     const [invoiceList, setInvoiceList] = useState([]);
+const [allInvoiceList, setAllInvoiceList] = useState([]);
+const [page, setPage] = useState(0);
+const [totalPages, setTotalPages] = useState(0);
+const [totalElements, setTotalElements] = useState(0);
     const [supplierName, setSupplierName] = useState("");
     const [customerName, setCustomerName] = useState("");
     const [searchList, setSearchList] = useState([]);
@@ -40,7 +44,7 @@ function InvoiceList() {
                         new Date(a.issueDate || 0)
                 );
 
-            setInvoiceList(sortedList);
+            setAllInvoiceList(sortedList);
 
             const currentYearList = sortedList.filter((invoice) => {
                 if (!invoice.issueDate) {
@@ -68,9 +72,43 @@ function InvoiceList() {
         }
     }
 
+    // 세금 계산서 페이징 조회
+    async function getInvoicePage(currentPage = 0) {
+        try {
+            const token = localStorage.getItem("token")
+            const response = await axios.get(
+                "http://localhost:8080/api/invoices/page",
+                {
+                    params: {page: currentPage,
+                        size: 10,
+
+                    },
+                    headers : {
+                        Authorization: "Bearer "+ token
+                    }
+                
+                }
+                
+
+            )
+            setInvoiceList(response.data.content)
+            setPage(response.data.number)
+            setTotalPages(response.data.totalPages)
+            setTotalElements(response.data.totalElements)
+        } catch (error) {
+            console.log("세금계산서 페이징 조회 실패:", error)
+        }
+        
+    }
+
+    function changePage(newPage) {
+        getInvoicePage(newPage)
+
+    }
+
     // 하나의 조회 버튼으로 조건 조회
     function searchQuarter() {
-        const filteredList = invoiceList.filter((invoice) => {
+        const filteredList = allInvoiceList.filter((invoice) => {
             if (!invoice.issueDate) {
                 return false;
             }
@@ -142,7 +180,7 @@ function InvoiceList() {
 
         const currentYear = new Date().getFullYear();
 
-        const currentYearList = invoiceList.filter((invoice) => {
+        const currentYearList = allInvoiceList.filter((invoice) => {
             if (!invoice.issueDate) {
                 return false;
             }
@@ -185,6 +223,7 @@ function InvoiceList() {
 
     useEffect(() => {
         getInvoiceList();
+        getInvoicePage()
     }, []);
 
     const displayList = (
@@ -423,6 +462,17 @@ function InvoiceList() {
                     </div>
 
                 ))}
+                <div className="invoice-pagination">
+                    {Array.from ({length: totalPages}, (_, index) => ( 
+                        <button
+                        onClick={() => changePage(index)}
+                        key={index}
+                        >
+                        {index + 1}
+                        </button>
+
+                    ))}
+                </div>
 
             </div>
     

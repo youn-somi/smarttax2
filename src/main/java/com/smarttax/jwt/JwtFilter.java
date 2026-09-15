@@ -28,35 +28,28 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String token = request.getHeader("Authorization");
 
-        if (token == null || !token.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+
+            try {
+                if (jwtProvider.validateToken(token)) {
+                    String userId = jwtProvider.getUserId(token);
+
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(
+                                    userId,
+                                    null,
+                                    Collections.emptyList()
+                            );
+
+                    SecurityContextHolder.getContext()
+                            .setAuthentication(authentication);
+                }
+            } catch (Exception e) {
+                // 토큰 검증 중 에러가 나도 필터를 중단하지 않고 통과시킴
+            }
         }
 
-        token = token.substring(7);
-
-        boolean valid = jwtProvider.validateToken(token);
-
-        System.out.println("토큰 검사 결과 = " + valid);
-
-        if (valid) {
-
-            String userId = jwtProvider.getUserId(token);
-
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(
-                            userId,
-                            null,
-                            Collections.emptyList()
-                    );
-
-            SecurityContextHolder.getContext()
-                    .setAuthentication(authentication);
-
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        filterChain.doFilter(request, response);
     }
 }

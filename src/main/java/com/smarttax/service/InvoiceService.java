@@ -3,13 +3,17 @@ package com.smarttax.service;
 import com.smarttax.dto.InvoiceRequestDto;
 import com.smarttax.entity.Invoice;
 import com.smarttax.entity.Product;
+import com.smarttax.entity.Vat;
 import com.smarttax.repository.InvoiceRepository;
 import com.smarttax.repository.ProductRepository;
+import com.smarttax.repository.VatRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -17,7 +21,7 @@ import java.util.List;
 public class InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
-
+    private final VatRepository vatRepository;
 
     // 세금계산서 + 품목 저장
     @Transactional
@@ -44,7 +48,26 @@ public class InvoiceService {
 
         invoice.setProducts(dto.getProducts());
 
+        LocalDate issueDate = dto.getIssueDate();
+
+        int year = issueDate.getYear();
+        int quarter = (issueDate.getMonthValue() - 1) / 3+1;
+
+        Vat vat = new Vat (
+                year,
+                quarter,
+                dto.getSupplyAmount(),
+                dto.getTotalAmount(),
+                LocalDateTime.now()
+
+        );
+
+        vatRepository.save(vat);
+
         return invoiceRepository.save(invoice);
+
+
+
     }
 
 
@@ -52,8 +75,10 @@ public class InvoiceService {
     public List<Invoice> findAllInvoices() {
         return invoiceRepository.findAll();
     }
-
-
+    // 세금계산서 페이징 조회
+    public  Page<Invoice> findAllInvoices(Pageable pageable) {
+        return invoiceRepository.findAll(pageable);
+    }
     // 세금계산서 상세 조회
     public Invoice findInvoiceById(Long id) {
 

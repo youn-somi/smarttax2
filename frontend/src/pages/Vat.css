@@ -1,0 +1,123 @@
+
+.vat-page {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vat-page h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 1. 필터 박스: 사진 속 흰색 카드 형태를 유지하면서 정중앙 정렬 */
+.vat-filter-box {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.vat-filter-box select,
+.vat-filter-box button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.vat-filter-box button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* 2. 테이블: 사진 속 깨지지 않던 원본 테이블 크기와 스타일 그대로 유지 */
+.vat-table {
+  width: 100%;
+  min-width: 800px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  overflow: hidden;
+  table-layout: auto;
+}
+
+.vat-table th, 
+.vat-table td {
+  padding: 14px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  white-space: nowrap;
+
+}
+
+
+.vat-table th {
+  background-color: #f8fafc;
+  color: #333;
+  font-weight: 600;
+}
+
+.no-data {
+  text-align: center;
+  color: #888;
+  padding: 40px 0;
+}
+
+/* 3. 하단 영역: 사진처럼 흩어져 있던 페이징과 홈 버튼을 깔끔하게 세로로 정돈 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.back-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 8px 20px;
+  background: #f3f4f6;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.no-column {
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  text-align: center !important;
+  white-space: nowrap !important;
+}

@@ -12,6 +12,7 @@ import "./App.css";
 import Customer from "./pages/Customer";
 import MyPage from "./pages/MyPage";
 import MyPageEdit from "./pages/MyPageEdit";
+import Vat from "./pages/Vat"
 
 function HomeButton() {
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ function App() {
         <Route path="/customers/new" element={<Customer />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/edit" element={<MyPageEdit />} />
+        <Route path="/vat" element={<Vat />} />
       </Routes>
     </>
   );

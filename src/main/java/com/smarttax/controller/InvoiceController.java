@@ -2,11 +2,14 @@ package com.smarttax.controller;
 
 import com.smarttax.dto.InvoiceRequestDto;
 import com.smarttax.entity.Invoice;
+import com.smarttax.repository.VatRepository;
 import com.smarttax.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -29,10 +32,19 @@ public class InvoiceController {
                     .body("이미 등록된 세금계산서 번호입니다.");
         }
     }
-
+    //전체 세금계산서 조회
     @GetMapping
     public List<Invoice> findAllInvoices() {
         return invoiceService.findAllInvoices();
+    }
+    //세금 계산서 페이징 조회
+    @GetMapping("/page")
+    public Page<Invoice> findAllInvoicesPage(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page,size);
+        return invoiceService.findAllInvoices(pageable);
     }
 
     @GetMapping("/{id}")

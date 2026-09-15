@@ -60,6 +60,14 @@ function Main() {
 
           <div 
           className="side-menu-item"
+          onClick={()=> navigate("/vat")}
+          >
+            <span className="side-icon">📊</span>
+            <span>부가세 조회</span>
+          </div>
+
+          <div 
+          className="side-menu-item"
           onClick={()=> navigate("/mypage")}
           >
             <span className="side-icon">👤</span>
@@ -171,6 +179,21 @@ function Main() {
               </p>
 
               <button>바로가기 →</button>
+            </div>
+
+            <div 
+            className="feature-card vat-card"
+            onClick={()=> navigate("/vat")}
+            >
+              <div className="feature-icon">📊</div>
+              <h3>부가세 조회</h3>
+              <p>
+                분기별 부가세 내역을 
+                <br />
+                조회합니다.
+              </p>
+
+              <button>바로가기 → </button>
             </div>
 
           
