@@ -12,6 +12,20 @@ function Vat() {
   const [totalPages, setTotalPages] = useState(0);
   const [year, setYear] = useState("2026");
   const [quarter, setQuarter] = useState("");
+  //등록일시 분까지만 나오게 보여주는 함수 적용
+  const formatDateTime= (dateString) => {
+    
+    if (!dateString) return "-"
+
+    if(Array.isArray(dateString)) {
+      const [y, m, d, h, min ] = dateString
+
+      return `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")} ${String(h || 0).padStart(2, "0")}:${String(min || 0).padStart(2, "0")}`;
+    }
+    return String(dateString)
+    .replace("T", " ")
+    .substring(0,16)
+  }
 
   // 부가세 목록 데이터 불러오기
   const fetchVatList = async (currentPage = 0) => {
@@ -132,9 +146,7 @@ function Vat() {
                 </td>
 
                 <td>
-                  {item.createdAt
-                    ? item.createdAt.replace("T", " ")
-                    : "-"
+                  {formatDateTime(item.createdAt)
                   }
                 </td>
 
@@ -156,28 +168,37 @@ function Vat() {
 
       </table>
 
-      {/* 페이징 버튼 영역 */}
-      <div className="pagination">
+     {/* 페이징 버튼 영역 */}
+<div className="pagination">
 
-        <button
-          disabled={page === 0}
-          onClick={() => fetchVatList(page - 1)}
-        >
-          이전
-        </button>
+  {/* 이전 버튼 */}
+  <button
+    disabled={page === 0}
+    onClick={() => fetchVatList(page - 1)}
+  >
+    이전
+  </button>
 
-        <span>
-          페이지 {page + 1} / {totalPages || 1}
-        </span>
+  {/* 페이지 번호 버튼 */}
+  {Array.from({ length: totalPages }, (_, index) => (
+    <button
+      key={index}
+      onClick={() => fetchVatList(index)}
+      className={page === index ? "active" : ""}
+    >
+      {index + 1}
+    </button>
+  ))}
 
-        <button
-          disabled={page >= totalPages - 1}
-          onClick={() => fetchVatList(page + 1)}
-        >
-          다음
-        </button>
+  {/* 다음 버튼 */}
+  <button
+    disabled={page >= totalPages - 1}
+    onClick={() => fetchVatList(page + 1)}
+  >
+    다음
+  </button>
 
-      </div>
+</div>
 
       {/* 홈으로 돌아가기 버튼 */}
       <button

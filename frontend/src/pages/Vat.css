@@ -1,123 +1,176 @@
-
 .vat-page {
-  padding: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    padding: 60px 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f8f1e5;
+    min-height: 100vh;
+    box-sizing: border-box;
+    color: #5c351c;
 }
 
 .vat-page h2 {
-  text-align: center;
-  margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 35px;
+    color: #3f2818;
+    font-size: 36px;
+    font-weight: 500;
 }
 
-/* 1. 필터 박스: 사진 속 흰색 카드 형태를 유지하면서 정중앙 정렬 */
+/* 1. 필터 박스: 다른 페이지 검색 카드와 동일한 베이지/화이트 톤 적용 */
 .vat-filter-box {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  max-width: 600px;
-  box-sizing: border-box;
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 24px;
+    box-shadow: 0 5px 18px rgba(120, 80, 30, 0.05);
+    border: 1px solid #ead8bd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
 }
 
-.vat-filter-box select,
+.vat-filter-box select {
+    height: 46px;
+    padding: 0 13px;
+    border: 1px solid #e6cfae;
+    border-radius: 10px;
+    font-size: 13px;
+    background: #fffdf9;
+    color: #5c351c;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+/* 뜬금없는 파란색 버튼을 다른 페이지 '조회' 버튼 톤으로 변경 */
 .vat-filter-box button {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
+    height: 46px;
+    padding: 0 24px;
+    background: #f9b91c;
+    color: #4b321f;
+    border: 1px solid #f1b719;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(130, 85, 20, 0.1);
 }
 
-.vat-filter-box button {
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  cursor: pointer;
+.vat-filter-box button:hover {
+    background: #f0ad12;
 }
 
-/* 2. 테이블: 사진 속 깨지지 않던 원본 테이블 크기와 스타일 그대로 유지 */
+/* 2. 테이블: 전체 톤앤매너에 맞춘 카드형 테이블 */
 .vat-table {
-  width: 100%;
-  min-width: 800px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border-collapse: collapse;
-  margin-bottom: 20px;
-  overflow: hidden;
-  table-layout: auto;
+    width: 100%;
+    min-width: 800px;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid #ead8bd;
+    box-shadow: 0 5px 18px rgba(120, 80, 30, 0.05);
+    border-collapse: collapse;
+    margin-bottom: 25px;
+    overflow: hidden;
+    table-layout: auto;
 }
 
 .vat-table th, 
 .vat-table td {
-  padding: 14px;
-  text-align: center;
-  border-bottom: 1px solid #f0f0f0;
-  font-size: 14px;
-  white-space: nowrap;
-
+    padding: 16px 14px;
+    text-align: center;
+    border-bottom: 1px solid #eadfce;
+    font-size: 13px;
+    white-space: nowrap;
 }
 
-
 .vat-table th {
-  background-color: #f8fafc;
-  color: #333;
-  font-weight: 600;
+    background-color: #fffaf0;
+    color: #765a43;
+    font-weight: 700;
+}
+
+.vat-table td {
+    color: #3f3025;
 }
 
 .no-data {
-  text-align: center;
-  color: #888;
-  padding: 40px 0;
+    text-align: center;
+    color: #b7a38f;
+    padding: 40px 0;
 }
 
-/* 3. 하단 영역: 사진처럼 흩어져 있던 페이징과 홈 버튼을 깔끔하게 세로로 정돈 */
+/* 3. 하단 영역: 칙칙했던 페이징과 홈 버튼을 다른 페이지 단추 스타일로 통일 */
 .pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 15px;
-  font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
 }
 
 .pagination button {
-  padding: 6px 12px;
-  border: 1px solid #ddd;
-  background: white;
-  border-radius: 4px;
-  cursor: pointer;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 8px;
+    background: #ffffff;
+    border: 1px solid #ead8bd;
+    border-radius: 10px;
+    color: #765a43;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(120, 80, 30, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination button:hover:not(:disabled) {
+    border-color: #d1b18d;
+    background: #fffaf0;
+    color: #9a5a25;
 }
 
 .pagination button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: #fdfbf7;
 }
 
+/* 홈으로 / 목록으로 돌아가기 버튼 */
 .back-btn {
-  display: block;
-  margin: 0 auto;
-  padding: 8px 20px;
-  background: #f3f4f6;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 46px;
+    margin: 0 auto;
+    background: #fff8e9;
+    border: 1px solid #e4b54c;
+    border-radius: 10px;
+    color: #75451f;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(130, 85, 20, 0.08);
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    background: #fef1d1;
 }
 
 .no-column {
-  width: 60px;
-  min-width: 60px;
-  max-width: 60px;
-  text-align: center !important;
-  white-space: nowrap !important;
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+    text-align: center !important;
+    white-space: nowrap !important;
 }

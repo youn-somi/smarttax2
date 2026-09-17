@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -23,8 +25,8 @@ public class CustomerController {
     }
 //조회
     @GetMapping
-    public List<Customer> findAllCustomers() {
-        return customerService.findAllCustomer();
+    public Page<Customer> findAllCustomers(Pageable pageable) {
+        return customerService.findAllCustomer(pageable);
 
     }
 

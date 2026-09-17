@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 @Service
 @RequiredArgsConstructor
@@ -18,9 +21,9 @@ public class CustomerService {
 
     }
     //조회
-    public List<Customer> findAllCustomer(){
-        return customerRepository.findAll();
-    }
+   public  Page<Customer> findAllCustomer(Pageable pageable) {
+        return customerRepository.findAll(pageable);
+   }
     //없음
     public  Customer findCustomerById(Long id) {
         return customerRepository.findById(id)

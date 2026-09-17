@@ -57,7 +57,11 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/api/ai-chat",
                                 "/api/vats",
-                                "/api/vats/**"
+                                "/api/vats/**",
+                                "/api/invoices",
+                                "/api/invoices/**",
+                                "/api/invoices/page"
+
                         ).permitAll()
                         // 그 외 모든 요청은 인증 필요
                         .anyRequest().authenticated()

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import "./InvoiceEdit.css"
 
 function InvoiceEdit() {
   const { id } = useParams();
