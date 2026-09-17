@@ -1,373 +1,357 @@
-.invoice-list-page {
-    width: 100%;
-    min-height: 100vh;
-    box-sizing: border-box;
-    padding: 60px 40px;
-    background: #f8f1e5;
-    color: #5c351c;
-    overflow-x: hidden;
-}
+.invoice-list-page { 
+    width: 100%; 
+    min-height: 100vh; 
+    box-sizing: border-box; 
+    padding: 60px 40px; 
+    background: #f8f1e5; 
+    color: #5c351c; 
+    overflow-x: hidden; 
+} 
+ 
+.invoice-list-container { 
+    width: 100%; 
+    max-width: 1000px; 
+    margin: 0 auto; 
+    box-sizing: border-box; 
+} 
+ 
+.invoice-list-header { 
+    display: flex; 
+    align-items: flex-start; 
+    justify-content: space-between; 
+    gap: 30px; 
+    margin-bottom: 35px; 
+} 
+ 
+.invoice-list-small-title { 
+    margin: 0 0 5px; 
+    color: #c28a00; 
+    font-size: 13px; 
+    font-weight: 700; 
+    letter-spacing: 5px; 
+} 
+ 
+.invoice-list-header h1 { 
+    margin: 0; 
+    color: #3f2818; 
+    font-size: 40px; 
+    font-weight: 500; 
+} 
+ 
+.invoice-list-count { 
+    margin: 5px 0 0; 
+    color: #a58c78; 
+    font-size: 14px; 
+} 
+ 
+.invoice-add-button { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    min-width: 155px; 
+    height: 56px; 
+    padding: 0 20px; 
+    box-sizing: border-box; 
+    border-radius: 13px; 
+    background: #f9b91c; 
+    color: #4b321f; 
+    font-size: 14px; 
+    font-weight: 700; 
+    text-decoration: none; 
+    box-shadow: 0 8px 18px rgba(130, 85, 20, 0.12); 
+} 
+ 
+ 
+/* ========================= 
+   통합 조회 영역 
+   ========================= */ 
+ 
+.invoice-list-search-card { 
+    width: 100%; 
+    min-height: 100px; 
+    padding: 24px; 
+    box-sizing: border-box; 
+ 
+    display: grid; 
+    grid-template-columns: 
+        minmax(150px, 1fr) 
+        minmax(150px, 1fr) 
+        125px 
+        110px 
+        70px 
+        100px; 
+ 
+    align-items: center; 
+    gap: 10px; 
+ 
+    margin-bottom: 18px; 
+ 
+    background: #ffffff; 
+    border-radius: 24px; 
+    box-shadow: 0 5px 18px rgba(120, 80, 30, 0.05); 
+} 
+ 
+.invoice-list-search-card input, 
+.invoice-list-search-card select { 
+    width: 100%; 
+    height: 46px; 
+    min-width: 0; 
+    box-sizing: border-box; 
+ 
+    border: 1px solid #e6cfae; 
+    border-radius: 10px; 
+ 
+    background: #fffdf9; 
+    color: #5c351c; 
+ 
+    padding: 0 13px; 
+ 
+    font-size: 13px; 
+    outline: none; 
+} 
+ 
+.invoice-list-search-card input::placeholder { 
+    color: #b49d8a; 
+} 
+ 
+.invoice-list-search-card input:focus, 
+.invoice-list-search-card select:focus { 
+    border-color: #9a5a25; 
+} 
+ 
+.invoice-list-search-card select { 
+    cursor: pointer; 
+    text-align: center; 
+    font-weight: 600; 
+} 
+ 
+.invoice-search-button, 
+.invoice-all-button { 
+    width: 100%; 
+    height: 46px; 
+    border-radius: 10px; 
+    font-size: 13px; 
+    font-weight: 700; 
+    cursor: pointer; 
+    box-sizing: border-box; 
+} 
+ 
+.invoice-search-button { 
+    border: 1px solid #e4b54c; 
+    background: #fff8e9; 
+    color: #75451f; 
+} 
+ 
+.invoice-all-button { 
+    border: 1px solid #f1b719; 
+    background: #f9b91c; 
+    color: #4b321f; 
+} 
+ 
+.invoice-total-amount { 
+    grid-column: 1 / -1; 
+ 
+    width: 100%; 
+    min-height: 42px; 
+    padding: 10px 15px; 
+    box-sizing: border-box; 
+ 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 8px; 
+ 
+    border: 1px solid #e6cfae; 
+    border-radius: 10px; 
+ 
+    background: #fffaf0; 
+} 
+ 
+.invoice-total-amount span { 
+    color: #765a43; 
+    font-size: 13px; 
+} 
+ 
+.invoice-total-amount strong { 
+    color: #9a5a25; 
+    font-size: 16px; 
+} 
+ 
+ 
+/* ========================= 
+   세금계산서 목록 카드 구조 
+   ========================= */ 
+ 
+.invoice-item { 
+    position: relative;
+    width: 100%; 
+    min-height: 135px; 
+    padding: 22px 24px; 
+    box-sizing: border-box; 
+ 
+    display: grid; 
+    grid-template-columns: 50px 140px 1fr 110px; 
+    align-items: center; 
+    gap: 15px; 
+ 
+    margin-bottom: 16px; 
+ 
+    background: #ffffff; 
+    border: 1px solid #ead8bd; 
+    border-radius: 24px; 
+} 
 
-.invoice-list-container {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    box-sizing: border-box;
-}
-
-.invoice-list-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 30px;
-    margin-bottom: 35px;
-}
-
-.invoice-list-small-title {
-    margin: 0 0 5px;
-    color: #c28a00;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 5px;
-}
-
-.invoice-list-header h1 {
-    margin: 0;
-    color: #3f2818;
-    font-size: 40px;
-    font-weight: 500;
-}
-
-.invoice-list-count {
-    margin: 5px 0 0;
-    color: #a58c78;
-    font-size: 14px;
-}
-
-.invoice-add-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 155px;
-    height: 56px;
-    padding: 0 20px;
-    box-sizing: border-box;
-    border-radius: 13px;
-    background: #f9b91c;
-    color: #4b321f;
-    font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    box-shadow: 0 8px 18px rgba(130, 85, 20, 0.12);
-}
-
-
-/* =========================
-   통합 조회 영역
-   ========================= */
-
-.invoice-list-search-card {
-    width: 100%;
-    min-height: 100px;
-    padding: 24px;
-    box-sizing: border-box;
-
-    display: grid;
-    grid-template-columns:
-        minmax(150px, 1fr)
-        minmax(150px, 1fr)
-        125px
-        110px
-        70px
-        100px;
-
-    align-items: center;
-    gap: 10px;
-
-    margin-bottom: 18px;
-
-    background: #ffffff;
-    border-radius: 24px;
-    box-shadow: 0 5px 18px rgba(120, 80, 30, 0.05);
-}
-
-.invoice-list-search-card input,
-.invoice-list-search-card select {
-    width: 100%;
-    height: 46px;
-    min-width: 0;
-    box-sizing: border-box;
-
-    border: 1px solid #e6cfae;
-    border-radius: 10px;
-
-    background: #fffdf9;
-    color: #5c351c;
-
-    padding: 0 13px;
-
-    font-size: 13px;
-    outline: none;
-}
-
-.invoice-list-search-card input::placeholder {
-    color: #b49d8a;
-}
-
-.invoice-list-search-card input:focus,
-.invoice-list-search-card select:focus {
-    border-color: #9a5a25;
-}
-
-.invoice-list-search-card select {
-    cursor: pointer;
-    text-align: center;
-    font-weight: 600;
-}
-
-.invoice-search-button,
-.invoice-all-button {
-    width: 100%;
-    height: 46px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    box-sizing: border-box;
-}
-
-.invoice-search-button {
-    border: 1px solid #e4b54c;
-    background: #fff8e9;
-    color: #75451f;
-}
-
-.invoice-all-button {
-    border: 1px solid #f1b719;
-    background: #f9b91c;
-    color: #4b321f;
-}
-
-.invoice-total-amount {
-    grid-column: 1 / -1;
-
-    width: 100%;
-    min-height: 42px;
-    padding: 10px 15px;
-    box-sizing: border-box;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-
-    border: 1px solid #e6cfae;
-    border-radius: 10px;
-
-    background: #fffaf0;
-}
-
-.invoice-total-amount span {
-    color: #765a43;
-    font-size: 13px;
-}
-
-.invoice-total-amount strong {
-    color: #9a5a25;
-    font-size: 16px;
-}
-
-
-/* =========================
-   세금계산서 목록
-   ========================= */
-
-.invoice-item {
-    width: 100%;
-    min-height: 135px;
-    padding: 22px 28px;
-    box-sizing: border-box;
-
-    display: grid;
-    grid-template-columns: 150px 1fr 110px;
-    align-items: center;
-    gap: 20px;
-
-    margin-bottom: 16px;
-
-    background: #ffffff;
-    border: 1px solid #ead8bd;
-    border-radius: 24px;
-}
-
-.invoice-number-box {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.invoice-number-box span:first-child {
-    color: #b7a38f;
-    font-size: 12px;
-}
-
-.invoice-number-box a {
-    color: #b47700;
-    font-size: 26px;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.invoice-number-box span:last-child {
-    color: #aa9581;
-    font-size: 12px;
-}
-
-.invoice-info {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    min-width: 0;
-}
-
-.invoice-info > div {
-    min-width: 0;
-    padding: 0 14px;
-    border-left: 1px solid #eadfce;
-
+.invoice-no {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    align-items: center;
+    justify-content: center;
+    color: #8f765f;
+    font-size: 18px;
+    font-weight: 700;
+    border-right: 1px solid #eadfce;
+    height: 100%;
 }
-
-.invoice-info > div:first-child {
-    border-left: none;
-}
-
-.invoice-info span {
-    color: #b7a38f;
-    font-size: 11px;
-}
-
-.invoice-info strong {
-    color: #3f3025;
-    font-size: 13px;
+ 
+.invoice-number-box { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 4px; 
+} 
+ 
+.invoice-number-box span:first-child { 
+    color: #b7a38f; 
+    font-size: 12px; 
+} 
+ 
+.invoice-number-box a { 
+    color: #b47700; 
+    font-size: 20px; 
+    font-weight: 700; 
+    text-decoration: none; 
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.invoice-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.invoice-edit-button,
-.invoice-delete-button {
-    width: 100%;
-    height: 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    box-sizing: border-box;
-    border-radius: 10px;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.invoice-edit-button {
-    border: none;
-    background: #f8c84d;
-    color: #4b321f;
-}
-
-.invoice-delete-button {
-    border: 1px solid #ff6b5f;
-    background: #ffffff;
-    color: #e65348;
-}
-
-
-/* =========================
-   화면이 좁아질 때
-   ========================= */
-
-@media (max-width: 900px) {
-
-    .invoice-list-page {
-        padding: 40px 20px;
-    }
-
-    .invoice-list-header {
-        flex-direction: column;
-    }
-
-    .invoice-add-button {
-        align-self: flex-end;
-    }
-
-    .invoice-list-search-card {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .invoice-total-amount {
-        grid-column: 1 / -1;
-    }
-
-    .invoice-item {
-        grid-template-columns: 1fr;
-    }
-
-    .invoice-info {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px 0;
-    }
-
-    .invoice-info > div:nth-child(4) {
-        border-left: none;
-    }
-
-    .invoice-actions {
-        flex-direction: row;
-    }
-
-    .invoice-edit-button,
-    .invoice-delete-button {
-        flex: 1;
-    }
-}
+} 
+ 
+.invoice-number-box span:last-child { 
+    color: #aa9581; 
+    font-size: 12px; 
+} 
+ 
+.invoice-info { 
+    display: grid; 
+    grid-template-columns: repeat(5, 1fr); 
+    min-width: 0; 
+} 
+ 
+.invoice-info > div { 
+    min-width: 0; 
+    padding: 0 10px; 
+    border-left: 1px solid #eadfce; 
+ 
+    display: flex; 
+    flex-direction: column; 
+    gap: 5px; 
+} 
+ 
+.invoice-info > div:first-child { 
+    border-left: none; 
+} 
+ 
+.invoice-info span { 
+    color: #b7a38f; 
+    font-size: 11px; 
+} 
+ 
+.invoice-info strong { 
+    color: #3f3025; 
+    font-size: 13px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+} 
+ 
+.invoice-actions { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+} 
+ 
+.invoice-edit-button, 
+.invoice-delete-button { 
+    width: 100%; 
+    height: 40px; 
+ 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+ 
+    box-sizing: border-box; 
+    border-radius: 10px; 
+ 
+    font-size: 13px; 
+    font-weight: 700; 
+ 
+    cursor: pointer; 
+    text-decoration: none; 
+} 
+ 
+.invoice-edit-button { 
+    border: none; 
+    background: #f8c84d; 
+    color: #4b321f; 
+} 
+ 
+.invoice-delete-button { 
+    border: 1px solid #ff6b5f; 
+    background: #ffffff; 
+    color: #e65348; 
+} 
 
 
-@media (max-width: 600px) {
+/* ========================= 
+   페이지네이션 스타일 (.invoice-pagination 연동)
+   ========================= */ 
 
-    .invoice-list-page {
-        padding: 30px 12px;
-    }
+.invoice-pagination { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 8px; 
+    margin: 35px 0 20px 0; 
+} 
 
-    .invoice-list-header h1 {
-        font-size: 32px;
-    }
+.invoice-page-btn { 
+    min-width: 38px; 
+    height: 38px; 
+    padding: 0 8px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
 
-    .invoice-list-search-card {
-        grid-template-columns: 1fr;
-        padding: 18px;
-    }
+    background: #ffffff; 
+    border: 1px solid #ead8bd; 
+    border-radius: 10px; 
 
-    .invoice-total-amount {
-        grid-column: auto;
-    }
+    color: #765a43; 
+    font-size: 14px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    box-shadow: 0 2px 6px rgba(120, 80, 30, 0.04); 
+    transition: all 0.2s ease; 
+} 
 
-    .invoice-info {
-        grid-template-columns: 1fr 1fr;
-    }
+.invoice-page-btn:hover { 
+    border-color: #d1b18d; 
+    background: #fffaf0; 
+    color: #9a5a25; 
+} 
 
-    .invoice-info > div {
-        border-left: none;
-    }
+.invoice-page-btn.active { 
+    background: #f9b91c; 
+    border-color: #f1b719; 
+    color: #4b321f; 
+    font-weight: 700; 
+    box-shadow: 0 4px 10px rgba(130, 85, 20, 0.12); 
 }

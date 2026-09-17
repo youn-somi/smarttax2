@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import "./InvoiceDetail.css";
 
 function InvoiceDetail() {
   const { id } = useParams();
@@ -22,7 +23,6 @@ function InvoiceDetail() {
         if (!response.ok) {
           throw new Error("세금계산서를 불러오지 못했습니다.");
         }
-
         return response.json();
       })
       .then((data) => {
@@ -39,49 +39,115 @@ function InvoiceDetail() {
   }, [id]);
 
   if (loading) {
-    return <div>불러오는 중...</div>;
+    return <div className="invoice-detail-page">불러오는 중...</div>;
   }
 
   if (!invoice) {
-    return <div>세금계산서가 없습니다.</div>;
+    return <div className="invoice-detail-page">세금계산서가 없습니다.</div>;
   }
 
   return (
-    <div>
-      <h1>세금계산서 상세</h1>
+    <div className="invoice-detail-page">
+      <div className="invoice-detail-container">
+        
+        {/* 상단 헤더 */}
+        <div className="invoice-detail-header">
+          <p className="invoice-detail-small-title">SMART TAX</p>
+          <h1>세금계산서 상세</h1>
+        </div>
 
-      <div>
-        <p>세금계산서 번호: {invoice.invoiceNumber}</p>
-        <p>발행일: {invoice.issueDate}</p>
-        <p>공급자: {invoice.supplierName}</p>
-        <p>공급받는자: {invoice.customerName}</p>
-        <p>공급가액: {invoice.supplyAmount}</p>
-        <p>세액: {invoice.taxAmount}</p>
-        <p>총금액: {invoice.totalAmount}</p>
-        <p>상태: {invoice.status}</p>
-        <p>메모: {invoice.memo}</p>
-
-        <h2>품목</h2>
-
-        {invoice.products &&
-          invoice.products.map((product) => (
-            <div key={product.id}>
-              <p>상품명: {product.productName}</p>
-              <p>수량: {product.quantity}</p>
-              <p>단가: {product.unitPrice}</p>
-              <p>공급가액: {product.supplyAmount}</p>
-              <p>세액: {product.taxAmount}</p>
+        {/* 상세 정보 카드 */}
+        <div className="invoice-detail-card">
+          <div className="invoice-info-grid">
+            <div className="invoice-info-item">
+              <span>세금계산서 번호</span>
+              <strong>{invoice.invoiceNumber}</strong>
             </div>
-          ))}
+            <div className="invoice-info-item">
+              <span>발행일</span>
+              <strong>{invoice.issueDate}</strong>
+            </div>
+            <div className="invoice-info-item">
+              <span>공급자</span>
+              <strong>{invoice.supplierName}</strong>
+            </div>
+            <div className="invoice-info-item">
+              <span>공급받는자</span>
+              <strong>{invoice.customerName}</strong>
+            </div>
+            <div className="invoice-info-item">
+              <span>공급가액</span>
+              <strong>{Number(invoice.supplyAmount || 0).toLocaleString()} 원</strong>
+            </div>
+            <div className="invoice-info-item">
+              <span>세액</span>
+              <strong>{Number(invoice.taxAmount || 0).toLocaleString()} 원</strong>
+            </div>
+            <div className="invoice-info-item">
+              <span>총금액</span>
+              <strong>{Number(invoice.totalAmount || 0).toLocaleString()} 원</strong>
+            </div>
+            <div className="invoice-info-item">
+              <span>상태</span>
+              <strong>{invoice.status}</strong>
+            </div>
+            <div className="invoice-info-item invoice-memo-box">
+              <span>메모</span>
+              <strong>{invoice.memo || "없음"}</strong>
+            </div>
+          </div>
+
+          {/* 품목 섹션 */}
+          <div className="invoice-products-section">
+            <h2>품목 목록</h2>
+            {invoice.products && invoice.products.length > 0 ? (
+              invoice.products.map((product) => (
+                <div className="product-item-card" key={product.id}>
+                  <div className="product-field">
+                    <span>상품명</span>
+                    <strong>{product.productName}</strong>
+                  </div>
+                  <div className="product-field">
+                    <span>수량</span>
+                    <strong>{product.quantity}</strong>
+                  </div>
+                  <div className="product-field">
+                    <span>단가</span>
+                    <strong>{Number(product.unitPrice || 0).toLocaleString()} 원</strong>
+                  </div>
+                  <div className="product-field">
+                    <span>공급가액</span>
+                    <strong>{Number(product.supplyAmount || 0).toLocaleString()} 원</strong>
+                  </div>
+                  <div className="product-field">
+                    <span>세액</span>
+                    <strong>{Number(product.taxAmount || 0).toLocaleString()} 원</strong>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p style={{ color: "#b7a38f", fontSize: "13px" }}>등록된 품목이 없습니다.</p>
+            )}
+          </div>
+        </div>
+
+        {/* 하단 버튼 */}
+        <div className="invoice-detail-actions">
+          <button 
+            className="invoice-detail-edit-btn" 
+            onClick={() => navigate(`/invoice/${id}/edit`)}
+          >
+            수정
+          </button>
+          <button 
+            className="invoice-detail-back-btn" 
+            onClick={() => navigate(-1)}
+          >
+            목록으로
+          </button>
+        </div>
+
       </div>
-
-      <button onClick={() => navigate(`/invoice/${id}/edit`)}>
-  수정
-</button>
-
-<button onClick={() => navigate(-1)}>
-  목록으로
-</button>
     </div>
   );
 }

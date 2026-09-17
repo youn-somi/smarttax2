@@ -1,0 +1,170 @@
+.invoice-detail-page {
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 60px 40px;
+    background: #f8f1e5;
+    color: #5c351c;
+    display: flex;
+    justify-content: center;
+}
+
+.invoice-detail-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.invoice-detail-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.invoice-detail-small-title {
+    margin: 0 0 5px;
+    color: #c28a00;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 5px;
+}
+
+.invoice-detail-header h1 {
+    margin: 0;
+    color: #3f2818;
+    font-size: 36px;
+    font-weight: 500;
+}
+
+/* 메인 정보 카드 박스 */
+.invoice-detail-card {
+    background: #ffffff;
+    border: 1px solid #ead8bd;
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: 0 5px 18px rgba(120, 80, 30, 0.05);
+    margin-bottom: 25px;
+    box-sizing: border-box;
+}
+
+/* 항목들을 반듯하게 잡아주는 그리드 */
+.invoice-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.invoice-info-item {
+    background: #fffdf9;
+    border: 1px solid #f0e4d0;
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-sizing: border-box;
+}
+
+.invoice-info-item span {
+    color: #b7a38f;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.invoice-info-item strong {
+    color: #3f3025;
+    font-size: 15px;
+    font-weight: 600;
+    min-height: 20px; /* 데이터가 비어있어도 박스 높이가 찌그러지지 않게 유지 */
+}
+
+/* 메모 박스 (전체 너비 사용) */
+.invoice-memo-box {
+    grid-column: 1 / -1;
+    background: #fffaf0;
+    border: 1px solid #e6cfae;
+}
+
+/* 품목 섹션 */
+.invoice-products-section {
+    margin-top: 35px;
+    border-top: 1px solid #eadfce;
+    padding-top: 25px;
+}
+
+.invoice-products-section h2 {
+    color: #3f2818;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.product-item-card {
+    background: #fffdf9;
+    border: 1px solid #e6cfae;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    align-items: center;
+}
+
+.product-field {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.product-field span {
+    color: #b7a38f;
+    font-size: 11px;
+}
+
+.product-field strong {
+    color: #5c351c;
+    font-size: 13px;
+}
+
+/* 하단 버튼 영역 */
+.invoice-detail-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.invoice-detail-edit-btn,
+.invoice-detail-back-btn {
+    width: 140px;
+    height: 46px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.invoice-detail-edit-btn {
+    border: none;
+    background: #f9b91c;
+    color: #4b321f;
+    box-shadow: 0 4px 12px rgba(130, 85, 20, 0.1);
+}
+
+.invoice-detail-back-btn {
+    border: 1px solid #e4b54c;
+    background: #fff8e9;
+    color: #75451f;
+}
+
+@media (max-width: 768px) {
+    .invoice-info-grid {
+        grid-template-columns: 1fr;
+    }
+    .product-item-card {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

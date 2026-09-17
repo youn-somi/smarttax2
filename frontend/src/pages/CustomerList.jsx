@@ -5,6 +5,9 @@ import "./CustomerList.css";
 
 function CustomerList() {
   const [customerList, setCustomerList] = useState([]);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalElements, setTotalElements] = useState(0);
 
   // 고객 목록 조회
   async function getCustomerList() {
@@ -14,17 +17,21 @@ function CustomerList() {
       const response = await axios.get(
         "http://localhost:8080/api/customers",
         {
+          params: {
+            page: page,
+            size: 10,
+          },
+
           headers: {
             Authorization: "Bearer " + token,
           },
         }
       );
 
-      if (Array.isArray(response.data)) {
-        setCustomerList(response.data);
-      } else {
-        setCustomerList([]);
-      }
+      setCustomerList(response.data.content || []);
+      setTotalPages(response.data.totalPages || 0);
+      setTotalElements(response.data.totalElements || 0);
+
     } catch (error) {
       console.log("고객 목록 조회 실패:", error);
       setCustomerList([]);
@@ -55,7 +62,7 @@ function CustomerList() {
   // 화면이 처음 열릴 때 고객 목록 조회
   useEffect(() => {
     getCustomerList();
-  }, []);
+  }, [page]);
 
   return (
     <div className="customer-list-page">
@@ -73,7 +80,7 @@ function CustomerList() {
             <h1>고객 목록</h1>
 
             <p className="customer-list-count">
-              전체 {customerList.length}건
+              전체 {totalElements}건
             </p>
 
           </div>
@@ -97,12 +104,19 @@ function CustomerList() {
 
           ) : (
 
-            customerList.map((customer) => (
+            customerList.map((customer, index) => (
 
               <div
                 className="customer-item"
                 key={customer.id}
               >
+                  <div className="customer-sequence">
+                    <span> NO </span>
+                    <strong>
+                      {page * 10 + index +1}
+            
+                    </strong>
+                    </div>
 
                 <div className="customer-number">
 
@@ -179,10 +193,41 @@ function CustomerList() {
 
         </div>
 
+        {/* 페이지 버튼 */}
+        <div className="customer-pagination">
+
+          {/* 이전 버튼 */}
+          <button
+            onClick={() => setPage(page - 1)}
+            disabled={page === 0}
+          >
+            이전
+          </button>
+
+          {/* 페이지 번호 */}
+          {Array.from({ length: totalPages }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setPage(index)}
+              className={`customer-page-btn ${page === index ? "active" : ""}`}
+            >
+              {index + 1}
+            </button>
+          ))}
+
+          <button
+          onClick={()=> setPage(page +1)}
+          disabled={page >= totalPages -1}
+          > 다음
+          </button>
+
+        </div>
+
       </div>
 
     </div>
   );
+
 }
 
 export default CustomerList;
