@@ -1,0 +1,60 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: 🏠
+      - heading "SmartTax" [level=1] [ref=e8]
+  - generic [ref=e10]:
+    - complementary [ref=e11]:
+      - generic [ref=e12] [cursor=pointer]:
+        - generic [ref=e13]: ⌂
+        - generic [ref=e14]: 홈
+      - generic [ref=e15] [cursor=pointer]:
+        - generic [ref=e16]: 🧾
+        - generic [ref=e17]: 세금계산서 등록
+      - generic [ref=e18] [cursor=pointer]:
+        - generic [ref=e19]: 📋
+        - generic [ref=e20]: 세금계산서 조회
+      - generic [ref=e21] [cursor=pointer]:
+        - generic [ref=e22]: 📊
+        - generic [ref=e23]: 부가세 조회
+      - generic [ref=e24] [cursor=pointer]:
+        - generic [ref=e25]: 👥
+        - generic [ref=e26]: 고객 관리
+      - generic [ref=e27] [cursor=pointer]:
+        - generic [ref=e28]: 👤
+        - generic [ref=e29]: 마이페이지
+      - generic [ref=e30] [cursor=pointer]:
+        - generic [ref=e31]: 🚪
+        - generic [ref=e32]: 로그아웃
+    - main [ref=e33]:
+      - generic [ref=e35]:
+        - paragraph [ref=e36]: S M A R T T A X
+        - heading [level=2] [ref=e37]:
+          - text: 쉽고 빠른
+          - strong [ref=e38]: 세금계산서 관리
+        - paragraph [ref=e39]: SmartTax와 함께 세금계산서 업무를더 쉽고 편하게 관리해보세요.
+      - generic [ref=e40]:
+        - generic [ref=e41] [cursor=pointer]:
+          - generic [ref=e42]: 🧾
+          - heading "세금계산서 등록" [level=3] [ref=e43]
+          - paragraph [ref=e44]: 새로운 세금계산서를등록합니다.
+          - button "바로가기 →" [ref=e45]
+        - generic [ref=e46] [cursor=pointer]:
+          - generic [ref=e47]: 🔎
+          - heading "세금계산서 조회" [level=3] [ref=e48]
+          - paragraph [ref=e49]: 등록된 세금계산서를조회합니다.
+          - button "바로가기 →" [ref=e50]
+        - generic [ref=e51] [cursor=pointer]:
+          - generic [ref=e52]: 📊
+          - heading "부가세 조회" [level=3] [ref=e53]
+          - paragraph [ref=e54]: 분기별 부가세 내역을조회합니다.
+          - button "바로가기 →" [ref=e55]
+        - generic [ref=e56] [cursor=pointer]:
+          - generic [ref=e57]: 👥
+          - heading "고객 목록" [level=3] [ref=e58]
+          - paragraph [ref=e59]: 등록된 고객을조회합니다.
+          - button "바로가기 →" [ref=e60]
+      - generic [ref=e61]:
+        - generic [ref=e62]: 💡
+        - generic [ref=e63]: SmartTax는 쉽고 편리한 세금계산서 관리를 도와드립니다.
+        - generic [ref=e64]: SmartTax

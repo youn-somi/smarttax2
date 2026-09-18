@@ -28,6 +28,8 @@ public class InvoiceRequestDto {
 
     private String status;
 
+    private String invoiceType;
+
     private String memo;
 
     private List<Product> products = new ArrayList<>();

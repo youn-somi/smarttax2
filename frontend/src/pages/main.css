@@ -109,7 +109,7 @@ body {
 
   margin-top: 18px;
 
-  min-height: calc(100vh - 132px);
+  min-height: calc(100vh - 204px);
 }
 
 
@@ -333,19 +333,14 @@ body {
 
 
 /* =========================
-   기능 카드 전체
+   기능 카드 전체 (grid로 전환!)
 ========================= */
 
 .menu-grid {
   width: 100%;
-
-  display: flex;
-
-  align-items: stretch;
-
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
-
-  flex-wrap: nowrap;
 }
 
 
@@ -354,13 +349,11 @@ body {
 ========================= */
 
 .feature-card {
-  min-width: 0;
-
   min-height: 255px;
 
   border-radius: 22px;
 
-  padding: 28px 18px 22px;
+  padding: 28px 22px 22px;
 
   text-align: center;
 
@@ -377,8 +370,6 @@ body {
   flex-direction: column;
 
   align-items: center;
-
-  flex-shrink: 1;
 }
 
 .feature-card:hover {
@@ -391,22 +382,18 @@ body {
 
 /* =========================
    세금계산서 등록
-   → 가장 큰 카드
 ========================= */
 
-.invoice-card {
-  flex: 2 1 0;
-
+.register-card {
   background: #fffaf0;
-
   border-color: #f2dca8;
 }
 
-.invoice-card .feature-icon {
+.register-card .feature-icon {
   background: #fff0c9;
 }
 
-.invoice-card button {
+.register-card button {
   background: #e9a62e;
 }
 
@@ -416,10 +403,7 @@ body {
 ========================= */
 
 .search-card {
-  flex: 1.3 1 0;
-
   background: #f4f8ff;
-
   border-color: #d3e1f5;
 }
 
@@ -429,8 +413,6 @@ body {
 
 .search-card button {
   background: #4d98df;
-
-  transform: translateY(-35px);
 }
 
 
@@ -438,20 +420,35 @@ body {
    고객 목록
 ========================= */
 
-.customer-card {
-  flex: 1 1 0;
-
+.customer-menu-card {
   background: #f5f9f0;
-
   border-color: #d7e3c8;
 }
 
-.customer-card .feature-icon {
+.customer-menu-card .feature-icon {
   background: #e1efd4;
 }
 
-.customer-card button {
+.customer-menu-card button {
   background: #769263;
+}
+
+
+/* =========================
+   부가세 조회
+========================= */
+
+.vat-card {
+  background: #fdf3f3;
+  border-color: #ecd5d5;
+}
+
+.vat-card .feature-icon {
+  background: #f7e3e3;
+}
+
+.vat-card button {
+  background: #c76b6b;
 }
 
 
@@ -461,21 +458,13 @@ body {
 
 .feature-icon {
   width: 82px;
-
   height: 82px;
-
   flex-shrink: 0;
-
   border-radius: 24px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   font-size: 45px;
-
   margin-bottom: 18px;
 }
 
@@ -486,14 +475,9 @@ body {
 
 .feature-card h3 {
   width: 100%;
-
   margin: 0;
-
   font-size: 20px;
-
   color: #4f4033;
-
-  white-space: nowrap;
 }
 
 
@@ -503,17 +487,11 @@ body {
 
 .feature-card p {
   width: 100%;
-
   margin: 10px 0 20px;
-
   color: #8a7b6e;
-
   line-height: 1.6;
-
   font-size: 14px;
-
   flex: 1;
-
   word-break: keep-all;
 }
 
@@ -524,20 +502,15 @@ body {
 
 .feature-card button {
   width: 100%;
-
   border: none;
-
   border-radius: 25px;
-
   padding: 12px;
-
   color: white;
-
   font-size: 15px;
-
   font-weight: bold;
-
   cursor: pointer;
+  white-space: nowrap;
+  margin-top: auto;
 }
 
 
@@ -547,33 +520,23 @@ body {
 
 .main-footer {
   height: 52px;
-
   margin-top: 20px;
-
   border-radius: 18px;
-
   background: #faf5ec;
-
   display: flex;
-
   align-items: center;
-
   padding: 0 22px;
-
   color: #806f5d;
-
   font-size: 13px;
 }
 
 .footer-lightbulb {
   font-size: 20px;
-
   margin-right: 10px;
 }
 
 .footer-right {
   margin-left: auto;
-
   color: #a39484;
 }
 
@@ -602,12 +565,7 @@ body {
 
   .feature-card {
     padding-left: 12px;
-
     padding-right: 12px;
-  }
-
-  .feature-card h3 {
-    font-size: 16px;
   }
 
   .feature-card p {
@@ -632,16 +590,15 @@ body {
 
   .side-menu {
     width: 100%;
-
     flex-direction: row;
-
     align-items: center;
-
     overflow-x: auto;
+    flex-wrap: wrap;
   }
 
   .side-menu-item {
     white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .side-line,
@@ -658,16 +615,7 @@ body {
   }
 
   .menu-grid {
-    flex-wrap: wrap;
-  }
-
-  .invoice-card {
-    flex: 1 1 100%;
-  }
-
-  .search-card,
-  .customer-card {
-    flex: 1 1 calc(50% - 7px);
+    grid-template-columns: repeat(2, minmax(0, 1fr))
   }
 }
 
@@ -686,9 +634,14 @@ body {
     padding: 0 15px;
   }
 
-  .header-user {
+  .header-logo span {
     display: none;
   }
+
+  .header-user span {
+    display: none;
+  }
+
 
   .main-body {
     padding: 15px;
@@ -696,7 +649,6 @@ body {
 
   .main-hero {
     min-height: 260px;
-
     padding: 30px;
   }
 
@@ -704,8 +656,7 @@ body {
     font-size: 30px;
   }
 
-  .search-card,
-  .customer-card {
-    flex: 1 1 100%;
+  .menu-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
