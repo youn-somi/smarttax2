@@ -50,20 +50,21 @@ function Main() {
             <span>세금계산서 조회</span>
           </div>
 
-          <div
-            className="side-menu-item"
-            onClick={() => navigate("/customers")}
-          >
-            <span className="side-icon">👥</span>
-            <span>고객 관리</span>
-          </div>
-
+    
           <div 
           className="side-menu-item"
           onClick={()=> navigate("/vat")}
           >
             <span className="side-icon">📊</span>
             <span>부가세 조회</span>
+          </div>
+
+            <div
+            className="side-menu-item"
+            onClick={() => navigate("/customers")}
+          >
+            <span className="side-icon">👥</span>
+            <span>고객 관리</span>
           </div>
 
           <div 
@@ -129,7 +130,7 @@ function Main() {
           <section className="menu-grid">
             {/* 세금계산서 등록 */}
             <div
-              className="feature-card invoice-card"
+              className="feature-card register-card"
               onClick={() => navigate("/invoice")}
             >
               <div className="feature-icon">🧾</div>
@@ -163,23 +164,6 @@ function Main() {
               <button>바로가기 →</button>
             </div>
 
-            {/* 고객 목록 */}
-            <div
-              className="feature-card customer-card"
-              onClick={() => navigate("/customers")}
-            >
-              <div className="feature-icon">👥</div>
-
-              <h3>고객 목록</h3>
-
-              <p>
-                등록된 고객을
-                <br />
-                조회합니다.
-              </p>
-
-              <button>바로가기 →</button>
-            </div>
 
             <div 
             className="feature-card vat-card"
@@ -194,6 +178,25 @@ function Main() {
               </p>
 
               <button>바로가기 → </button>
+            </div>
+
+            
+            {/* 고객 목록 */}
+            <div
+              className="feature-card customer-menu-card"
+              onClick={() => navigate("/customers")}
+            >
+              <div className="feature-icon">👥</div>
+
+              <h3>고객 목록</h3>
+
+              <p>
+                등록된 고객을
+                <br />
+                조회합니다.
+              </p>
+
+              <button>바로가기 →</button>
             </div>
 
           

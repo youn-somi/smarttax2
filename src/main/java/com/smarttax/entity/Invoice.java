@@ -37,6 +37,8 @@ public class Invoice {
 
     private String status;
 
+    private String invoiceType;
+
     private String memo;
 
     @Builder.Default

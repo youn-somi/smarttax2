@@ -41,6 +41,7 @@ public class InvoiceService {
         invoice.setSupplyAmount(dto.getSupplyAmount());
         invoice.setStatus(dto.getStatus());
         invoice.setMemo(dto.getMemo());
+        invoice.setInvoiceType(dto.getInvoiceType());
 
         for (Product product : dto.getProducts()) {
             product.setInvoice(invoice);
@@ -103,6 +104,7 @@ public class InvoiceService {
         findInvoice.setSupplyAmount(invoice.getSupplyAmount());
         findInvoice.setStatus(invoice.getStatus());
         findInvoice.setMemo(invoice.getMemo());
+        findInvoice.setInvoiceType(invoice.getInvoiceType());
 
         if (invoice.getProducts() != null) {
 

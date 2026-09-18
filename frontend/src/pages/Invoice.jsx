@@ -20,6 +20,7 @@ function Invoice() {
   const [taxAmount, setTaxAmount] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
   const [memo, setMemo] = useState("");
+  const [invoiceType, setInvoiceType] = useState("GENERAL")
 
   const { id } = useParams();
 
@@ -80,7 +81,11 @@ function Invoice() {
 
     console.log("거래처 목록:", response.data);
 
-    setCustomerList(response.data);
+    const list = Array.isArray(response.data)
+    ? response.data
+    : response.data.content || [];
+
+    setCustomerList(list)
   }
 
   // 화면이 처음 열릴 때 실행
@@ -91,7 +96,29 @@ function Invoice() {
       getInvoice();
     }
   }, []);
+  //공급가액 + 유형으로 세액/ 총금액 계산 
 
+  function calculateAmounts(amount, type) {
+    const num = Number(amount);
+    setInvoiceType(type)
+    setSupplyAmount(amount)
+
+    if(!amount || isNaN(num)) {
+      setTaxAmount("")
+        setTotalAmount("") 
+        return
+      
+    }
+    if(type === "GENERAL") {
+      const tax = Math.round(num * 0.1)
+      setTaxAmount(tax)
+      setTotalAmount(num + tax)
+    } else {
+      setTaxAmount(0)
+      setTotalAmount(num)
+    }
+    
+  }
   // 공급자 선택
   function handleSupplierChange(e) {
     const selectedSupplierName = e.target.value;
@@ -132,6 +159,7 @@ function Invoice() {
             taxAmount: taxAmount,
             totalAmount: totalAmount,
             memo: memo,
+            invoiceType: invoiceType,
           },
           {
             headers: {
@@ -151,6 +179,7 @@ function Invoice() {
             taxAmount: taxAmount,
             totalAmount: totalAmount,
             memo: memo,
+            invoiceType: invoiceType,
           },
           {
             headers: {
@@ -196,6 +225,49 @@ function Invoice() {
           <p className="invoice-sub">세금계산서 등록</p>
 
           <div className="form-grid">
+              <div className="form-group full type-select">
+                 <span className="type-title"> 계산서 유형 </span>
+              <div className="type-row">
+                <label>
+                  <input
+                  type="radio"
+                  name="invoiceType"
+                  value="GENERAL"
+                  checked={invoiceType === "GENERAL"}
+                  onChange={(e) => calculateAmounts(supplyAmount, e.target.value)}
+                  />
+                  일반과세
+                </label>
+                
+                <label>
+                  <input
+                  type="radio"
+                  name="invoiceType"
+                  value={"TAX_FREE"}
+                  checked={invoiceType === "TAX_FREE"}
+                  onChange={(e)=> calculateAmounts(supplyAmount, e.target.value)}
+                  />
+                  면세
+                
+                </label>
+
+                <label>
+                  <input
+                  type="radio"
+                  name="invoiceType"
+                  value="ZERO_RATE"
+                  checked={invoiceType === "ZERO_RATE"}
+                  onChange={(e)=> calculateAmounts(supplyAmount, e.target.value)}
+                  />
+                  영세율
+                </label>
+
+
+              </div>
+              </div>
+
+
+
             <div className="form-group">
               <label>세금계산서 번호</label>
               <input
@@ -205,6 +277,8 @@ function Invoice() {
                 onChange={(e) => setInvoiceNumber(e.target.value)}
               />
             </div>
+
+            
 
             <div className="form-group">
               <label>발행일</label>
@@ -296,19 +370,8 @@ function Invoice() {
                 placeholder="공급가액"
                 value={supplyAmount}
                 onChange={(e) => {
-                  const value = e.target.value;
-                  setSupplyAmount(value);
-
-                  const tax = value
-                    ? Math.round(Number(value) * 0.1)
-                    : "";
-                  setTaxAmount(tax);
-
-                  const total = value
-                    ? Number(value) + tax
-                    : "";
-                  setTotalAmount(total);
-                }}
+  calculateAmounts(e.target.value, invoiceType);
+}}
               />
             </div>
 

@@ -1,0 +1,22 @@
+(() => {
+  const out = [];
+  const vw = document.documentElement.clientWidth;
+  const walk = (el) => {
+    const r = el.getBoundingClientRect();
+    if (r.right > vw + 2 && el.children.length < 12) {
+      out.push({
+        tag: el.tagName,
+        cls: (el.className || "").toString().slice(0, 60),
+        right: Math.round(r.right),
+        w: Math.round(r.width),
+      });
+    }
+    [...el.children].forEach(walk);
+  };
+  walk(document.body);
+  return JSON.stringify({
+    vw,
+    scrollW: document.documentElement.scrollWidth,
+    bad: out.slice(0, 12),
+  });
+})();
