@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { data, useNavigate } from "react-router-dom"
 import DaumPostcode from "react-daum-postcode"
 import "./Signup.css"
 
@@ -12,7 +12,32 @@ function Signup() {
     address: ""
   })
   const [isAddressOpen, setIsAddressOpen] = useState(false)
+  const [userIdChecked, setUserIdChecked] = useState(false)
+  const [userIdMessage, setUserIdMessage] = useState("")
   const navigate = useNavigate()
+
+  const handleCheckUserId = () => {
+    if (formData.userId === "") {
+      alert ("아이디를 먼저 입력해주세요.")
+      return
+    }
+
+    fetch(`/api/users/check-userId?userId=${formData.userId}`)
+    .then ((res)=> res.json())
+    .then ((data) =>  {
+      if(data === true) {
+        setUserIdChecked(false)
+        setUserIdMessage("이미 사용 중인 아이디입니다.")
+        alert("이미 사용 중인 아이디입니다.")
+      } else {
+        setUserIdChecked(true)
+        setUserIdMessage("사용 가능한 아이디입니다.")
+        alert("사용 가능한 아이디입니다.")
+      }
+    })
+    .catch((err) => console.error("check error:", err))
+  }
+
 
   const handleChange = (e) => {
     const { name, value } = e.target

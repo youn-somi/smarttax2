@@ -1,89 +1,96 @@
-/* 레이아웃 중앙 배치 */
+/* 전체 배경 및 폰트 톤 통일 (세금계산서 페이지와 동일) */
+body {
+  background-color: #f7f3ed;
+  color: #333333;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  margin: 0;
+}
+
+/* 전체 감싸는 Wrapper */
 .mypage-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 75vh;
+  min-height: 90vh;
   padding: 20px;
-}
-
-/* 카드 본체 */
-.mypage-card {
-  width: 100%;
-  max-width: 420px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
-  padding: 36px 28px;
   box-sizing: border-box;
 }
 
-/* 타이틀 */
+/* 마이페이지 중앙 카드 박스 (세금계산서 등록 화면 카드와 완벽 일치) */
+.mypage-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eae2d0;
+  padding: 40px;
+  width: 100%;
+  max-width: 550px;
+  box-sizing: border-box;
+}
+
+/* 타이틀 스타일 */
 .mypage-title {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #2c2c2c;
   text-align: center;
-  margin-top: 0;
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 }
 
-/* 정보 영역 그룹 */
-.mypage-content {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
+/* 정보 그룹 간격 */
 .info-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  text-align: left;
+  margin-bottom: 20px;
 }
 
+/* 라벨 스타일 */
 .info-label {
-  font-size: 13px;
+  display: block;
   font-weight: 600;
-  color: #666666;
-  margin-left: 2px;
+  font-size: 13px;
+  color: #555555;
+  margin-bottom: 8px;
 }
 
-/* 정보 박스 (입력창 느낌의 깔끔한 박스) */
+/* 인풋창처럼 생긴 정보 표시 박스 */
 .info-box {
   width: 100%;
-  padding: 12px 14px;
-  font-size: 15px;
-  color: #222222;
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
+  padding: 12px 16px;
+  border: 1px solid #e2d9cd;
+  border-radius: 10px;
+  background-color: #faf8f5;
+  font-size: 14px;
+  color: #333333;
   box-sizing: border-box;
-  word-break: keep-all;
-  line-height: 1.4;
 }
 
-/* 버튼 */
+/* 네가 기존에 썼던 버튼 클래스 이름 그대로 매칭 */
 .btn-edit-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  margin-top: 10px;
-  padding: 14px;
-  font-size: 15px;
-  font-weight: 600;
+  padding: 14px 20px;
+  margin-top: 30px;
+  background-color: #f6b93b; /* 세금계산서 메인 포인트 노란색 */
   color: #ffffff;
-  background-color: #4f46e5;
-  border: none;
+  font-weight: 600;
+  font-size: 15px;
   border-radius: 10px;
   cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 10px rgba(246, 185, 59, 0.3);
   transition: background-color 0.2s ease;
+  box-sizing: border-box;
 }
 
 .btn-edit-action:hover {
-  background-color: #4338ca;
+  background-color: #e5a829;
 }
 
+/* 로딩 텍스트 */
 .loading-text {
   text-align: center;
   color: #777777;
   font-size: 14px;
+  padding: 20px 0;
 }
