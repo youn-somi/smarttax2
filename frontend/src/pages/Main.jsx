@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function Main() {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token")
 
   return (
     <div className="main-page">
@@ -80,17 +81,17 @@ function Main() {
           <div
             className="side-menu-item logout-side"
             onClick={() => {
-                console.log("로그아웃 전:", localStorage.getItem("token"));
+              if (token) {
+                localStorage.removeItem("token")
+                navigate("/login", {replace: true})
 
-                localStorage.removeItem("token");
-
-                console.log("로그아웃 후:", localStorage.getItem("token"));
-
-                navigate("/login", { replace: true });
+              } else {
+                navigate("/login")
+              }
               }}
           >
-            <span className="side-icon">🚪</span>
-            <span>로그아웃</span>
+            <span className="side-icon">{token ? "🚪" : "🔑"}</span>
+            <span>{token ? "로그아웃" : "로그인"} </span>
           </div>
 
           {/* 왼쪽 아래 일러스트 */}

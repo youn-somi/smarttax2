@@ -77,4 +77,27 @@ public class UserService {
                         new RuntimeException("사용자를 찾을 수 없습니다."));
 
     }
+
+    public String  findUserIdByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(()->
+                                new RuntimeException("해당 이메일로 가입된 회원이 없습니다.") );
+                return maskUuerId(user.getUserId());
+    }
+    private String maskUuerId(String userId) {
+        int keepLength = Math.min(2, userId.length() -1);
+        String masked = userId.substring(0, keepLength);
+        masked = masked + "*".repeat(Math.max(3, userId.length() - keepLength));
+        return  masked;
+
+    }
+    public String resetPassword(String userId, String email){
+        User user = userRepository.findByUserIdAndEmail(userId, email)
+                .orElseThrow(()-> new RuntimeException("아이디 또는 이메일이 일치하지 않습니다."));
+        String tempPassword = "tmp" + (int)(Math.random() * 90000 + 10000);
+        user.setPassword(passwordEncoder.encode(tempPassword));
+        userRepository.save(user);
+        return  tempPassword;
+
+    }
 }

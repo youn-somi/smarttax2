@@ -131,3 +131,41 @@ body{
 .signup a:hover{
     text-decoration:underline;
 }
+
+/* 아이디 찾기 / 비밀번호 찾기 링크 */
+.find-links{
+    margin-top:14px;
+    display:flex;
+    justify-content:center;
+    gap:24px;
+}
+
+.find-links a{
+    color:#d29a20;
+    text-decoration:none;
+    font-weight:700;
+    font-size:14px;
+}
+
+.find-links a:hover{
+    text-decoration:underline;
+}
+
+/* 로그인으로 돌아가기 링크 스타일 */
+.back-link-box {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.back-link-box a {
+    color: #8c7360;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    transition: .2s;
+}
+
+.back-link-box a:hover {
+    color: #d29a20;
+    text-decoration: underline;
+}

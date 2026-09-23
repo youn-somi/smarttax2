@@ -89,6 +89,11 @@ function Login() {
           <div className="signup">
             계정이 없으신가요? <Link to="/signup">회원가입</Link>
           </div>
+          <div className="find-links">
+            <Link to="/find-id">아이디 찾기</Link>
+            <Link to="/find-password">비밀번호 찾기</Link>
+
+          </div>
         </div>
       </div>
     </div>
