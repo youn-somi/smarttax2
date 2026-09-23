@@ -1,5 +1,6 @@
 package com.smarttax.controller;
 
+import com.smarttax.dto.FindPasswordRequestDto;
 import com.smarttax.dto.UserLoginRequestDto;
 import com.smarttax.dto.UserSignupRequestDto;
 import com.smarttax.jwt.JwtProvider;
@@ -38,6 +39,15 @@ public class UserController {
     {
         boolean exists_id = userService.checkUserId(userId);
         return exists_id;
+    }
+    @GetMapping("/find-userId")
+    public String findUserId(@RequestParam String email) {
+        return userService.findUserIdByEmail(email);
+    }
+
+    @PostMapping("/find-password")
+    public String findPasswod(@RequestBody FindPasswordRequestDto dto) {
+        return userService.resetPassword(dto.getUsesId(), dto.getEmail());
     }
 
     @GetMapping("/me")

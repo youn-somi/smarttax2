@@ -13,6 +13,8 @@ import Customer from "./pages/Customer";
 import MyPage from "./pages/MyPage";
 import MyPageEdit from "./pages/MyPageEdit";
 import Vat from "./pages/Vat"
+import FindPassword from "./pages/FindPassword";
+import FindId from "./pages/Findld";
 
 function HomeButton() {
   const navigate = useNavigate();
@@ -57,6 +59,9 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/edit" element={<MyPageEdit />} />
         <Route path="/vat" element={<Vat />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/find-password" element={<FindPassword />} />
+        <Route path="/find-id" element={<FindId />} />
       </Routes>
     </>
   );
