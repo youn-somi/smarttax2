@@ -2,6 +2,7 @@ package com.smarttax.controller;
 
 import com.smarttax.dto.InvoiceRequestDto;
 import com.smarttax.entity.Invoice;
+import com.smarttax.repository.InvoiceRepository;
 import com.smarttax.repository.VatRepository;
 import com.smarttax.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
@@ -124,5 +125,10 @@ public class InvoiceController {
             @RequestParam int quarter
     ){
         return invoiceService.getQuarterAmount(year, quarter);
+    }
+
+    @GetMapping("/check-invoiceNumber")
+    public boolean checkInvoiceNumber (@RequestParam String  invoiceNumber) {
+        return invoiceService.checkInvoiceNumber(invoiceNumber);
     }
 }

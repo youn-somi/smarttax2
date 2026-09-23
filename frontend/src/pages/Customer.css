@@ -20,7 +20,7 @@
 .customer-small-title {
   margin: 0 0 8px;
   text-align: center;
-  color: #6f3f1d;
+  color: #b57900;
   font-size: 17px;
   font-weight: 600;
   letter-spacing: 5px;
@@ -29,7 +29,7 @@
 .customer-card h1 {
   margin: 0;
   text-align: center;
-  color: #6f3f1d;
+  color: #171717;
   font-size: 48px;
   line-height: 1.2;
   font-weight: 700;
@@ -38,7 +38,7 @@
 .customer-subtitle {
   margin: 10px 0 55px;
   text-align: center;
-  color: #6f3f1d;
+  color: #aaa08f;
   font-size: 16px;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .customer-group label {
-  color: #6f3f1d;
+  color: #b57900;
   font-size: 18px;
   font-weight: 600;
 }
@@ -70,16 +70,43 @@
   height: 56px;
   padding: 0 18px;
   box-sizing: border-box;
-  border: 1px solid #c98b5a;
+  border: 1px solid #ead9b8;
   border-radius: 10px;
   background: #fffdfa;
-  color: #6f3f1d;
+  color: #28231c;
   font-size: 16px;
   outline: none;
 }
 
 .customer-group input:focus {
-  border-color: #7b471f;
+  border-color: #e0a106;
+}
+
+/* 사업자번호 + 중복확인 버튼용 레이아웃 */
+.business-row {
+  display: flex;
+  gap: 15px;
+}
+
+.business-row input {
+  flex: 1;
+}
+
+.duplicate-check-button {
+  width: 135px !important;
+  height: 56px !important;
+  flex: none !important;
+  border: none !important;
+  border-radius: 10px !important;
+  background: #f5b91d !important;
+  color: #3f300c !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+}
+
+.duplicate-check-button:hover {
+  background: #e9aa09 !important;
 }
 
 .address-row {
@@ -97,11 +124,15 @@
   flex: none !important;
   border: none !important;
   border-radius: 10px !important;
-  background: #7b471f !important;
-  color: #ffffff !important;
+  background: #f5b91d !important;
+  color: #3f300c !important;
   font-size: 17px !important;
   font-weight: 600 !important;
   cursor: pointer;
+}
+
+.address-search-button:hover {
+  background: #e9aa09 !important;
 }
 
 .customer-card .customer-actions {
@@ -127,21 +158,21 @@
 }
 
 .customer-card .customer-actions .customer-save-button {
-  border: 1px solid #7b471f !important;
-  background: #7b471f !important;
-  color: #ffffff !important;
+  border: 1px solid #e9aa09 !important;
+  background: #f5b91d !important;
+  color: #3f300c !important;
 }
 
 .customer-card .customer-actions .customer-cancel-button {
-  border: 2px solid #7b471f !important;
-  background: #ffffff !important;
-  color: #7b471f !important;
+  border: 2px solid #e9aa09 !important;
+  background: #fffaf0 !important;
+  color: #b57900 !important;
 }
 
 .customer-card .customer-actions .customer-save-button:hover {
-  background: #653915 !important;
+  background: #e9aa09 !important;
 }
 
 .customer-card .customer-actions .customer-cancel-button:hover {
-  background: #f8f1e6 !important;
+  background: #fffaf0 !important;
 }

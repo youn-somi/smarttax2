@@ -50,4 +50,15 @@ public class CustomerController {
     ) {
         customerService.deleteCustomer(id);
     }
+
+    //고개명 검색
+    @GetMapping("/search")
+    public List<Customer> findByCompanyName(@RequestParam String  companyName) {
+        return customerService.findByCompanyName(companyName);
+    }
+    //고객 사업자 번호 중복 확인
+    @GetMapping("/check-businessNumber")
+    public boolean checkBusinessNumber( @RequestParam String businessNumber) {
+        return customerService.checkBusinessNumber(businessNumber);
+    }
 }

@@ -23,6 +23,11 @@ public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private final VatRepository vatRepository;
 
+    //세금계산서번호 중복 확인
+    public boolean checkInvoiceNumber(String invoiceNumbere) {
+        return invoiceRepository.existsByInvoiceNumber(invoiceNumbere);
+    }
+
     // 세금계산서 + 품목 저장
     @Transactional
     public Invoice saveInvoice(InvoiceRequestDto dto) {

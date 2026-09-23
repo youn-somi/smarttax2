@@ -8,6 +8,9 @@ function CustomerList() {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [totalElements, setTotalElements] = useState(0);
+  const [searchName, setSearchName] =useState("")
+  const [isSearching, setIsSearching] = useState(false)
+
 
   // 고객 목록 조회
   async function getCustomerList() {
@@ -37,6 +40,42 @@ function CustomerList() {
       setCustomerList([]);
     }
   }
+  //고객명 검색
+  async function searchCustomer() {
+    if(searchName ==="") {
+      alert("검색할 고객명을 입력해주세요.")
+      return
+    }
+    try {
+      const token = localStorage.getItem("token")
+
+      const response = await axios.get(
+        "http://localhost:8080/api/customers/search?companyName=" + searchName,
+        {
+          headers : {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      setCustomerList(response.data)
+      setIsSearching(true)
+      setPage(0)
+    } catch(error) {
+      console.log("고객 검색 실패:", error)
+      alert("검색에 실패했습니다.")
+    }
+  }
+
+  // 검색 초기화
+  async function clearSearch() {
+    setSearchName("")
+    setIsSearching(false)
+    setPage(0)
+    getCustomerList()
+  }
+
+
 
   // 고객 삭제
   async function deleteCustomer(id) {
@@ -92,6 +131,21 @@ function CustomerList() {
             + 거래처 등록
           </Link>
 
+        </div>
+
+        {/* 고개명검색 */}
+        <div className="customer-search-bar">
+          <input
+          type="text"
+          placeholder="고객명을 입력하세요"
+          value={searchName}
+          onChange={(e)=> setSearchName(e.target.value)}
+          />
+          <button onClick= {searchCustomer} > 검색 </button>
+          {isSearching && (
+            <button onClick={clearSearch}>전체목록</button>
+          )
+          }
         </div>
 
         <div className="customer-list-card">
@@ -192,10 +246,10 @@ function CustomerList() {
           )}
 
         </div>
-
-        {/* 페이지 버튼 */}
+        {!isSearching && (
+      
         <div className="customer-pagination">
-
+             {/* 페이지 버튼 */}
           {/* 이전 버튼 */}
           <button
             onClick={() => setPage(page - 1)}
@@ -222,7 +276,7 @@ function CustomerList() {
           </button>
 
         </div>
-
+        )}
       </div>
 
     </div>

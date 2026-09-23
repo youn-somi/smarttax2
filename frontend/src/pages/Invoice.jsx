@@ -21,8 +21,33 @@ function Invoice() {
   const [totalAmount, setTotalAmount] = useState("");
   const [memo, setMemo] = useState("");
   const [invoiceType, setInvoiceType] = useState("GENERAL")
-
+  const [invoiceNumberChecked, setInvoiceNumberChecked] = useState(false)
+  const [invoiceNumberMessage, setInvoiceNumberMessage] = useState("")
   const { id } = useParams();
+  
+ async function checkInvoiceNumber() {
+  if (invoiceNumber === "") {
+    alert("세금계산서 번호를 먼저 입력해주세요.");
+    return;
+  }
+
+  try {
+    const response = await axios.get(
+      "http://localhost:8080/api/invoices/check-invoiceNumber?invoiceNumber=" + invoiceNumber
+    );
+
+    if (response.data === true) {
+      setInvoiceNumberChecked(false);
+      alert("이미 사용 중인 번호입니다.");
+    } else {
+      setInvoiceNumberChecked(true);
+      alert("사용 가능한 번호입니다.");
+    }
+  } catch (error) {
+    console.log("중복확인 실패:", error);
+    alert("중복확인에 실패했습니다.");
+  }
+}
 
   // 주소 찾기 함수 (window.kakao 및 window.daum 모두 지원 예외처리)
   function findAddress() {
@@ -144,6 +169,10 @@ function Invoice() {
 
   // 세금계산서 저장 / 수정
   async function saveInvoice() {
+    if(!id && !invoiceNumberChecked) {
+      alert("중복확인을 해주세요.")
+      return
+    }
     const token = localStorage.getItem("token");
 
     try {
@@ -270,12 +299,22 @@ function Invoice() {
 
             <div className="form-group">
               <label>세금계산서 번호</label>
-              <input
+             
+              <div style={{display: "flex", gap: "8px"}}>
+                <input 
                 type="text"
                 placeholder="번호 입력"
                 value={invoiceNumber}
-                onChange={(e) => setInvoiceNumber(e.target.value)}
-              />
+                onChange={(e)=> setInvoiceNumber(e.target.value)}
+                style={{ flex: 1}} />
+                <button 
+                className="check-btn"
+                type="button"
+                onClick={checkInvoiceNumber}
+                > 
+                중복확인
+                </button>
+              </div>
             </div>
 
             
