@@ -306,3 +306,46 @@
         flex: 1;
     }
 }
+
+/* 고객명 검색창 */
+.customer-search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+}
+
+.customer-search-bar input {
+    width: 220px; /* 320px에서 더 줄여서 아담하게 고정 */
+    flex: none;
+    height: 48px;
+    padding: 0 18px;
+    border: 1px solid #ead9b8;
+    border-radius: 10px;
+    background: #fffdf9;
+    color: #28231c;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.customer-search-bar input:focus {
+    border-color: #e0a106;
+}
+
+.customer-search-bar button {
+    min-width: 90px;
+    height: 48px;
+    border: none;
+    border-radius: 10px;
+    background: #f5b91d;
+    color: #3f300c;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.customer-search-bar button:hover {
+    background: #e9aa09;
+}

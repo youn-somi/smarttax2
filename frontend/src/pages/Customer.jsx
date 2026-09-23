@@ -11,6 +11,9 @@ function Customer() {
   const [businessNumber, setBusinessNumber] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [businessNumberChecked, setBusinessNumberChecked] = useState(false)
+  const [businessNumberMessage, setBusinessNumberMessage] =useState("")
+    
 
   // 주소 찾기 함수 (window.kakao 및 window.daum 모두 지원 예외처리)
   function findAddress() {
@@ -31,7 +34,39 @@ function Customer() {
     }).open();
   }
 
+  //사업자번호 중복 확인
+  async function checkBusinessNumber() {
+    if(businessNumber === "") {
+      alert("사업자번호를 먼저 입력해주세요.")
+      return
+    } try {
+      const response =  await axios.get(
+        "http://localhost:8080/api/customers/check-businessNumber?businessNumber=" + businessNumber)
+      if(response.data === true ) {
+        setBusinessNumberChecked(false)
+        alert("이미 등록된 사업자번호입니다.")
+      }  else {
+        setBusinessNumberChecked(true)
+        alert("사용 가능한 사업자번호입니다.")
+      }
+    }
+       catch (error) {
+        console.log("중복확인 실패:", error)
+        alert("중복확인에 실패했습니다.")
+      }
+    }
+    
+  
+
   async function saveCustomer() {
+    if(businessNumber === "" ) {
+      alert("사업자번호를 입력해주세요.")
+      return
+    }
+    if(!businessNumberChecked) {
+      alert("사업자번호 중복확인을 해주세요.")
+      return
+    }
     try {
       const token = localStorage.getItem("token");
 
@@ -88,13 +123,21 @@ function Customer() {
 
           <div className="customer-group">
             <label>사업자번호</label>
+             <div className="address-row">
             <input
               type="text"
               value={businessNumber}
               onChange={(e) => setBusinessNumber(e.target.value)}
             />
+            <button
+            type="button"
+            className="address-search-button"
+            onClick={checkBusinessNumber}
+            > 
+            중복확인
+            </button>
           </div>
-
+        </div>
           <div className="customer-group">
             <label>전화번호</label>
             <input

@@ -15,11 +15,20 @@ import org.springframework.data.domain.Pageable;
 
 public class CustomerService {
     private final CustomerRepository customerRepository;
+    //고객 사업자번호 중복확인
+    public boolean checkBusinessNumber(String  businessNumber) {
+        return customerRepository.existsByBusinessNumber(businessNumber);
+    }
 
     public Customer saveCustomer(Customer customer) {
         return  customerRepository.save(customer);
 
     }
+    //고객명 검색
+    public List<Customer> findByCompanyName(String companyName) {
+        return customerRepository.findByCompanyName(companyName);
+    }
+
     //조회
    public  Page<Customer> findAllCustomer(Pageable pageable) {
         return customerRepository.findAll(pageable);

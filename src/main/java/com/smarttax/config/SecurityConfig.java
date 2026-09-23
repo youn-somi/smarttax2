@@ -61,7 +61,9 @@ public class SecurityConfig {
                                 "/api/vats/**",
                                 "/api/invoices",
                                 "/api/invoices/**",
+                                "/api/customers/**",
                                 "/api/invoices/page"
+
 
                         ).permitAll()
                         // 그 외 모든 요청은 인증 필요
