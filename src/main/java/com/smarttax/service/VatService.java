@@ -24,4 +24,9 @@ public class VatService {
 
         return VatResponseDto.from(vatPage);
     }
+    //조건에 맞는 부가세(세액) 합계조회
+    public Long getVatSum(Integer year, Integer quarter) {
+        Long sum = vatRepository.sumVatAmount(year, quarter);
+        return sum != null? sum : 0L;
+    }
 }

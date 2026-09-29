@@ -16,4 +16,11 @@ public interface VatRepository extends JpaRepository<Vat, Long> {
             @Param("quarter") Integer quarter,
             Pageable pageable
     );
+    // 조건에 맞는 부가세(세액) 합계
+    @Query("SELECT SUM(v.vatAmount) FROM Vat v WHERE (:year IS NULL OR v.year = :year) AND (:quarter IS NULL OR v.quarter = :quarter)")
+    Long sumVatAmount(
+            @Param("year") Integer year,
+            @Param("quarter") Integer quarter
+    );
+    void deleteByInvoice_id(Long invoiceId);
 }

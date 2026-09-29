@@ -178,6 +178,7 @@ function InvoiceList() {
   // 세금계산서 삭제
   async function deleteInvoice(id) {
     try {
+      if(!window.confirm("정말 삭제하시겠습니까?")) return
       const token = localStorage.getItem("token");
 
       await axios.delete("http://localhost:8080/api/invoices/" + id, {
@@ -187,6 +188,7 @@ function InvoiceList() {
       });
 
       getInvoiceList();
+      getInvoicePage(page);
     } catch (error) {
       console.log("세금계산서 삭제 실패:", error);
     }

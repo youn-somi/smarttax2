@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import com.smarttax.entity.Invoice;
 
 @Entity
 @Getter
@@ -25,6 +28,10 @@ public class Vat {
     private Long vatAmount;
     private LocalDateTime createdAt;
 
+    @ManyToOne
+    @JoinColumn(name = "invoice_id")
+    private Invoice invoice;
+
     public Vat (
             int year,
             int quarter,
@@ -37,6 +44,10 @@ public class Vat {
         this.amount=amount;
         this.vatAmount=vatAmount;
         this.createdAt=createdAt;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice=invoice;
     }
 
 

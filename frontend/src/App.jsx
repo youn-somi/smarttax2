@@ -15,6 +15,7 @@ import MyPageEdit from "./pages/MyPageEdit";
 import Vat from "./pages/Vat"
 import FindPassword from "./pages/FindPassword";
 import FindId from "./pages/Findld";
+import ProtectedRoute from "./ProtectedRoute";
 
 function HomeButton() {
   const navigate = useNavigate();
@@ -43,22 +44,41 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/main" element={<Main />} />
+        <Route path="/main" element={
+          <ProtectedRoute>
+          <Main />
+          </ProtectedRoute>} />
 
-        <Route path="/invoice-list" element={<InvoiceList />} />
+        <Route path="/invoice-list" element={
+          <ProtectedRoute>
+            <InvoiceList />
+          </ProtectedRoute>
+        } />
 
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/invoice/:id" element={<InvoiceDetail />} />
         <Route path="/invoice/:id/edit" element={<Invoice />}
 />
 
-        <Route path="/customers" element={<CustomerList />} />
+           <Route path="/customers" element={
+          <ProtectedRoute>
+            <CustomerList />
+          </ProtectedRoute>
+        } />
         <Route path="/customers/:id" element={<CustomerDetail />} />
         <Route path="/customers/:id/edit" element={<CustomerEdit />} />
         <Route path="/customers/new" element={<Customer />} />
-        <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage" element={
+          <ProtectedRoute>
+            <MyPage />
+          </ProtectedRoute>
+        } />
         <Route path="/mypage/edit" element={<MyPageEdit />} />
-        <Route path="/vat" element={<Vat />} />
+         <Route path="/vat" element={
+          <ProtectedRoute>
+            <Vat />
+          </ProtectedRoute>
+        } />
         <Route path="/login" element={<Login />} />
         <Route path="/find-password" element={<FindPassword />} />
         <Route path="/find-id" element={<FindId />} />
