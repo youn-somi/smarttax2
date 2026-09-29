@@ -6,6 +6,7 @@ import com.smarttax.repository.InvoiceRepository;
 import com.smarttax.repository.VatRepository;
 import com.smarttax.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
@@ -44,7 +45,10 @@ public class InvoiceController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        Pageable pageable = PageRequest.of(page,size);
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by(Sort.Direction.DESC, "issueDate"));
         return invoiceService.findAllInvoices(pageable);
     }
 

@@ -28,4 +28,12 @@ public class VatController {
 
 
     }
+    //부가세 합꼐 조회
+    @GetMapping("/sum")
+    public Long getVatSum(
+            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) Integer quarter
+    ) {
+        return vatService.getVatSum(year, quarter);
+    }
 }

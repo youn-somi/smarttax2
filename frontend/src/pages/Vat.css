@@ -174,3 +174,15 @@
     text-align: center !important;
     white-space: nowrap !important;
 }
+
+/* 부가세 합계 표시 */
+.vat-sum-label {
+    margin-left: 12px;
+    padding: 10px 18px;
+    background: #fff8e6;
+    border: 1px solid #f1b719;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #5c351c;
+}

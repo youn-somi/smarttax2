@@ -12,6 +12,8 @@ function Vat() {
   const [totalPages, setTotalPages] = useState(0);
   const [year, setYear] = useState("2026");
   const [quarter, setQuarter] = useState("");
+  const [vatSum, setVatSum] = useState(0);
+
   //등록일시 분까지만 나오게 보여주는 함수 적용
   const formatDateTime= (dateString) => {
     
@@ -58,9 +60,33 @@ function Vat() {
       );
     }
   };
+  //부가세 합계 조회
+  const fetchVatSum = async ( selectedYear = year, selectedQuarter = quarter )=> {
+    try {
+      const token = localStorage.getItem("token")
+
+      const response = await axios.get (
+        "http://localhost:8080/api/vats/sum",
+        {
+          headers: {
+            Authorization : `Bearer ${token}`
+          },
+          params : {
+            year: selectedYear || null,
+            quarter : selectedQuarter || null
+          }
+        }
+      )
+      setVatSum(response.data || 0)
+    }
+    catch (error) {
+      console.error("부가세 합계 조회 실패 : ", error)
+    }
+  }
 
   useEffect(() => {
     fetchVatList(0);
+    fetchVatSum()
   }, []);
 
   return (
@@ -98,10 +124,13 @@ function Vat() {
         </select>
 
         {/* 조회 버튼 */}
-        <button onClick={() => fetchVatList(0)}>
+        <button onClick={() => { fetchVatList(0); fetchVatSum();}}>
           조회
         </button>
-
+        {/* 부가세 합계 표시 */}
+        <span className="vat-sum-label">
+          합계: {vatSum.toLocaleString()}원
+        </span>
       </div>
 
       {/* 부가세 목록 */}

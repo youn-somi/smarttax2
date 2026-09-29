@@ -80,6 +80,7 @@ function CustomerList() {
   // 고객 삭제
   async function deleteCustomer(id) {
     try {
+      if (!window.confirm("정말 삭제하시겠습니까?")) return
       const token = localStorage.getItem("token");
 
       await axios.delete(

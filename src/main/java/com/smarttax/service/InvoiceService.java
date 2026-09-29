@@ -68,9 +68,10 @@ public class InvoiceService {
 
         );
 
+        Invoice savedInvoice = invoiceRepository.save(invoice);
+        vat.setInvoice(savedInvoice);
         vatRepository.save(vat);
-
-        return invoiceRepository.save(invoice);
+        return savedInvoice;
 
 
 
@@ -125,8 +126,11 @@ public class InvoiceService {
     }
 
 
-    // 세금계산서 삭제
+    // 세금계산서 삭제 (+연결된 부가세도 같이 삭제)
+    @Transactional
     public void deleteInvoice(Long id) {
+
+        vatRepository.deleteByInvoice_id(id);
         invoiceRepository.deleteById(id);
     }
 
