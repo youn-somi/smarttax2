@@ -11,6 +11,8 @@ function Customer() {
   const [businessNumber, setBusinessNumber] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [email, setmail] =useState("");
+  const [managerName, setManagerName] = useState("");
   const [businessNumberChecked, setBusinessNumberChecked] = useState(false)
   const [businessNumberMessage, setBusinessNumberMessage] =useState("")
     
@@ -51,8 +53,8 @@ function Customer() {
       }
     }
        catch (error) {
-        console.log("중복확인 실패:", error)
-        alert("중복확인에 실패했습니다.")
+        const msg = error.response && error.response.data ? error.response.data:"없는 사업자번호입니다."
+        alert(msg)
       }
     }
     
@@ -78,6 +80,8 @@ function Customer() {
           businessNumber: businessNumber,
           phone: phone,
           address: address,
+          email: email,
+          managerName: managerName,
         },
         {
           headers: {
@@ -146,7 +150,24 @@ function Customer() {
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
-
+          <div className="customer-group">
+            <label>담당자명</label>
+            <input
+            type="text"
+            value={managerName}
+            onChange={(e) => setManagerName(e.target.value)}
+            />
+          </div>
+            <div className="customer-group">
+              <label>세금계산서용 이메일</label>
+              <input
+              type="email"
+              value={email}
+              onChange={(e)=> setEemail(e.target.value)}
+              />
+              
+            </div>
+          
           <div className="customer-group full">
             <label>주소</label>
             <div className="address-row">

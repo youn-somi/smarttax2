@@ -1,7 +1,9 @@
 package com.smarttax.controller;
 
+import com.smarttax.dto.NtsBusinessResponseDto;
 import com.smarttax.entity.Customer;
 import com.smarttax.service.CustomerService;
+import com.smarttax.service.NtsApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,5 +62,12 @@ public class CustomerController {
     @GetMapping("/check-businessNumber")
     public boolean checkBusinessNumber( @RequestParam String businessNumber) {
         return customerService.checkBusinessNumber(businessNumber);
+    }
+
+    private  final NtsApiService ntsApiService;
+
+    @GetMapping("/check-nts")
+    public NtsBusinessResponseDto chekNts(@RequestParam String businessNumber) {
+        return ntsApiService.checkBusinessNumber(businessNumber);
     }
 }
